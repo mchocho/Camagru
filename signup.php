@@ -1,3 +1,11 @@
+<?php
+	require("includes/ft_redirectuser.php");
+
+	if (isset($_SESSION['user_id']))
+		ft_redirectuser();
+
+	//require("includes/variablehandlers.php");
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,20 +21,20 @@
 	<body>
 		<!-- Content goes here -->
 		<h1>Sign Up</h1>
-		<form action="includes/signup.php" method="POST">
+		<form action="includes/registration.php" method="POST">
 			<label>
 				<span>Username</span>
-				<input type="text" name="username" required="true"/>
+				<input type="text" name="username" required="true" />
 			</label>
 			<br />
 			<label>
 				<span>Email</span>
-				<input type="email" name="email" required="true"/>
+				<input type="email" name="email" required="true" />
 			</label>
 			<br />
 			<label>
 				<span>Password</span>
-				<input type="password" name="password" required="true"/>
+				<input type="password" name="password" required="true" />
 			</label>
 			<br />
 			<label>

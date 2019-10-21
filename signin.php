@@ -13,15 +13,15 @@
 	<body>
 		<!-- Content goes here -->
 		<h1>Sign In</h1>
-		<form action="includes/signin.php" method="GET">
+		<form action="includes/ft_check_logins.php" method="GET">
 			<label>
 				<span>Username</span>
-				<input type="text" name="useranme" required="true" />
+				<input type="text" name="username" required="true" />
 			</label>
 			<br />
 			<label>
 				<span>Password</span>
-				<input type="password" name="password" require="true" />
+				<input type="password" name="password" required="true" />
 			</label>
 			<input type="submit" name="submit" value="Sign In" />
 		</form>

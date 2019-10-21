@@ -47,6 +47,9 @@
 	</head>
 	<body>
 		<!-- Content goes here -->
+	<div class="user_profile_container">
+		<a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>
+	</div>
 <div class="image_container">
 <div class="row">
   <div class="column">
