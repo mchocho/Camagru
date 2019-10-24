@@ -1,29 +1,17 @@
 <?php
-/*
- * This script performs an INSERT query to add a new record
- * to the users table
- */
-
-//Display any errors in the script
-error_reporting(); 
-
-	//Check for form submission
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$errors = array();	//Init an error array
+		$errors = array();
 
-		//Check for firstname:
 		if (!empty($_POST['username']))
 			$user = trim($_POST['username']);
 		else
 			$errors[] = 'Please enter your username';
 
-		//Now check for an email address:
 		if (!empty($_POST['email'] && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)))
 			$e = trim($_POST['email']);
 		else
 			$errors[] = 'Please enter your email address';
 
-		//Check for a password and match against confirmation password
 		if (!empty($_POST['password'])) {
 			if ($_POST['password'] != $_POST['password2'])
 				$errors[] = 'The passwords provided don\'t match';
