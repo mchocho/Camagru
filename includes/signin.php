@@ -4,8 +4,6 @@
 
 //function ft_check_logins($dbc, $email='', $pass='')
 //{
-//Connect to DB
-	require_once('ft_mysql_connect.php');
 	$errors = array();
 
 	//Check email first
@@ -28,21 +26,22 @@
 	//$q = "SELECT user_id, first_name FROM users WHERE email='$e' AND pass=SHA1('$p')";
 	//$r = @mysqli_query($dbc, $q);
 
+	//Connect to DB
+	require_once('sql_connect.php');
 	try {
-    //$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT id, firstname, lastname FROM users");
-    $stmt->execute();
-
-    // set the resulting array to associative
-    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-        echo $v;
-    }
-}
-catch(PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
+		//$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+		////$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$stmt = $conn->prepare("SELECT * FROM users WHERE email=? AND pass=SHA1(?)");
+		$stmt->execute();
+		
+		// set the resulting array to associative
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+			echo $v;
+		}
+	} catch(PDOException $e) {
+		echo "Error: " . $e->getMessage();
+	}
 
 
 

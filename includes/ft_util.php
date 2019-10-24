@@ -9,7 +9,7 @@
 function ft_redirectuser($page='index.php')
 {
 	//url is "http://" + hostname + current directory
-	$url = 'http://' . $_SERVER['HTTPP_HOSE'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $_SERVER['HTTPP_HOST'] . dirname($_SERVER['PHP_SELF']);
 
 	//Remove any trailing slashes
 	$url = rtrim($url, '/\\');
