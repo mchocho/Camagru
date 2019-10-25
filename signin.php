@@ -13,7 +13,7 @@
 	<body>
 		<!-- Content goes here -->
 		<h1>Sign In</h1>
-		<form action="includes/ft_check_logins.php" method="GET">
+		<form action="includes/signin.php" method="POST">
 			<label>
 				<span>Username</span>
 				<input type="text" name="username" required="true" />

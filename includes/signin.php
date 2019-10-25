@@ -1,20 +1,27 @@
 <?php
+//require('scream.php');
+
+//echo "hello siginin.php";
+//print_r($_POST);
 
 
+//if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array();
 
-	if (empty($username))
+	if (empty($_POST['username']))
 		$errors[] = 'Please enter your email address.';
 	else
-		$e = trim($username);
+		$e = trim($_POST['username']);
 
-	if (empty($pass))
+	if (empty($_POST['pass']))
 		$errors[] = 'Please enter your password.';
 	else
 		$p = trim($pass);
 
 	if (!empty($errors))
 		return array(false, $error);
+
+	echo "It works here";
 
 	try {
 		require_once('sql_connect.php');
@@ -33,13 +40,14 @@
 
 
 
-	if (mysqli_num_rows($r) == 1) {
+/*	if (mysqli_num_rows($r) == 1) {
 		$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
 		//You need to handle the result
 		//return array(true, $row);
-	}
-	errors[] = 'Your email or password was incorrect.';
+	}*/
+	$errors[] = "Your email or password was incorrect.";
 	return array(false, errors);
+//}
 
 ?>
