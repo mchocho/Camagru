@@ -30,7 +30,7 @@ function presetinput_radio($name, $value) {
 }
 
 function presetinput_select($name, $value) {
-	if ($is_string($name) && isset($name) && $name === $value))
+	if (is_string($name) && isset($name) && $name === $value))
 		echo 'selected="selected"';
 	return;
 }
