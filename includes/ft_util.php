@@ -45,7 +45,7 @@ function is_validpassword($password, $hash) {
 
 function hash_password($password) {
 	$opt = [
-		'salt' => password_hash($password, PASSWORD_DEFAULT), //. more_salt_from_an_island();
+		'salt' => hash('sha256', $password), //. more_salt_from_an_island();
 		'cost' => 12
 	];
 	return password_hash($password, PASSWORD_BCRYPT, $opt);
