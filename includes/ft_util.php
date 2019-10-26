@@ -1,5 +1,7 @@
 <?php
 
+include('sqlusr.php');
+
 function ft_redirectuser($page='index.php')
 {
 	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
@@ -30,7 +32,7 @@ function presetinput_radio($name, $value) {
 }
 
 function presetinput_select($name, $value) {
-	if (is_string($name) && isset($name) && $name === $value))
+	if (is_string($name) && isset($name) && $name === $value)
 		echo 'selected="selected"';
 	return;
 }
@@ -55,4 +57,24 @@ function email_client($to, $subject, $body) {
 	if (is_email($to) && issetstr($subject) && issetstr($body) )
 		return mail($to, $subject, wordwrap($body, 70), 'From: Camagru@hotmail.com');
 	return false;
+}
+
+function is_p_action() {
+	return ($_SERVER['REQUEST_METHOD'] === 'POST');
+}
+
+function is_g_action() {
+	return ($_SERVER['REQUEST_METHOD'] === 'GET');
+}
+
+function sql_connect() {
+	try {
+		$dbc = new PDO("mysql:host=$servername;dbname=mysql", $username, $password);
+		$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		return true;
+		//echo "Connected successfully";
+	} catch(PDOException $e) {
+		//echo "Connection failed: " . $e->getMessage();
+		return false;
+	}
 }

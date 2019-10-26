@@ -1,22 +1,23 @@
 <?php
-//require('scream.php');
+require('ft_util.php');
 
 //echo "hello siginin.php";
 //print_r($_POST);
 
 
-//if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array();
+	$session_ready = (session_start()) ? true : false;
 
-	if (empty($_POST['username']))
-		$errors[] = 'Please enter your email address.';
+	if (issetstr($_POST['username']))
+		$u = trim($_POST['username']);
 	else
-		$e = trim($_POST['username']);
+		$errors[] = 'Please enter your username address.';
 
-	if (empty($_POST['pass']))
+	if (issetstr($_POST['password']))
+		$p = trim($_POST['password']);
+	else
 		$errors[] = 'Please enter your password.';
-	else
-		$p = trim($pass);
 
 	if (!empty($errors))
 		return array(false, $error);
@@ -25,29 +26,22 @@
 
 	try {
 		require_once('sql_connect.php');
-		$p = $p = password_hash($p, PASSWORD_DEFAULT);
-		$stmt = $conn->prepare("SELECT * FROM users WHERE email=? AND pass=?");
-		$stmt->execute();
+		$q = "SELECT * FROM users WHERE (username=? AND pass=?) OR (email=? AND pass=?)";
+		$result = $dbc->prepare($q);
+		$p = hash_password($p);
+		$result->execute([$u, $p, $u, $p]);
 		
-		// set the resulting array to associative
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-			echo $v;
+		if ($dbc->rowCount() === 1) {
+			$result = $result->fetch(PDO::FETCH_ASSOC);
+			while ($row = $result->fetch())
+			{
+				print_r($row);
+			}
 		}
 	} catch(PDOException $e) {
 		echo "Error: " . $e->getMessage();
+		$errors[] = "Your email or password was incorrect.";
+		print_r();
 	}
-
-
-
-/*	if (mysqli_num_rows($r) == 1) {
-		$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
-
-		//You need to handle the result
-		//return array(true, $row);
-	}*/
-	$errors[] = "Your email or password was incorrect.";
-	return array(false, errors);
-//}
-
+}
 ?>
