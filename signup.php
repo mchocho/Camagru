@@ -1,10 +1,7 @@
 <?php
-	require("includes/ft_redirectuser.php");
-
-	if (isset($_SESSION['user_id']))
+	require_once('./includes/ft_util.php');
+	if (issetstr($_SESSION['username']) && issetstr($_SESSION['id']))
 		ft_redirectuser();
-
-	//require("includes/variablehandlers.php");
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,44 +1,61 @@
 <?php
-require('scream.php');
 
-//echo "hello siginin.php";
-//print_r($_POST);
+//require_once('./ft_util.php');
 
+//error_reporting();
+//scream();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+echo "Hello signin.php<br />";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$errors = array();
+	$session_ready = (session_start()) ? true : false;
 
-	if (empty($_POST['username']))
-		$errors[] = 'Please enter your email address.';
-	else
+	print_r($_POST);
+
+	if (issetstr($_POST['username']))
 		$u = trim($_POST['username']);
-
-	if (empty($_POST['password']))
-		$errors[] = 'Please enter your password.';
 	else
-		$p = trim($_POST['password']);
 
-	if (!empty($errors))
-	{
+	if (issetstr($_POST['password']))
+		$p = trim($_POST['password']);
+	else
+		$errors[] = 'Please enter your password.';
+
+	if (!empty($errors)) {
 		print_r($errors);
-		return array(false, $error);
-	}
+		die();
+	} else if ( {
+		echo "Failed to connect to database.";
+		die();
+	} 
 
 	echo "It works here<br />";
 
 	try {
-		require_once('sql_connect.php');
-		$p = $p = password_hash($p, PASSWORD_DEFAULT);
-		$stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND pass=?");
-		$stmt->execute($u, $p);
+		$dbc = sql_connect();
+		$q = "SELECT * FROM users WHERE (username=? AND password=?) OR (email=? AND password=?)";
+		$result = $dbc->prepare($q);
+		$p = hash_password($p);
+		$result->execute([$u, $p, $u, $p]);
+
 		
-		// set the resulting array to associative
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-			echo $v;
+		if ($dbc->rowCount() === 1) {
+			$result = $result->fetch(PDO::FETCH_ASSOC);
+			//while ($row = $result->fetch())
+			//{
+			echo "Hello John";
+			$result = $result->fetch();
+				print_r($result);
+			//}
+		} else {
+			echo "No results were found!";
+			//die();
 		}
 	} catch(PDOException $e) {
 		echo "Error: " . $e->getMessage();
+		$errors[] = "Your email or password was incorrect.";
+		print_r($errors);
 	}
 
 
@@ -53,4 +70,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//return array(false, errors);
 }
 
-?>
