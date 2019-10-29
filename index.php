@@ -53,38 +53,38 @@
 <div class="image_container">
 <div class="row">
   <div class="column">
-    <img src="images/wedding.jpg">
-    <img src="images/rocks.jpg">
-    <img src="images/falls2.jpg">
-    <img src="images/paris.jpg">
-    <img src="images/nature.jpg">
-    <img src="images/mist.jpg">
-    <img src="images/paris.jpg">
+    <img src="images/uploads/wedding.jpg">
+    <img src="images/uploads/rocks.jpg">
+    <img src="images/uploads/falls2.jpg">
+    <img src="images/uploads/paris.jpg">
+    <img src="images/uploads/nature.jpg">
+    <img src="images/uploads/mist.jpg">
+    <img src="images/uploads/paris.jpg">
   </div>
   <div class="column">
-    <img src="images/underwater.jpg">
-    <img src="images/ocean.jpg">
-    <img src="images/wedding.jpg">
-    <img src="images/mountainskies.jpg">
-    <img src="images/rocks.jpg">
-    <img src="images/underwater.jpg">
+    <img src="images/uploads/underwater.jpg">
+    <img src="images/uploads/ocean.jpg">
+    <img src="images/uploads/wedding.jpg">
+    <img src="images/uploads/mountainskies.jpg">
+    <img src="images/uploads/rocks.jpg">
+    <img src="images/uploads/underwater.jpg">
   </div>
   <div class="column">
-    <img src="images/wedding.jpg">
-    <img src="images/rocks.jpg">
-    <img src="images/falls2.jpg">
-    <img src="images/paris.jpg">
-    <img src="images/nature.jpg">
-    <img src="images/mist.jpg">
-    <img src="images/paris.jpg">
+    <img src="images/uploads/wedding.jpg">
+    <img src="images/uploads/rocks.jpg">
+    <img src="images/uploads/falls2.jpg">
+    <img src="images/uploads/paris.jpg">
+    <img src="images/uploads/nature.jpg">
+    <img src="images/uploads/mist.jpg">
+    <img src="images/uploads/paris.jpg">
   </div>
   <div class="column">
-    <img src="images/underwater.jpg">
-    <img src="images/ocean.jpg">
-    <img src="images/wedding.jpg">
-    <img src="images/mountainskies.jpg">
-    <img src="images/rocks.jpg">
-    <img src="images/underwater.jpg">
+    <img src="images/uploads/underwater.jpg">
+    <img src="images/uploads/ocean.jpg">
+    <img src="images/uploads/wedding.jpg">
+    <img src="images/uploads/mountainskies.jpg">
+    <img src="images/uploads/rocks.jpg">
+    <img src="images/uploads/underwater.jpg">
   </div>
 </div>
 </div>
