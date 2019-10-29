@@ -1,0 +1,12 @@
+.header div {
+	display: inline-block;
+}
+
+.header img {
+	width: 30%;
+	height: 30%;
+}
+
+.header .heading {
+	/*margin-right: -800px;*/
+}

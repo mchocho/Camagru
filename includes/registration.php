@@ -2,7 +2,7 @@
 require ('ft_util.php');
 //scream();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (p_action() && session_start()) {
 	$errors = array();
 
 	if (issetstr($_POST['username'])) {
@@ -35,22 +35,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		print_r($errors);
 	} else {
 		require_once ('sql_connect.php');
-		$q      = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-		$result = $dbc->prepare($q);
-		$p      = hash_password($p);
-		//$status = $result->execute([$user, $e, $p]);
 
 		try {
-			$result->execute([$user, $e, $p]);
+			$q      = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+			$result = $dbc->prepare($q);
+			$p      = hash_password($p);
+			if ($result->execute([$user, $e, $p])) {
+				echo "Registration successful";
+				//Send verification email;
+
+			}
 		} catch (PDOException $err) {
-			//$obj = 
+			if (array_substr_search($err, 'Duplicate entry')) {
+				if (array_substr_search($err, "for key 'email'")) {
+					echo "This email already exists.";
+				}
 
-			//header('Content-type: text/plain');
-			//echo '<pre>'; print_r($err); echo '</pre>';
-			print_r($err->errorInfo);
-
+				if (array_substr_search($err, "for key 'username'")) {
+					echo "<br />This username already exists";
+				}
+			}
 		}
-
 	}
 }
 

@@ -1,72 +1,61 @@
 <?php
 
-//require_once('./ft_util.php');
+require_once ('ft_util.php');
+scream();
 
-//error_reporting();
-//scream();
-
-echo "Hello signin.php<br />";
+//echo "Hello signin.php<br />";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$errors = array();
-	$session_ready = (session_start()) ? true : false;
+	$errors        = array();
+	$session_ready = (session_start())?true:false;
 
-	print_r($_POST);
+	//print_r($_POST);
 
-	if (issetstr($_POST['username']))
+	if (issetstr($_POST['username'])) {
 		$u = trim($_POST['username']);
-	else
+	} else {
+		$errors[] = 'Please enter your password';
+	}
 
-	if (issetstr($_POST['password']))
+	if (issetstr($_POST['password'])) {
 		$p = trim($_POST['password']);
-	else
+	} else {
 		$errors[] = 'Please enter your password.';
+	}
 
 	if (!empty($errors)) {
 		print_r($errors);
 		die();
-	} else if ( {
-		echo "Failed to connect to database.";
-		die();
-	} 
-
-	echo "It works here<br />";
-
-	try {
-		$dbc = sql_connect();
-		$q = "SELECT * FROM users WHERE (username=? AND password=?) OR (email=? AND password=?)";
-		$result = $dbc->prepare($q);
-		$p = hash_password($p);
-		$result->execute([$u, $p, $u, $p]);
-
-		
-		if ($dbc->rowCount() === 1) {
-			$result = $result->fetch(PDO::FETCH_ASSOC);
-			//while ($row = $result->fetch())
-			//{
-			echo "Hello John";
-			$result = $result->fetch();
-				print_r($result);
-			//}
-		} else {
-			echo "No results were found!";
-			//die();
-		}
-	} catch(PDOException $e) {
-		echo "Error: " . $e->getMessage();
-		$errors[] = "Your email or password was incorrect.";
-		print_r($errors);
 	}
 
+	try {
+		require_once ('sql_connect.php');
 
+		$q      = "SELECT * FROM users WHERE (username=?) OR (email=?)";
+		$result = $dbc->prepare($q);
+		//$p      = hash_password($p);
+		$result->execute([$u, $u]);
 
-/*	if (mysqli_num_rows($r) == 1) {
-		$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+		if ($result->rowCount() === 1) {
+			$result = $result->fetch(PDO::FETCH_ASSOC);
 
-		//You need to handle the result
-		//return array(true, $row);
-	}*/
-	//$errors[] = "Your email or password was incorrect.";
-	//return array(false, errors);
+			if ($result['validated'] === 'F') {
+				//Handle validation process
+
+			} else if (is_validpassword($p, $result['password'])) {
+				//echo generate_token()."<br />";
+
+				$_SESSION['username'] = $result['username'];
+				$_SESSION['id']       = $result['id'];
+				$_SESSION['admin']    = $result['admin'];
+				//ft_print_r($result);
+				ft_redirectuser();
+			}
+		}
+		echo "No results were found!";
+	} catch (PDOException $e) {
+		echo "Error: ".$e->getMessage();
+		$errors[] = "Your email or password was incorrect.";
+		ft_print_r($errors);
+	}
 }
-

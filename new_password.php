@@ -15,13 +15,13 @@
 		<h1>Reset Password</h1>
 		<form action="includes/password_reset.php">
 			<label>
-				<span>New Password</span>
-				<input type="password" name="password" required="true" />
+				<span>Confirm Password</span>
+				<input type="passsword" name="password2" required="true" />
 			</label>
 			<br />
 			<label>
-				<span>Confirm Password</span>
-				<input type="passsword" name"password2" required="true" />
+				<span>New Password</span>
+				<input type="password" name="password" required="true" />
 			</label>
 			<input type="submit" name="submit" value="Reset Password" />
 		</form>
