@@ -118,11 +118,18 @@ function strtobool($value) {
 	return NULL;
 }
 
-function session_destroy() {
+function ft_session_destroy() {
 	session_start();
 
     $helper = array_keys($_SESSION);
     foreach ($helper as $key){
         unset($_SESSION[$key]);
     }
+}
+
+function user_is_logged_in() {
+	if (session_start()) {
+		return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
+	}
+	return false;
 }

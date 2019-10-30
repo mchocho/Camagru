@@ -1,12 +1,133 @@
+.header {
+	display: block;
+}
+
+.header a, .header a:active, .header a:hover {
+	text-decoration: none;
+	outline: none;
+}
+
 .header div {
-	display: inline-block;
+	display: inline;
+	/*float: left;*/
 }
 
 .header img {
-	width: 30%;
-	height: 30%;
+	width: 12%;
+	height: 12%;
 }
 
 .header .heading {
-	/*margin-right: -800px;*/
+	display: inline-block;
+	border: 8px solid #000;
+	padding: 2% 10%;
+	position: relative;
+	top: -50px;
+}
+
+h1 {
+	font-size: 210%;
+	color: #000;
+	font-family: cursive;
+	text-align: left;
+	float: left;
+
+}
+
+.user_profile_container {
+	float: right;
+	padding: 2% 4% 0% 0%;
+	font-size: 130%;
+}
+
+.user_profile_container.settings {
+	/*display: inline-block;*/
+	/*width: 100px;*/
+	margin-top: -18%;
+}
+
+.user_profile_container img {
+	display: block;
+	border-radius: 50%;
+}
+
+.user_profile_container .username {
+	display: block;
+	padding: 5px;
+	/*text-align: center;*/
+}
+
+.user_profile_container .username, .user_profile_container .logout {
+	position: relative;
+	right: 40px;
+}
+
+
+.wrapper:not(.main) {
+	display: block;
+	margin: auto;
+	align-content: center;
+	position: relative;
+	top: -20px;
+	border: 3px solid #DDDDDD;
+	width: 40%;
+	padding: 6%;
+	border-radius: 13px;
+}
+
+.wrapper.main {
+	width: 100%;
+	padding-left: 12%;
+}
+
+.wrapper.main.settings {
+	padding: unset;
+}
+
+h2 {
+	font-size: 280%;
+	font-family: cursive;
+	margin-top: -6%;
+}
+
+form {
+	width: 60%;
+}
+
+form .text {
+	border: none;
+	outline: none;
+	border-bottom: 1px solid #000;
+	width: 90%;
+	font-size: 140%;
+}
+
+form .text:first-of-type {
+	margin-bottom: 12px;
+}
+
+form span {
+	font-size: 130%;
+	text-align: left;
+	padding-bottom: 5px;
+	display: block;
+}
+
+form .btn, input[type="button"], button {
+	display: block;
+	width: 80%;
+	padding: 3%;
+	background: #000;
+	color: #eee;
+	border: none;
+	font-size: 115%;
+	border-radius: 4px;
+	cursor: pointer;
+	outline: none;
+}
+
+.wrapper a {
+	position: relative;
+	top: 30px;
+	font-size: 120%;
 }

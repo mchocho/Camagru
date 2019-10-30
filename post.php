@@ -69,19 +69,27 @@
 
 			blockquote {
 				display: inline-block;
-
 			}
 
 			.created {
 				display: block;
 			}
 		</style>
-		<!-- Or link external file -->
-		<!-- <link rel="stylesheet" href="css/style.css" media="all" /> -->
+		<link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
 		<!-- Content goes here -->
-		<div class="wrapper" align="center">
+		<header class="header">
+			<a href="index.php">
+				<div class="logo">
+					<img src="images/icons/logo_true.jpg" />
+				</div>
+				<div class="heading">
+					<h1>Mojo</h1>
+				</div>
+			</a>
+		</header>
+		<div class="wrapper main settings" align="center">
 			<div class="image_container">
 				<img src="images/uploads/underwater.jpg" />
 			</div>

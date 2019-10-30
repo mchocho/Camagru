@@ -12,25 +12,49 @@ if (session_start() && issetstr($_SESSION['username']) && issetstr($_SESSION['id
 	    <title>Sign In | Camagru</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <!-- Use inline css -->
-	    <!-- <style></style> -->
+	    <style>
+	    	.wrapper {
+	    		position: relative;
+	    		top: -20px;
+	    		border: 3px solid #DDDDDD;
+	    		width: 40%;
+	    		padding: 6%;
+	    		border-radius: 13px;
+	    	}
+	    </style>
 	    <!-- Or link external file -->
-        <!-- <link rel="stylesheet" href="css/style.css" media="all" /> -->
+        <link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
 		<!-- Content goes here -->
-		<h1>Sign In</h1>
-		<form action="includes/signin.php" method="POST">
-			<label>
-				<span>Username</span>
-				<input type="text" name="username" required="true" />
-			</label>
-			<br />
-			<label>
-				<span>Password</span>
-				<input type="password" name="password" required="true" />
-			</label>
-			<input type="submit" name="submit" value="Sign In" />
-		</form>
-		<a href="reinit_password.php">Forgot Password? Click here</a>
+		<header class="header">
+			<a href="index.php">
+				<div class="logo">
+					<img src="images/icons/logo_true.jpg" />
+				</div>
+				<div class="heading">
+					<h1>Mojo</h1>
+				</div>
+			</a>
+			<div class="user_profile_container">
+				<a href="signup.php">Sign up</a>
+			</div>
+		</header>
+		<div class="wrapper" align="center">
+			<h2>Sign In</h2>
+			<form action="includes/signin.php" method="POST">
+				<label>
+					<span>Username</span>
+					<input type="text" name="username" required="true" class="text" />
+				</label>
+				<br />
+				<label>
+					<span>Password</span>
+					<input type="password" name="password" required="true" class="text" />
+				</label>
+				<input type="submit" name="submit" value="Sign In" class="btn" />
+			</form>
+			<a href="reinit_password.php">Forgot Password? Click here</a>
+		</div>
 	</body>
 </html>

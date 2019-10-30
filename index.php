@@ -7,6 +7,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <!-- Use inline css -->
 	    <style>
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -43,50 +44,62 @@
 }
 </style>
 	    <!-- Or link external file -->
-        <!-- <link rel="stylesheet" href="css/style.css" media="all" /> -->
+        <link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
 		<!-- Content goes here -->
-	<div class="user_profile_container">
-		<a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>
-	</div>
-<div class="image_container">
-<div class="row">
-  <div class="column">
-    <img src="images/uploads/wedding.jpg">
-    <img src="images/uploads/rocks.jpg">
-    <img src="images/uploads/falls2.jpg">
-    <img src="images/uploads/paris.jpg">
-    <img src="images/uploads/nature.jpg">
-    <img src="images/uploads/mist.jpg">
-    <img src="images/uploads/paris.jpg">
-  </div>
-  <div class="column">
-    <img src="images/uploads/underwater.jpg">
-    <img src="images/uploads/ocean.jpg">
-    <img src="images/uploads/wedding.jpg">
-    <img src="images/uploads/mountainskies.jpg">
-    <img src="images/uploads/rocks.jpg">
-    <img src="images/uploads/underwater.jpg">
-  </div>
-  <div class="column">
-    <img src="images/uploads/wedding.jpg">
-    <img src="images/uploads/rocks.jpg">
-    <img src="images/uploads/falls2.jpg">
-    <img src="images/uploads/paris.jpg">
-    <img src="images/uploads/nature.jpg">
-    <img src="images/uploads/mist.jpg">
-    <img src="images/uploads/paris.jpg">
-  </div>
-  <div class="column">
-    <img src="images/uploads/underwater.jpg">
-    <img src="images/uploads/ocean.jpg">
-    <img src="images/uploads/wedding.jpg">
-    <img src="images/uploads/mountainskies.jpg">
-    <img src="images/uploads/rocks.jpg">
-    <img src="images/uploads/underwater.jpg">
-  </div>
-</div>
-</div>
-	</body>
+    <header class="header">
+      <a href="index.php">
+        <div class="logo">
+          <img src="images/icons/logo_true.jpg" />
+        </div>
+        <div class="heading">
+          <h1>Mojo</h1>
+        </div>
+      </a>
+      <div class="user_profile_container">
+        <a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>
+      </div>
+    </header>
+    <div class="wrapper main" align="center">
+      <div class="image_container">
+        <div class="row">
+          <div class="column">
+            <img src="images/uploads/wedding.jpg">
+            <img src="images/uploads/rocks.jpg">
+            <img src="images/uploads/falls2.jpg">
+            <img src="images/uploads/paris.jpg">
+            <img src="images/uploads/nature.jpg">
+            <img src="images/uploads/mist.jpg">
+            <img src="images/uploads/paris.jpg">
+          </div>
+          <div class="column">
+            <img src="images/uploads/underwater.jpg">
+            <img src="images/uploads/ocean.jpg">
+            <img src="images/uploads/wedding.jpg">
+            <img src="images/uploads/mountainskies.jpg">
+            <img src="images/uploads/rocks.jpg">
+            <img src="images/uploads/underwater.jpg">
+          </div>
+          <div class="column">
+            <img src="images/uploads/wedding.jpg">
+            <img src="images/uploads/rocks.jpg">
+            <img src="images/uploads/falls2.jpg">
+            <img src="images/uploads/paris.jpg">
+            <img src="images/uploads/nature.jpg">
+            <img src="images/uploads/mist.jpg">
+            <img src="images/uploads/paris.jpg">
+          </div>
+          <div class="column">
+            <img src="images/uploads/underwater.jpg">
+            <img src="images/uploads/ocean.jpg">
+            <img src="images/uploads/wedding.jpg">
+            <img src="images/uploads/mountainskies.jpg">
+            <img src="images/uploads/rocks.jpg">
+            <img src="images/uploads/underwater.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -7,68 +7,98 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <!-- Use inline css -->
 		<style>
+			h2 {
+				margin-top: 0% !important;
+			}
+
+			.settings_container {
+				width : 40%;
+			}
+
+			.edit img {
+				width: 50%;
+				height: 50%;
+			}
+
 			.hide, input.file {
 				display: none;
 				visibility: hidden;
 			}
+
 			
 		</style>
 	    <!-- Or link external file -->
-        <!-- <link rel="stylesheet" href="css/style.css" media="all" /> -->
+        <link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
 		<!-- Content goes here -->
-		<h1>Settings</h1>
-
-		<div class="settings_container">
-			<div class="edit pic">
-				<div class="profile_container">
-						<img src="https://i.pinimg.com/originals/71/68/2a/71682a3bc39b9552c51836c9b399c467.jpg" id="pic" class="pic" />
+		<header class="header">
+			<a href="index.php">
+				<div class="logo">
+					<img src="images/icons/logo_true.jpg" />
 				</div>
-				<input type="button" id="edit_pic" class="button" value="Change Profile Pic" />
-				<form method="POST" enctype="multipart/form-data" id="pic_input" class="input hide">
-					<button>
-						<label>
-							Change profile picture
-							<input type="file" id="file" name="pic" class="file" />
-						</label>
-					</button>
-					<input type="submit" name="submit" value="Save" />
-				</form>
+				<div class="heading">
+					<h1>Mojo</h1>
+				</div>
+			</a>
+			<div class="user_profile_container settings" align="right">
+				<img src="images/mojo.jpg" class="profile_pic" />
+				<span class="username">Thano$$</span>
+				<a href="includes/logout.php" class="logout">Log out</a>
+			</div>
+		</header>
+		<div class="wrapper main settings" align="center">
+			<h2>Settings</h2>
+			<div class="settings_container">
+				<div class="edit pic">
+					<div class="profile_container">
+							<img src="images/mojo.jpg" id="pic" class="pic" />
+					</div>
+					<input type="button" id="edit_pic" value="Change Profile Pic" class="btn" />
+					<form method="POST" enctype="multipart/form-data" id="pic_input" class="input hide">
+						<button>
+							<label>
+								Change profile picture
+								<input type="file" id="file" name="pic" class="file" />
+							</label>
+						</button>
+						<input type="submit" name="submit" value="Save" class="btn" />
+					</form>
 
-			</div>
-			<div class="edit username">
-				<p>Your current username is <span>Thanos$$$</span></p>
-				<input type="button" id="edit_username" class="button" value="Change Username" />
-				<form method="POST" id="username_input" class="input hide">
-					<label>
-						<span>New username</span>
-						<input type="text" name="username" />
-					</label>
-					<input type="submit" name="submit" value="Save" />
-				</form>
-			</div>
-			<div class="edit email">
-				<p>Your current email address is <span>themadtitan@hotmail.com</span></p>
-				<input type="button" id="edit_email" class="button" value="Change email" />
-				<form method="POST" id="email_input" class="input hide">
-					<label>
-						<span>New email</span>
-						<input type="text" name="email" />
-					</label>
-					<input type="submit" name="submit" value="Save" />
-				</form>
-			</div>
-			<div class="edit password">
-				<p>Reset password <div class="icon lock"></div></p>
-				<input type="button" id="edit_password" class="button" value="Change password" />
-				<form method="POST" id="username_input" class="input hide">
-					<label>
-						<span>Email address</span>
-						<input type="text" name="email" />
-					</label>
-					<input type="submit" name="submit" value="Reset My Password" />
-				</form>
+				</div>
+				<div class="edit username">
+					<p>Your current username is <span>Thanos$$$</span></p>
+					<input type="button" id="edit_username" value="Change Username" class="btn" />
+					<form method="POST" id="username_input" class="input hide">
+						<label>
+							<span>New username</span>
+							<input type="text" name="username" class="text" />
+						</label>
+						<input type="submit" name="submit" value="Save" class="btn" />
+					</form>
+				</div>
+				<div class="edit email">
+					<p>Your current email address is <span>themadtitan@hotmail.com</span></p>
+					<input type="button" id="edit_email" value="Change email" class="btn" />
+					<form method="POST" id="email_input" class="input hide">
+						<label>
+							<span>New email</span>
+							<input type="text" name="email" class="text" />
+						</label>
+						<input type="submit" name="submit" value="Save" class="btn" />
+					</form>
+				</div>
+				<div class="edit password">
+					<p>Reset password <div class="icon lock"></div></p>
+					<input type="button" id="edit_password" value="Change password" class="btn" />
+					<form method="POST" id="username_input" class="input hide">
+						<label>
+							<span>Email address</span>
+							<input type="text" name="email" class="text" />
+						</label>
+						<input type="submit" name="submit" value="Reset My Password" class="btn" />
+					</form>
+				</div>
 			</div>
 		</div>
 		<script>

@@ -14,34 +14,49 @@ if (issetstr($_SESSION['username']) && issetstr($_SESSION['id'])) {
 	    <!-- Use inline css -->
 	    <!-- <style></style> -->
 	    <!-- Or link external file -->
-        <!-- <link rel="stylesheet" href="css/style.css" media="all" /> -->
+        <link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
 		<!-- Content goes here -->
-		<h1>Sign Up</h1>
-		<form action="includes/registration.php" method="POST">
-			<label>
-				<span>Username</span>
-				<input type="text" name="username" required="true" />
-			</label>
-			<br />
-			<label>
-				<span>Email</span>
-				<input type="email" name="email" required="true" />
-			</label>
-			<br />
-			<label>
-				<span>Password</span>
-				<input type="password" name="password" required="true" />
-			</label>
-			<br />
-			<label>
-				<span>Confirm Password</span>
-				<input type="password" name="password2" required="true"/>
-			</label>
-			<br />
-			<input type="submit" name="submit" value="Sign Up" />
-		</form>
+		<header class="header">
+			<a href="index.php">
+				<div class="logo">
+					<img src="images/icons/logo_true.jpg" />
+				</div>
+				<div class="heading">
+					<h1>Mojo</h1>
+				</div>
+			</a>
+			<div class="user_profile_container">
+				<a href="signin.php">Sign in</a>
+			</div>
+		</header>
+		<div class="wrapper" align="center">
+			<h2>Sign Up</h2>
+			<form action="includes/registration.php" method="POST">
+				<label>
+					<span>Username</span>
+					<input type="text" name="username" required="true" class="text" />
+				</label>
+				<br />
+				<label>
+					<span>Email</span>
+					<input type="email" name="email" required="true" class="text" />
+				</label>
+				<br />
+				<label>
+					<span>Password</span>
+					<input type="password" name="password" required="true" class="text" />
+				</label>
+				<br />
+				<label>
+					<span>Confirm Password</span>
+					<input type="password" name="password2" required="true" class="text" />
+				</label>
+				<br />
+				<input type="submit" name="submit" value="Sign Up" class="btn" />
+			</form>
+		</div>
 	</body>
 </html>
 
