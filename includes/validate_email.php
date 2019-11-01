@@ -1,25 +1,44 @@
 <?php
 
-require_once('ft_util.php');
-require_once('verification_letter.php');
+require_once ('ft_util.php');
 
-if (is_p_action()) {
-	if (!is_email($_POST['email'])) {
+scream();
+
+function compose_letter($str) {
+	if (issetstr($str)) {
+		$letter = "<h1>Verify Your Email</h1>";
+		$letter .= "<p>Please confirm that you want to use this email address for your Mojo account. Once it's done you will be able to start using this service.</p>";
+		$letter .= '<button><a href="'.$str.'" target="_blank">Verify my email</a></button>';
+		$letter .= "&copy Camagru | 2019";
+		return $letter;
+	}
+}
+
+session_start();
+
+$e = 'mchocho@student.wethinkcode.co.za';
+
+echo mail($e, "HI There!", wordwrap(compose_letter("564354134534"), 70), 'From: Mojo@hotmail.com');
+
+if (1/*session_start() && issetstr($_SESSION['id'])*/) {
+	if (!is_email($_SESSION['email'])) {
 		$result = array(false, 'Please enter your email address');
 		echo json_encode($result);
 		die();
 	}
-	$e = trim($_POST['email']);
-	$key = hash('sha256', $email);
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-	$url = rtrim($url) . '/verify_email.php?key=' . $key;
+	$e   = trim($_SESSION['email']);
+	$key = hash('sha256', $_SESSION['email']);
+	$url = 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+	$url = rtrim($url).'/verify_email.php?key='.$key;
 
-	if (sql_connect()) {
-		$query = "SELECT email FROM users WHERE email=?";
-		$result = $dbc->prepare($q);
-		$result->execute([$e]);
+	//try {
+	//	$query  = "SELECT * FROM users WHERE id=?";
+	//	$result = $dbc->prepare($q);
+	//	$result->execute([$_SESSION['id']]);
 
-		if ($dbc->rowCount() === 1) 
-			email_client($e, "Email verification | Camagru", compose_letter($url));
-	}
+	//	if ($dbc->rowCount() === 1) {
+	email_client($e, "Email verification | Camagru", compose_letter($url));
+	//	}
+	//}
+
 }

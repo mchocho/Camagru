@@ -42,8 +42,14 @@ if (p_action() && session_start()) {
 			$p      = hash_password($p);
 			if ($result->execute([$user, $e, $p])) {
 				echo "Registration successful";
+				if (session_start()) {
+					$_SESSION['email'] = $e;
+					$_SESSION['name']  = $user;
+					$_SESSION['id']    = $dbc->lastInsertId();
+				}
 				//Send verification email;
-
+				require ("validate_email.php");
+				ft_redirect_user('verify_email.php');
 			}
 		} catch (PDOException $err) {
 			if (array_substr_search($err, 'Duplicate entry')) {

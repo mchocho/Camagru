@@ -176,19 +176,19 @@
 	}
 }*/
 
-	function FileUpload(img, file) {
+	function FileUpload(file) {
 	  const reader = new FileReader();
 	  //this.ctrl = createThrobber(img);
 	  const xhr = new XMLHttpRequest();
 	  this.xhr = xhr;
 
 	  const self = this;
-	  this.xhr.upload.addEventListener("progress", function(e) {
+	  /*this.xhr.upload.addEventListener("progress", function(e) {
 	        if (e.lengthComputable) {
 	          const percentage = Math.round((e.loaded * 100) / e.total);
 	          //self.ctrl.update(percentage);
 	        }
-	      }, false);
+	      }, false);*/
 
 	  xhr.upload.addEventListener("load", function(e){
 	          //self.ctrl.update(100);
@@ -197,6 +197,7 @@
 	      }, false);
 	  xhr.open("POST", "http://includes/upload_file.php");
 	  xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
+	  xhr.setRequestHeader("Content-type", "multipart/form-data");
 	  reader.onload = function(evt) {
 	    xhr.send(evt.target.result);
 	  };
@@ -234,6 +235,9 @@
 			if (gallery.hasChildNodes())
 				gallery.insertBefore(img, gallery.childNodes[0]);
 			else gallery.appendChild(img);
+
+			const file = new File(canvas.toBlob(), img.src);
+			FileUpload(file);
 		}
 	});
 		</script>

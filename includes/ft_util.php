@@ -62,7 +62,7 @@ function hash_password($password) {
 
 function email_client($to, $subject, $body) {
 	if (is_email($to) && issetstr($subject) && issetstr($body)) {
-		return mail($to, $subject, wordwrap($body, 70), 'From: Camagru@hotmail.com');
+		return mail($to, $subject, wordwrap($body, 70), 'From: Mojo@hotmail.com');
 	}
 	return false;
 }
@@ -77,7 +77,7 @@ function g_action() {
 
 function sql_connect() {
 	try {
-		$dbc = new PDO("mysql:host=$servername", $username, $password);
+		$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
 		$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbc;
 	} catch (PDOException $e) {
@@ -121,10 +121,10 @@ function strtobool($value) {
 function ft_session_destroy() {
 	session_start();
 
-    $helper = array_keys($_SESSION);
-    foreach ($helper as $key){
-        unset($_SESSION[$key]);
-    }
+	$helper = array_keys($_SESSION);
+	foreach ($helper as $key) {
+		unset($_SESSION[$key]);
+	}
 }
 
 function user_is_logged_in() {
