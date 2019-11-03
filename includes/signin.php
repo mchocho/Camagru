@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				ft_redirectuser('../verify_email.php');
 			} else {
 				//echo generate_token()."<br />";
-				if ($session_ready()) {
+				if (session_ready()) {
 					$_SESSION['username'] = $result['username'];
 					$_SESSION['id']       = $result['id'];
 					$_SESSION['admin']    = $result['admin'];
@@ -55,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				//ft_print_r($result);
 				ft_redirectuser();
 			}
+		} else {
+			echo "No results were found!";
 		}
-		// }
-		// echo "No results were found!";
 	} catch (PDOException $e) {
 		echo "Error: ".$e->getMessage();
 		$errors[] = "Your email or password was incorrect.";

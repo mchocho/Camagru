@@ -18,6 +18,7 @@ session_start();
 
 $e = 'mchocho@student.wethinkcode.co.za';
 
+//This is a tester
 echo mail($e, "HI There!", wordwrap(compose_letter("Hi welcome back"), 70), 'From: Mojo@hotmail.com');
 
 /*if (session_start() && issetstr($_SESSION['id'])) {
@@ -31,14 +32,14 @@ $key = hash('sha256', $_SESSION['email']);
 $url = 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
 $url = rtrim($url).'/verify_email.php?key='.$key;
 
-//try {
-//	$query  = "SELECT * FROM users WHERE id=?";
-//	$result = $dbc->prepare($q);
-//	$result->execute([$_SESSION['id']]);
+try {
+$q      = "INSERT INTO tokens (user_id, token, request) VALUES (?, ?, ?)";
+$result = $dbc->prepare($q);
+$result->execute([$_SESSION['id'], $key, 'registration']);
 
-//	if ($dbc->rowCount() === 1) {
 email_client($e, "Email verification | Camagru", compose_letter($url));
-//	}
-//}
-
+ft_redirect('../verify_email.php');
+} catch (PDOException $err) {
+ft_print_r($err);
+}
 }*/
