@@ -2,7 +2,7 @@ CREATE DATABASE camagru;
 
 USE camagru;
 
-CREATE TABLE `camagru`.`users` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `email` VARCHAR(80) NOT NULL , `username` VARCHAR(20) NOT NULL , `password` VARCHAR(160) NOT NULL , `validated` ENUM('T','F') NOT NULL DEFAULT 'F' , `admin` ENUM('T','F') NOT NULL DEFAULT 'F' , `last_modified` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`), UNIQUE (`email`), UNIQUE (`username`)) ENGINE = InnoDB; 
+CREATE TABLE `camagru`.`users` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `email` VARCHAR(80) NOT NULL , `username` VARCHAR(20) NOT NULL , `password` VARCHAR(160) NOT NULL , `notifications` ENUM('T','F') NOT NULL DEFAULT 'T', `validated` ENUM('T','F') NOT NULL DEFAULT 'F' , `admin` ENUM('T','F') NOT NULL DEFAULT 'F' , `last_modified` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`), UNIQUE (`email`), UNIQUE (`username`)) ENGINE = InnoDB; 
 
 CREATE TABLE `camagru`.`tokens` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `token` VARCHAR(120) NOT NULL , `request` ENUM('registration','password_reset') NOT NULL , `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`), UNIQUE (`token`)) ENGINE = InnoDB;
 

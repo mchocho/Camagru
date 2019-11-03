@@ -33,27 +33,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$q      = "SELECT * FROM users WHERE (username=?) OR (email=?)";
 		$result = $dbc->prepare($q);
-		//$p      = hash_password($p);
 		$result->execute([$u, $u]);
 
-		// if ($result->rowCount() === 1) {
 		$result = $result->fetch(PDO::FETCH_ASSOC);
 
-		// print_r($result);
-
 		if (is_validpassword($p, $result['password'])) {
+			$_SESSION['email'] = $e;
 			if ($result['validated'] === 'F') {
 				//Handle validation process
 				ft_redirectuser('../verify_email.php');
 			} else {
 				//echo generate_token()."<br />";
-				if (session_ready()) {
+				if (session_ready) {
 					$_SESSION['username'] = $result['username'];
 					$_SESSION['id']       = $result['id'];
 					$_SESSION['admin']    = $result['admin'];
 				}
 				//ft_print_r($result);
-				ft_redirectuser();
+				ft_redirectuser('../');
 			}
 		} else {
 			echo "No results were found!";

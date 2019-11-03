@@ -77,7 +77,7 @@ function g_action() {
 
 function sql_connect() {
 	try {
-		$dbc = new PDO("mysql:host=$servername;dbname=mysql", $username, $password);
+		$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
 		$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbc;
 	} catch (PDOException $e) {
@@ -119,7 +119,7 @@ function strtobool($value) {
 }
 
 function ft_session_destroy() {
-	session_start();
+	// session_start();
 
 	$helper = array_keys($_SESSION);
 	foreach ($helper as $key) {
@@ -132,4 +132,19 @@ function user_is_logged_in() {
 		return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
 	}
 	return false;
+}
+
+function session_key($val) {
+	if (session_start() ) {
+		foreach ($_SESSION as $key => $value) {
+			if ($val === $key)
+				return true;
+		}
+		return false;
+	}
+}
+
+function get_session($key) {
+	if (session_key($key))
+		return $_SESSION[$key];
 }
