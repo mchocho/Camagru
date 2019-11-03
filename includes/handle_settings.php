@@ -1,15 +1,17 @@
 <?php
+session_start();
 require('sql_connect.php');
 require('ft_util.php');
 scream();
 
 function changePassword($newpassword) {
-	if (issetstr($newpassword) && session_start() && issetstr($_SESSION['id']) ) {//&& is_decentpw($newpassword)
+	if (issetstr($newpassword) && issetstr($_SESSION['id']) ) {//&& is_decentpw($newpassword)
 		try {
 			$q = "UPDATE users SET password = ? WHERE id = ?";
 			$newpassword      = hash_password($newpassword);
 			$result = $dbc->prepare($q);
 			$result->execute([$newpassword, $_SESSION['id']]);
+			return true;
 		} catch(PDOException $err) {
 			echo "something went wrong";
 		}
@@ -17,11 +19,25 @@ function changePassword($newpassword) {
 }
 
 function changeEmail($newemail) {
-	if (is_email($newpassword) && session_start() && issetstr($_SESSION['id']) ) {
+	if (is_email($newpassword) && issetstr($_SESSION['id']) ) {
 		try {
 			$q = "UPDATE users SET email = ? WHERE id = ?";
 			$result = $dbc->prepare($q);
 			$result->execute([$newemail, $_SESSION['id']]);
+			return true;
+		} catch(PDOException $err) {
+			echo "something went wrong";
+		}
+	}
+}
+
+function changeUsername($newusername) {
+	if (issetstr($username) && issetstr($_SESSION['id']) ) {
+		try {
+			$q = "UPDATE users SET username = ? WHERE id = ?";
+			$result = $dbc->prepare($q);
+			$result->execute([$newusername, $_SESSION['id']]);
+			return true;
 		} catch(PDOException $err) {
 			echo "something went wrong";
 		}

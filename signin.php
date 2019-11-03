@@ -1,6 +1,7 @@
 <?php
+session_start();
 require_once ('includes/ft_util.php');
-if (session_start() && issetstr($_SESSION['username']) && issetstr($_SESSION['id'])) {
+if (isset($_SESSION['username']) && isset($_SESSION['id'])) {
 	ft_redirectuser();
 }
 ?>

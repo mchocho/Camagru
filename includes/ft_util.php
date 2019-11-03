@@ -1,5 +1,4 @@
 <?php
-
 include ('sqlusr.php');
 
 function ft_redirectuser($page = 'index.php') {
@@ -62,7 +61,7 @@ function hash_password($password) {
 
 function email_client($to, $subject, $body) {
 	if (is_email($to) && issetstr($subject) && issetstr($body)) {
-		return mail($to, $subject, wordwrap($body, 70), 'From: Mojo@hotmail.com');
+		return mail($to, $subject, wordwrap($body, 70), 'From: no-reply@Mojo.com');
 	}
 	return false;
 }
@@ -87,8 +86,10 @@ function sql_connect() {
 
 function array_substr_search($arr, $keyword) {
 	foreach ($arr as $index => $string) {
-		if (strpos($string, $keyword) !== FALSE) {
-			return $index;
+		if (is_string($string)) {
+			if (strpos($string, $keyword) !== FALSE) {
+				return $index;
+			}
 		}
 	}
 }
@@ -128,20 +129,17 @@ function ft_session_destroy() {
 }
 
 function user_is_logged_in() {
-	if (session_start()) {
-		return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
-	}
-	return false;
+	return (isset($_SESSION['username']) && isset($_SESSION['id']));
 }
 
 function session_key($val) {
-	if (session_start() ) {
+	if (!empty($_SESSION)) {
 		foreach ($_SESSION as $key => $value) {
 			if ($val === $key)
 				return true;
 		}
-		return false;
 	}
+	return false;
 }
 
 function get_session($key) {

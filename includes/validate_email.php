@@ -15,13 +15,11 @@ function compose_letter($str) {
 	}
 }
 
-session_start();
-
 // if (!session_start() || !issetstr($_SESSION['id'])) {
 // 	ft_redirectuser();
 // }
 
-if (!is_email($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
 	$result = array(false, 'Please enter your email address');
 	echo json_encode($result);
 	die();

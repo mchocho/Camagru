@@ -91,8 +91,8 @@
 					<input type="button" id="edit_password" value="Change password" class="btn" />
 					<form method="POST" id="username_input" class="input hide">
 						<label>
-							<span>Email address</span>
-							<input type="text" name="email" class="text" />
+							<span>Current password</span>
+							<input type="password" name="password" class="text" />
 						</label>
 						<input type="submit" name="submit" value="Reset My Password" class="btn" />
 					</form>
