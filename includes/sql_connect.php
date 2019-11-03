@@ -4,7 +4,7 @@ $username   = "root";
 $password   = "654321";
 
 try {
-	$dbc = new PDO("mysql:host=$servername;dbname=mysql", $username, $password);
+	$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
 	$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	//echo "Connected successfully";
 } catch (PDOException $e) {

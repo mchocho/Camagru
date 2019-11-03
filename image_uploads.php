@@ -61,7 +61,8 @@
 
 			.image_gallery .img {
 				display: inline-block;
-				width: 30%;
+				width: 40px;
+				height: 40px;
 			}
 
 			.image_gallery button {
@@ -125,9 +126,11 @@
 			<div class="button_container">
 				<button class="trigger" id="trigger">Take Picture</button>
 				<button class="upload" id="upload" aria-label-for="file">
-					<label>
-						Upload File<input type="file" accept="image/*" class="file" name="file" id="file" />
-					</label>
+					<form action="upload_file.php" method="post" enctype="multipart/form-data">
+						<label>
+							Upload File<input type="file" accept="image/*" class="file" name="file" id="file" />
+						</label>
+					</form>
 				</button>
 			</div>
 			<div class="clip-art_container">
@@ -155,12 +158,17 @@
 	const video = document.getElementById('video'),
 	img = document.getElementById('image'),
 	trigger = document.getElementById('trigger'),
-	canvas = document.getElementsByTagName('canvas')[0];
+	canvas = document.getElementsByTagName('canvas')[0],
+	file_uploader = document.getElementById('file');
 
 	let streamActive = false;
 
 	function hasGetUserMedia() {
   		return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+	}
+
+	function isFileImage(file) {
+	    return file && file['type'].split('/')[0] === 'image';
 	}
 
 /*function streamCamera() {
@@ -176,32 +184,25 @@
 	}
 }*/
 
-	function FileUpload(file) {
-	  const reader = new FileReader();
-	  //this.ctrl = createThrobber(img);
-	  const xhr = new XMLHttpRequest();
-	  this.xhr = xhr;
+	function FileUpload(file1, file2) {
+		if ('File' in window && file instanceof File && isFileImage(file)) {
+			const xhr = new XMLHttpRequest(),
+				  formData = new FormData();
+			file_uploader.setAttribute('disable', 'true');
+			trigger.setAttribute('disable', 'true');
 
-	  const self = this;
-	  /*this.xhr.upload.addEventListener("progress", function(e) {
-	        if (e.lengthComputable) {
-	          const percentage = Math.round((e.loaded * 100) / e.total);
-	          //self.ctrl.update(percentage);
-	        }
-	      }, false);*/
-
-	  xhr.upload.addEventListener("load", function(e){
-	          //self.ctrl.update(100);
-	          //const canvas = self.ctrl.ctx.canvas;
-	          //canvas.parentNode.removeChild(canvas);
-	      }, false);
-	  xhr.open("POST", "http://includes/upload_file.php");
-	  xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
-	  xhr.setRequestHeader("Content-type", "multipart/form-data");
-	  reader.onload = function(evt) {
-	    xhr.send(evt.target.result);
-	  };
-	  reader.readAsBinaryString(file);
+			formData.append("file_1", file1);
+			formData.append("file_2", file2);
+			xhr.addEventListener('loadend', function(e){
+				file_uploader.removeAttribute('disable');
+				trigger.removeAttribute('disable');
+			});
+			
+			xhr.open('POST', location.hostname + '/includes/upload_file.php');
+			// xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
+			xhr.setRequestHeader('Content-Type', multipart/form-data);
+			xhr.send(form);
+		}
 	}
 
 	document.getElementById('stream_container').addEventListener('click', function activateStream() {
@@ -226,6 +227,7 @@
 		if (streamActive === true) {
 			const img = document.createElement('img'),
 				  gallery = document.getElementById('gallery');
+			let file;
 
 			canvas.width = video.videoWidth;
 			canvas.height = video.videoHeight;
@@ -236,10 +238,18 @@
 				gallery.insertBefore(img, gallery.childNodes[0]);
 			else gallery.appendChild(img);
 
-			const file = new File(canvas.toBlob(), img.src);
-			FileUpload(file);
+			// file = new File(canvas.toBlob(), img.src);
+			// FileUpload(file);
 		}
 	});
+
+	file_uploader.addEventListener('change', function(e) {
+		if (isFileImage(file_uploader.[])) {
+
+		}
+	});
+
+
 		</script>
 	</body>
 </html>

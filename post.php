@@ -100,6 +100,9 @@
 				<button id="share" name="share">
 					<img src="images/icons/share.png" alt="share icon" />
 				</button>
+				<button id="delete" name="delete">
+					<img src="images/icons/delete.png" alt="delte icon" />
+				</button>
 			</div>
 			<div class="comments_container">
 				<hr />

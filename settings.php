@@ -23,9 +23,7 @@
 			.hide, input.file {
 				display: none;
 				visibility: hidden;
-			}
-
-			
+			}			
 		</style>
 	    <!-- Or link external file -->
         <link rel="stylesheet" href="css/style.css" media="all" />

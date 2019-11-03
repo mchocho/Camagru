@@ -39,17 +39,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if ($result->rowCount() === 1) {
 			$result = $result->fetch(PDO::FETCH_ASSOC);
 
-			if ($result['validated'] === 'F') {
-				//Handle validation process
-
-			} else if (is_validpassword($p, $result['password'])) {
-				//echo generate_token()."<br />";
-
-				$_SESSION['username'] = $result['username'];
-				$_SESSION['id']       = $result['id'];
-				$_SESSION['admin']    = $result['admin'];
-				//ft_print_r($result);
-				ft_redirectuser();
+			if (is_validpassword($p, $result['password'])) {
+				if ($result['validated'] === 'F') {
+					//Handle validation process
+					ft_redirectuser('verify_email.php');
+				} else {
+					//echo generate_token()."<br />";
+					if ($session_ready()) {
+						$_SESSION['username'] = $result['username'];
+						$_SESSION['id']       = $result['id'];
+						$_SESSION['admin']    = $result['admin'];
+					}
+					//ft_print_r($result);
+					ft_redirectuser();
+				}
 			}
 		}
 		echo "No results were found!";
