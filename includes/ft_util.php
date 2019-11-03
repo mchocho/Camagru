@@ -77,7 +77,7 @@ function g_action() {
 
 function sql_connect() {
 	try {
-		$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
+		$dbc = new PDO("mysql:host=$servername;dbname=mysql", $username, $password);
 		$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $dbc;
 	} catch (PDOException $e) {
