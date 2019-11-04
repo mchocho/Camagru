@@ -63,12 +63,12 @@
       <!-- <div class="user_profile_container">
         <a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>
       </div> -->
-      <?php
-        // 
-        // scream();
-        require('includes/profile_header.php');
-      ?>
-    </header>
+<?php
+//
+// scream();
+require ('includes/profile_header.php');
+?>
+</header>
     <div class="wrapper main" align="center">
       <div class="image_container">
         <div class="row">

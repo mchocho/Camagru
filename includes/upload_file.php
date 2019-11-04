@@ -1,20 +1,53 @@
 <?php
+session_start();
 require ('ft_util.php');
+require ('sql_connect.php');
+scream();
 
-/*$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-if($check !== false) {
-echo "File is an image - " . $check["mime"] . ".";
-$uploadOk = 1;
-} else {
-echo "File is not an image.";
-$uploadOk = 0;
+if (p_action() && isset($_POST['submit']) && isset($_SESSION['user_id'])) {
+
+	$filename      = uniqid();
+	$target_file   = "../images/uploads/".$filename;
+	$file          = $_FILES["file"];
+	$imageFileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
+	$allowed       = array('jpg', 'jpeg', 'gif', 'png', 'tif');
+
+	echo $target_file;
+
+	// Check if image file is a actual image or fake image
+	if (getimagesize($file['tmp_name'])) {
+		if ($file["error"] === 0) {
+			if ($file['size'] < 500000) {
+				$target_file .= '.'.explode('/', $file['type'])[1];
+
+				move_uploaded_file($file['tmp_name'], $target_file);
+
+				//Create table if not there
+				try {
+					$q      = "CREATE TABLE IF NOT EXISTS `camagru`.`images` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `name` VARCHAR(120) NOT NULL , `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+					$result = $dbc->prepare($q);
+					$result = $result->execute();
+				} catch (PDOException $e) {
+					echo "Something went wrong!";
+				}
+
+				try {
+					$q      = "INSERT INTO images (user_id, name) VALUES (?, ?)";
+					$result = $dbc->prepare($q);
+					$result = $result->execute([$_SESSION['user_id'], $filename]);
+				} catch (PDOException $e) {
+					echo "Something went wrong!";
+				}
+				ft_redirectuser('../image_uploads.php');
+			} else {
+				echo 'The file you provided is too large.';
+			}
+		} else {
+			echo "Something went wrong. Please try again.";
+		}
+	} else {
+		echo "You can't upload files of this type.";
+	}
 }
-}*/
 
-print_r($_FILES);
+?>

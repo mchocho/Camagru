@@ -23,7 +23,7 @@
 			.hide, input.file {
 				display: none;
 				visibility: hidden;
-			}			
+			}
 		</style>
 	    <!-- Or link external file -->
         <link rel="stylesheet" href="css/style.css" media="all" />
@@ -41,7 +41,7 @@
 			</a>
 			<div class="user_profile_container settings" align="right">
 				<img src="images/mojo.jpg" class="profile_pic" />
-				<span class="username">Thano$$</span>
+				<span class="username"><a href="settings.php">Thano$$</a></span>
 				<a href="includes/logout.php" class="logout">Log out</a>
 			</div>
 		</header>
@@ -67,12 +67,13 @@
 				<div class="edit username">
 					<p>Your current username is <span>Thanos$$$</span></p>
 					<input type="button" id="edit_username" value="Change Username" class="btn" />
-					<form method="POST" id="username_input" class="input hide">
+					<form action="" method="POST" id="username_input" class="input hide">
 						<label>
 							<span>New username</span>
 							<input type="text" name="username" class="text" />
 						</label>
 						<input type="submit" name="submit" value="Save" class="btn" />
+						<input type="hidden" name="newemail" value="true" />
 					</form>
 				</div>
 				<div class="edit email">
@@ -84,6 +85,7 @@
 							<input type="text" name="email" class="text" />
 						</label>
 						<input type="submit" name="submit" value="Save" class="btn" />
+						<input type="hidden" name="resetemail" value="true" />
 					</form>
 				</div>
 				<div class="edit password">
@@ -91,10 +93,15 @@
 					<input type="button" id="edit_password" value="Change password" class="btn" />
 					<form method="POST" id="username_input" class="input hide">
 						<label>
-							<span>Email address</span>
-							<input type="text" name="email" class="text" />
+							<span>Current password</span>
+							<input type="password" name="email" class="text" />
+						</label>
+						<label>
+							<span>New password</span>
+							<input type="password" name="email" class="text" />
 						</label>
 						<input type="submit" name="submit" value="Reset My Password" class="btn" />
+						<input type="hidden" name="resetpassword" value="true" />
 					</form>
 				</div>
 			</div>
@@ -134,7 +141,7 @@
     			//img.classList.add("obj");
     			//img.src = file;
 				//preview.appendChild(img); // Assuming that "preview" is the div output where the content will be displayed.
-					
+
 				const reader = new FileReader();
 				reader.onload = function() {
 					return function(e) {

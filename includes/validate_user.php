@@ -26,9 +26,6 @@ try {
 	$result->execute([$token['user_id']]);
 	$result = $result->fetch(PDO::FETCH_ASSOC);
 
-	echo "<br /><br />";
-	ft_print_r($result);
-
 } catch (PDOException $e) {
 	echo "Error: ".$e->getMessage();
 	$errors[] = "Your email or password was incorrect.";

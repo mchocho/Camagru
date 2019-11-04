@@ -119,8 +119,6 @@ function strtobool($value) {
 }
 
 function ft_session_destroy() {
-	// session_start();
-
 	$helper = array_keys($_SESSION);
 	foreach ($helper as $key) {
 		unset($_SESSION[$key]);
@@ -128,23 +126,23 @@ function ft_session_destroy() {
 }
 
 function user_is_logged_in() {
-	if (session_start()) {
-		return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
-	}
-	return false;
+	return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
 }
 
 function session_key($val) {
-	if (session_start() ) {
+	if (session_start()) {
 		foreach ($_SESSION as $key => $value) {
-			if ($val === $key)
+			if ($val === $key) {
 				return true;
+			}
 		}
+
 		return false;
 	}
 }
 
 function get_session($key) {
-	if (session_key($key))
+	if (session_key($key)) {
 		return $_SESSION[$key];
+	}
 }

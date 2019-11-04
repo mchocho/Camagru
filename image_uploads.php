@@ -90,6 +90,10 @@
 				/*float: left;*/
 			}
 
+			form .save {
+				margin-top: 30px;
+			}
+
 			/*.img .delete img {
 				width: 25%;
 				height: 25%;
@@ -125,13 +129,15 @@
 			</div>
 			<div class="button_container">
 				<button class="trigger" id="trigger">Take Picture</button>
-				<button class="upload" id="upload" aria-label-for="file">
-					<form action="upload_file.php" method="post" enctype="multipart/form-data">
+				<form action="/includes/upload_file.php" method="post" enctype="multipart/form-data" >
+					<button type="button" class="upload" id="upload" aria-label-for="file">
 						<label>
 							Upload File<input type="file" accept="image/*" class="file" name="file" id="file" />
 						</label>
-					</form>
-				</button>
+					</button>
+					<br />
+					<button type="submit" class="btn save" name="submit" value="save">Save</button>
+				</form>
 			</div>
 			<div class="clip-art_container">
 				<span>A bunch of selectable images go here!</span>
@@ -184,20 +190,23 @@
 	}
 }*/
 
-	function FileUpload(file1, file2) {
-		if ('File' in window && file instanceof File && isFileImage(file)) {
+	function FileUpload(file1/*, file2*/) {
+		if ('File' in window && file instanceof File && isFileImage(file1)) {
+			console.log("Hello file upload");
 			const xhr = new XMLHttpRequest(),
 				  formData = new FormData();
 			file_uploader.setAttribute('disable', 'true');
 			trigger.setAttribute('disable', 'true');
 
-			formData.append("file_1", file1);
-			formData.append("file_2", file2);
+			formData.append("file", file1);
+			// formData.append("file_2", file2);
+			formData.append("submit", "OK");
+
 			xhr.addEventListener('loadend', function(e){
 				file_uploader.removeAttribute('disable');
 				trigger.removeAttribute('disable');
 			});
-			
+
 			xhr.open('POST', location.hostname + '/includes/upload_file.php');
 			// xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
 			xhr.setRequestHeader('Content-Type', multipart/form-data);
@@ -238,16 +247,20 @@
 				gallery.insertBefore(img, gallery.childNodes[0]);
 			else gallery.appendChild(img);
 
-			// file = new File(canvas.toBlob(), img.src);
+			canvas.toBlob(function(blob) {
+				file = new File([blob], img.src, { type: "image/jpeg" });
+				FileUpload(file);
+			})
+
 			// FileUpload(file);
 		}
 	});
 
-	file_uploader.addEventListener('change', function(e) {
-		if (isFileImage(file_uploader.[])) {
-
+	/*file_uploader.addEventListener('change', function(e) {
+		if (isFileImage(file_uploader[0])) {
+			FileUpload(file_uploader[0]);
 		}
-	});
+	});*/
 
 
 		</script>
