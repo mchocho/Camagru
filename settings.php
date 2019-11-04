@@ -98,7 +98,7 @@
 						</label>
 						<label>
 							<span>New password</span>
-							<input type="password" name="email" class="text" />
+							<input type="password" name="password" class="text" />
 						</label>
 						<input type="submit" name="submit" value="Reset My Password" class="btn" />
 						<input type="hidden" name="resetpassword" value="true" />
