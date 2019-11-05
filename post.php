@@ -6,7 +6,7 @@
 		<title>Awesome Title</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="manifest" href="manifest.webmanifest">
-		<!-- Use inline css -->
+		<link rel="stylesheet" href="css/style.css" media="all" />
 		<style>
 			.wrapper {
 				margin: auto;
@@ -23,12 +23,21 @@
 			}
 
 			button, button:active, button:focus {
+				width: 25%;
+				height: 25px;
 				background: unset;
 				border: unset;
 				margin-top: -2%;
-				position: relative;
-				right: 11%;
+				margin-left: -20%;
 				cursor: pointer;
+				display: inline-block;
+				background: yellow;
+			}
+
+			button #share, button #delete {
+				/*margin-left: -25%;*/
+				/*position: relative;*/
+				/*right: 11%;*/
 			}
 
 			#like {
@@ -75,7 +84,6 @@
 				display: block;
 			}
 		</style>
-		<link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
 		<!-- Content goes here -->
@@ -88,6 +96,9 @@
 					<h1>Mojo</h1>
 				</div>
 			</a>
+			<?php
+			  require ('includes/profile_header.php');
+			?>
 		</header>
 		<div class="wrapper main settings" align="center">
 			<div class="image_container">

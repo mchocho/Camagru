@@ -16,6 +16,12 @@ function index() {
 	return ($url);
 }
 
+function current_path() {
+	$url = 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+	$url = rtrim($url, '/\\');
+	return ($url);
+}
+
 function scream() {
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -119,6 +125,12 @@ function strtobool($value) {
 	return NULL;
 }
 
+function ft_session_start() {
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
+}
+
 function ft_session_destroy() {
 	$helper = array_keys($_SESSION);
 	foreach ($helper as $key) {
@@ -131,11 +143,7 @@ function user_is_logged_in() {
 }
 
 function session_key($val) {
-	return (isset($_SESSION['username']) && isset($_SESSION['id']));
-}
-
-function session_key($val) {
-	if (!empty($_SESSION)) {
+	if (!isset($_SESSION)) {
 		foreach ($_SESSION as $key => $value) {
 			if ($val === $key) {
 				return true;
@@ -149,4 +157,15 @@ function get_session($key) {
 	if (session_key($key)) {
 		return $_SESSION[$key];
 	}
+}
+
+function bool_to_enum($value) {
+	return ($value == true) ? 'T' : 'F';
+}
+
+function ft_echo($str) {
+	echo '<script type="text/javascript">console.log("';
+	echo $str;
+	echo '");</script>';
+	return ;
 }

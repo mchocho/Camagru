@@ -1,11 +1,12 @@
 <?php
-require('ft_util.php');
-scream();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_SESSION['username'])) {
 	echo '<div class="user_profile_container settings" align="right">';
-	echo '<img src="images/mojo.jpg" class="profile_pic" />';
-	echo '<span class="username">' . $_SESSION['username'] . '</span>';
+	echo '<a href="post.php"><img src="images/mojo.jpg" class="profile_pic" /></a>';
+	echo '<span class="username"><a href="settings.php">' . $_SESSION['username'] . '</a></span>';
 	echo '<a href="includes/logout.php" class="logout">Log out</a>';
 	echo '</div>';
 } else {

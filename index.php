@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,13 +60,8 @@
           <h1>Mojo</h1>
         </div>
       </a>
-      <!-- <div class="user_profile_container">
-        <a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>
-      </div> -->
 <?php
-//
-// scream();
-require ('includes/profile_header.php');
+  require ('includes/profile_header.php');
 ?>
 </header>
     <div class="wrapper main" align="center">

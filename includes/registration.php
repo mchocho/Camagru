@@ -9,14 +9,12 @@ if (p_action()) {
 	if (issetstr($_POST['username'])) {
 		$user = trim($_POST['username']);
 	} else {
-
 		$errors[] = 'Please enter your username';
 	}
 
 	if (is_email($_POST['email'])) {
 		$e = trim($_POST['email']);
 	} else {
-
 		$errors[] = 'Please enter your email address';
 	}
 
@@ -24,7 +22,6 @@ if (p_action()) {
 		if ($_POST['password'] != $_POST['password2']) {
 			$errors[] = 'The passwords provided don\'t match';
 		} else {
-
 			$p = $_POST['password2'];
 		}
 	} else {

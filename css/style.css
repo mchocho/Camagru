@@ -2,7 +2,7 @@
 	display: block;
 }
 
-.header a, .header a:active, .header a:hover {
+.header a, .header a:active, .header a:hover, a:visited {
 	text-decoration: none;
 	outline: none;
 }
@@ -54,6 +54,11 @@ h1 {
 .user_profile_container .username {
 	display: block;
 	padding: 5px;
+	font-family: cursive;
+	font-size: 105%;
+	font-weight: bold;
+	font-style: italic;
+	color: black;
 	/*text-align: center;*/
 }
 

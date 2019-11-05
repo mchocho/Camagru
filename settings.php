@@ -1,3 +1,12 @@
+<?php
+session_start();
+require('includes/ft_util.php');
+require('includes/getusers.php');
+scream();
+if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['notifications'])) {
+	ft_redirectuser();
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,6 +33,22 @@
 				display: none;
 				visibility: hidden;
 			}
+
+			div.icon.slider {
+				width: 128px;
+				height: 128px;
+				background: url('images/icons/slider.png');
+				cursor: pointer;
+			}
+
+			div.icon.slider.off {
+				background: url('images/icons/slider_off.png');
+			}
+
+			.icon.slider input {
+				visibility: hidden;
+			}
+
 		</style>
 	    <!-- Or link external file -->
         <link rel="stylesheet" href="css/style.css" media="all" />
@@ -39,11 +64,9 @@
 					<h1>Mojo</h1>
 				</div>
 			</a>
-			<div class="user_profile_container settings" align="right">
-				<img src="images/mojo.jpg" class="profile_pic" />
-				<span class="username"><a href="settings.php">Thano$$</a></span>
-				<a href="includes/logout.php" class="logout">Log out</a>
-			</div>
+			<?php
+			  require ('includes/profile_header.php');
+			?>
 		</header>
 		<div class="wrapper main settings" align="center">
 			<h2>Settings</h2>
@@ -53,7 +76,7 @@
 							<img src="images/mojo.jpg" id="pic" class="pic" />
 					</div>
 					<input type="button" id="edit_pic" value="Change Profile Pic" class="btn" />
-					<form method="POST" enctype="multipart/form-data" id="pic_input" class="input hide">
+					<form action="includes/handle_settings.php" method="POST" enctype="multipart/form-data" id="pic_input" class="input hide">
 						<button>
 							<label>
 								Change profile picture
@@ -65,40 +88,80 @@
 
 				</div>
 				<div class="edit username">
-					<p>Your current username is <span>Thanos$$$</span></p>
+					<p>Your current username is <span><?php echo $_SESSION['username']; ?></span></p>
 					<input type="button" id="edit_username" value="Change Username" class="btn" />
-					<form action="" method="POST" id="username_input" class="input hide">
+					<form action="includes/handle_settings.php" method="POST" id="username_input" class="input hide">
 						<label>
 							<span>New username</span>
 							<input type="text" name="username" class="text" />
 						</label>
+						<label>
+							<span>Current password</span>
+							<input type="password" name="password" class="text" />
+						</label>
 						<input type="submit" name="submit" value="Save" class="btn" />
-						<input type="hidden" name="newemail" value="true" />
+						<input type="hidden" name="resetusername" value="true" />
 					</form>
 				</div>
 				<div class="edit email">
-					<p>Your current email address is <span>themadtitan@hotmail.com</span></p>
+					<p>Your current email address is <span><?php echo $result['email']; ?></span></p>
 					<input type="button" id="edit_email" value="Change email" class="btn" />
-					<form method="POST" id="email_input" class="input hide">
+					<form action="includes/handle_settings.php" method="POST" id="email_input" class="input hide">
 						<label>
 							<span>New email</span>
 							<input type="text" name="email" class="text" />
+						</label>
+						<label>
+							<span>Current password</span>
+							<input type="password" name="password" class="text" />
 						</label>
 						<input type="submit" name="submit" value="Save" class="btn" />
 						<input type="hidden" name="resetemail" value="true" />
 					</form>
 				</div>
+				<div class="edit notifications">
+					<?php
+						$str = "Notifications are currently ";
+						if ($result['notifications'] === 'T')
+							$str .= "enabled";
+						else
+							$str .= "disabled";
+						echo '<p>'.$str.'</p>';
+					?>
+					<input type="button" id="edit_notifications" value="Change notifications" class="btn" />
+					<form action="includes/handle_settings.php" method="POST" id="notifications_input" class="input hide">
+						<label>
+							<?php
+								$val = '';
+								echo '<div id="icon_slider" class="icon slider';
+								if ($result['notifications'] === 'F')
+									echo ' off';
+								echo '">';
+								echo '<input type="checkbox" id="slider_input" name="notifications" value="on"'; 
+								if ($result['notifications'] === 'T')
+									echo ' checked="check"';
+								echo ' /></div>';
+							?>
+						</label>
+						<input type="submit" name="submit" value="Save" class="btn" />
+						<input type="hidden" name="setnotifications" value="true" />
+					</form>
+				</div>
 				<div class="edit password">
 					<p>Reset password <div class="icon lock"></div></p>
-					<input type="button" id="edit_password" value="Change password" class="btn" />
-					<form method="POST" id="username_input" class="input hide">
+					<input type="button" id="edit_password" value="Change my password" class="btn" />
+					<form action="includes/handle_settings.php" method="POST" id="password_input" class="input hide">
 						<label>
 							<span>Current password</span>
-							<input type="password" name="email" class="text" />
+							<input type="password" name="password" class="text" />
 						</label>
 						<label>
 							<span>New password</span>
-							<input type="password" name="password" class="text" />
+							<input type="password" name="newpassword" class="text" />
+						</label>
+						<label>
+							<span>Confirm password</span>
+							<input type="password" name="passwordconfirm" class="text" />
 						</label>
 						<input type="submit" name="submit" value="Reset My Password" class="btn" />
 						<input type="hidden" name="resetpassword" value="true" />
@@ -106,10 +169,14 @@
 				</div>
 			</div>
 		</div>
+		<footer>
+			<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div> 
+		</footer>
 		<script>
 			const btns = [
 				document.getElementById('edit_pic'),
 				document.getElementById('edit_username'),
+				document.getElementById('edit_notifications'),
 				document.getElementById('edit_email'),
 				document.getElementById('edit_password')
 			];
@@ -120,8 +187,6 @@
 					const el = e.target,
 						next = el.nextElementSibling;
 
-					console.log('next');
-
 					if (next.className.indexOf('hide') > -1)
 						next.classList.remove('hide');
 					else
@@ -131,7 +196,6 @@
 
 			document.getElementById('file').addEventListener('change', function handleFiles(files) {
   				//for (let i = 0; i < files.length; i++) {
-				console.log('Hello onchange');
 				const file = document.getElementById('file')[0],
 					img = document.getElementById('pic');
 
@@ -150,6 +214,16 @@
 				};
 				reader.readAsDataURL(file);
 				//}
+			});
+
+			document.getElementById('slider_input').addEventListener('change', function() {
+				const el = document.getElementById('slider_input');
+
+				if (el.checked) {
+					document.getElementById('icon_slider').classList.remove('off'); 
+				} else {
+					document.getElementById('icon_slider').classList.add('off');
+				}
 			});
 		</script>
 	</body>

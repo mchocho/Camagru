@@ -1,5 +1,5 @@
 <?php
-
+$session_ready = (session_start())?true:false;
 require_once ('ft_util.php');
 scream();
 
@@ -7,8 +7,6 @@ scream();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$errors        = array();
-	$session_ready = (session_start())?true:false;
-
 	//print_r($_POST);
 
 	if (issetstr($_POST['username'])) {
@@ -34,22 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$q      = "SELECT * FROM users WHERE (username=?) OR (email=?)";
 		$result = $dbc->prepare($q);
 		$result->execute([$u, $u]);
-
 		$result = $result->fetch(PDO::FETCH_ASSOC);
 
 		if (is_validpassword($p, $result['password'])) {
 			$_SESSION['email'] = $e;
 			if ($result['validated'] === 'F') {
-				//Handle validation process
 				ft_redirectuser('../verify_email.php');
 			} else {
-				//echo generate_token()."<br />";
-				if (session_ready) {
+				if ($session_ready) {
 					$_SESSION['username'] = $result['username'];
 					$_SESSION['id']       = $result['id'];
 					$_SESSION['admin']    = $result['admin'];
 				}
-				//ft_print_r($result);
 				ft_redirectuser('../');
 			}
 		} else {

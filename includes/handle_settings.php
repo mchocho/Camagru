@@ -1,10 +1,11 @@
 <?php
+session_start();
 require ('sql_connect.php');
 require ('ft_util.php');
 scream();
 
-function changePassword($newpassword) {
-	if (issetstr($newpassword) && session_start() && issetstr($_SESSION['id'])) {//&& is_decentpw($newpassword)
+function changePassword($dbc, $newpassword) {
+	if (issetstr($newpassword) && isset($_SESSION['id'])) {//&& is_decentpw($newpassword)
 		try {
 			$q           = "UPDATE users SET password = ? WHERE id = ?";
 			$newpassword = hash_password($newpassword);
@@ -16,8 +17,8 @@ function changePassword($newpassword) {
 	}
 }
 
-function changeEmail($newemail) {
-	if (is_email($newpassword) && session_start() && issetstr($_SESSION['id'])) {
+function changeEmail($dbc, $newemail) {
+	if (is_email($newemail) && isset($_SESSION['id'])) {
 		try {
 			$q      = "UPDATE users SET email = ? WHERE id = ?";
 			$result = $dbc->prepare($q);
@@ -28,34 +29,62 @@ function changeEmail($newemail) {
 	}
 }
 
-function changeUsername($newusername) {
-	if (issetstr($newusername)) {
+function changeUsername($dbc, $newusername) {
+	if (issetstr($newusername) && isset($_SESSION['id'])) {
 		try {
 			$q      = "UPDATE users SET username = ? WHERE id = ?";
 			$result = $dbc->prepare($q);
 			$result->execute([$newusername, $_SESSION['id']]);
+			$_SESSION['username'] = $newusername;
 		} catch (PDOException $err) {
 			echo "something went wrong";
 		}
 	}
 }
 
-if (g_action()) {
-	if ($_POST['resetpassword'] === 'true') {
-		if ($_POST['newpassword'] !== $_POST['passwordconfirm']) {
-			echo "The passwords provided don't match.";
-		} else {
-			try {
-
-				changePassword($_POST['newpassword']);
-			} catch (PDOException $err) {
-				echo "something went wrong";
-			}
-
+function changeNotifications($dbc, $value) {
+	if (isset($_SESSION['id']) && ($value === 'T' || $value === 'F')) {
+		try {
+			$q      = "UPDATE users SET notifications = ? WHERE id = ?";
+			$result = $dbc->prepare($q);
+			$result->execute([$value, $_SESSION['id']]);
+		} catch (PDOException $err) {
+			echo "something went wrong";
 		}
-	} else if ($_POST['resetemail'] === 'true') {
-		changeEmail($_POST['newemail']);
-	} else if ($_POST['resetusername'] === 'true') {
-		changeUsername($_POST['username']);
 	}
 }
+
+if (p_action() && isset($_POST['password'])) {
+	try {
+		$q      = "SELECT password FROM users WHERE id = ?";
+		$result = $dbc->prepare($q);
+		$result->execute([$_SESSION['id']]);
+		$result = $result->fetch(PDO::FETCH_ASSOC);
+
+		if (is_validpassword($_POST['password'], $result['password'])) {
+			if (isset($_POST['resetpassword'], $_POST['passwordconfirm'], $_POST['password'])) {
+				if ($_POST['newpassword'] !== $_POST['passwordconfirm']) {
+					echo "The passwords provided don't match.";
+				} else {
+					changePassword($dbc, $_POST['newpassword']);
+					ft_echo('Your password has been reset to: '.$_POST['newpassword']);
+				}
+			} else if (isset($_POST['resetemail'], $_POST['email'])) {
+				changeEmail($dbc, $_POST['email']);
+			} else if (isset($_POST['resetusername'], $_POST['username'])) {
+				changeUsername($dbc, $_POST['username']);
+			}
+		} else {
+			echo "The password you entered was incorrect.";
+		}
+	} catch (PDOException $err) {
+		echo "something went wrong";
+	}
+} else if (p_action() && isset($_POST['setnotifications'])) {
+	$notifications = 'F';
+	if (isset($_POST['notifications']))
+		if ($_POST['notifications'] == 'on')
+			$notifications = 'T';
+	changeNotifications($dbc, $notifications);
+}
+ft_redirectuser('../settings.php');
