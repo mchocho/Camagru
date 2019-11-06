@@ -31,7 +31,7 @@
 				margin-left: -20%;
 				cursor: pointer;
 				display: inline-block;
-				background: yellow;
+				/*background: yellow;*/
 			}
 
 			button #share, button #delete {
@@ -120,6 +120,11 @@
 				<span class="heading">Comments</span>
 				<span class="count">4</span>
 				<hr />
+				<form method="POST" action="includes/comments.php">
+					<textarea id="comment" name="comment" placeholder="Add a comment"></textarea>
+					<input type="submit" name="submit" class="btn" value="Post" />
+					<input type="hidden" name="image" value="This will be an image id" />
+				</form>
 				<ol class="comments">
 					<li>
 						<span class="username">Adam</span>

@@ -7,7 +7,7 @@ scream();
 
 if (isset($_SESSION['username'])) {
 	try {
-		$q      = "SELECT email, notifications FROM users WHERE username=?";
+		$q      = "SELECT * FROM users WHERE username=?";
 		$result = $dbc->prepare($q);
 		$result->execute([$_SESSION['username']]);
 		$result = $result->fetch(PDO::FETCH_ASSOC);
