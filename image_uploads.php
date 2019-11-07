@@ -115,11 +115,9 @@
 					<h1>Mojo</h1>
 				</div>
 			</a>
-			<div class="user_profile_container settings" align="right">
-				<img src="images/mojo.jpg" class="profile_pic" />
-				<span class="username">Thano$$</span>
-				<a href="includes/logout.php" class="logout">Log out</a>
-			</div>
+			<?php
+			  require ('includes/profile_header.php');
+			?> 
 		</header>
 		<div class="wrapper main settings">
 			<div id="stream_container" class="stream container">
@@ -129,7 +127,7 @@
 			</div>
 			<div class="button_container">
 				<button class="trigger" id="trigger">Take Picture</button>
-				<form action="/includes/upload_file.php" method="post" enctype="multipart/form-data" >
+				<form action="includes/upload_file.php" method="post" enctype="multipart/form-data" >
 					<button type="button" class="upload" id="upload" aria-label-for="file">
 						<label>
 							Upload File<input type="file" accept="image/*" class="file" name="file" id="file" />
@@ -255,6 +253,22 @@
 			// FileUpload(file);
 		}
 	});
+
+	fetch(img.src)
+	.then(res => res.blob())
+	.then(blob => {
+	  const file = new File([blob], 'dot.png', blob)
+	  console.log(file)
+	}
+
+		const img = document.getElementById('id')
+
+	fetch(img.src)
+	.then(res => res.blob())
+	.then(blob => {
+	  const file = new File([blob], 'dot.png', blob)
+	  console.log(file)
+	}
 
 	/*file_uploader.addEventListener('change', function(e) {
 		if (isFileImage(file_uploader[0])) {
