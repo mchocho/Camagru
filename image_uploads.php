@@ -141,7 +141,7 @@
 				<span>A bunch of selectable images go here!</span>
 			</div>
 			<div id="gallery" class="image_gallery">
-				<div class="img">
+				<!-- <div class="img">
 					<img src="images/uploads/ocean.jpg" class="item" />
 				</div>
 				<div class="img">
@@ -152,7 +152,7 @@
 				</div>
 				<div class="img">
 					<img src="images/uploads/ocean.jpg" class="item" />
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<footer>
@@ -171,44 +171,38 @@
   		return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 	}
 
-	function isFileImage(file) {
+	function isImageFile(file) {
 	    return file && file['type'].split('/')[0] === 'image';
 	}
 
-/*function streamCamera() {
-	if (hasGetUserMedia()) {
-		const video = document.querySelector('video');
-
-		navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
-			video.srcObject = stream
-		});
-	} else {
-		//You can do better
-  		alert('getUserMedia() is not supported by your browser');
-	}
-}*/
-
-	function FileUpload(file1/*, file2*/) {
-		if ('File' in window && file instanceof File && isFileImage(file1)) {
+	function FileUpload(file/*, file2*/) {
+		if ('Blob' in window && file instanceof Blob && isImageFile(file)) {
 			console.log("Hello file upload");
 			const xhr = new XMLHttpRequest(),
-				  formData = new FormData();
+				  formData = new FormData(),
+				  url = /*location.hostname + '/camagru/*/'includes/upload_file_json.php';
 			file_uploader.setAttribute('disable', 'true');
 			trigger.setAttribute('disable', 'true');
 
-			formData.append("file", file1);
+			formData.append("file", file);
 			// formData.append("file_2", file2);
 			formData.append("submit", "OK");
 
 			xhr.addEventListener('loadend', function(e){
+				console.log("xhr status: " + xhr.status);
+				console.log('status => ' + xhr.statusText)
+			    console.log('response => ' + xhr.responseText);
 				file_uploader.removeAttribute('disable');
 				trigger.removeAttribute('disable');
 			});
 
-			xhr.open('POST', location.hostname + '/includes/upload_file.php');
+			console.log('Hello FileUpload()\n\n');
+			console.log(url);
+
+			xhr.open('POST', /*location.hostname + '/camagru/*/'includes/upload_file_json.php');
 			// xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
-			xhr.setRequestHeader('Content-Type', multipart/form-data);
-			xhr.send(form);
+			// xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+			xhr.send(formData);
 		}
 	}
 
@@ -216,13 +210,10 @@
 		if (hasGetUserMedia()) {
 			document.getElementById('hint').className += ' hide';
 
-
 			navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
 				video.classList.remove('hide');
-
 				video.srcObject = stream;
 				streamActive = true;
-
 			});
 		} else {
 			//You can do better
@@ -239,42 +230,47 @@
 			canvas.width = video.videoWidth;
 			canvas.height = video.videoHeight;
 			canvas.getContext('2d').drawImage(video, 0, 0);
-  			// Other browsers will fall back to image/png
 			img.setAttribute('src', canvas.toDataURL('image/webp'));
 			if (gallery.hasChildNodes())
 				gallery.insertBefore(img, gallery.childNodes[0]);
 			else gallery.appendChild(img);
 
 			canvas.toBlob(function(blob) {
-				file = new File([blob], img.src, { type: "image/jpeg" });
-				FileUpload(file);
+				// file = new File([blob], img.src, { type: "image/jpeg" });
+				FileUpload(blob);
 			})
 
 			// FileUpload(file);
 		}
 	});
 
-	fetch(img.src)
-	.then(res => res.blob())
-	.then(blob => {
-	  const file = new File([blob], 'dot.png', blob)
-	  console.log(file)
-	}
-
-		const img = document.getElementById('id')
-
-	fetch(img.src)
-	.then(res => res.blob())
-	.then(blob => {
-	  const file = new File([blob], 'dot.png', blob)
-	  console.log(file)
-	}
-
 	/*file_uploader.addEventListener('change', function(e) {
 		if (isFileImage(file_uploader[0])) {
 			FileUpload(file_uploader[0]);
 		}
 	});*/
+
+
+	/*****************************************
+
+				Might be cool for later
+
+	******************************************/
+	/*fetch(img.src)
+	.then(res => res.blob())
+	.then(blob => {
+	  const file = new File([blob], 'dot.png', blob)
+	  console.log(file)
+	}
+
+	fetch(img.src)
+	.then(res => res.blob())
+	.then(blob => {
+	  const file = new File([blob], 'dot.png', blob)
+	  console.log(file)
+	}*/
+
+	
 
 
 		</script>

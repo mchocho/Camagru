@@ -1,5 +1,11 @@
 <?php
-include ('sqlusr.php');
+
+function ft_session_start() {
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
+	return;
+}
 
 function ft_redirectuser($page = 'index.php') {
 	$url = 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
@@ -26,6 +32,7 @@ function scream() {
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
+	return;
 }
 
 function issetstr($value) {
@@ -72,22 +79,12 @@ function email_client($to, $subject, $body) {
 	return false;
 }
 
-function p_action() {
-	return ($_SERVER['REQUEST_METHOD'] === 'POST');
-}
-
 function g_action() {
 	return ($_SERVER['REQUEST_METHOD'] === 'GET');
 }
 
-function sql_connect() {
-	try {
-		$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
-		$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		return $dbc;
-	} catch (PDOException $e) {
-		return false;
-	}
+function p_action() {
+	return ($_SERVER['REQUEST_METHOD'] === 'POST');
 }
 
 function array_substr_search($arr, $keyword) {
@@ -98,6 +95,7 @@ function array_substr_search($arr, $keyword) {
 			}
 		}
 	}
+	return;
 }
 
 function generate_token() {
@@ -114,60 +112,16 @@ function ft_print_r($value) {
 	return;
 }
 
-function ft_session_start() {
-	if (session_status() == PHP_SESSION_NONE) {
-		session_start();
-	}
-}
-
-/*function strtobool($value) {
-if (issetstr($value)) {
-if (strpos(strtolower($value), 't')) {
-return true;
-} else {
-return false;
-}
-}
-return NULL;
-}
-
-
-
-function ft_session_destroy() {
-$helper = array_keys($_SESSION);
-foreach ($helper as $key) {
-unset($_SESSION[$key]);
-}
-}
-
-function user_is_logged_in() {
-return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
-}
-
-function session_key($val) {
-if (!isset($_SESSION)) {
-foreach ($_SESSION as $key => $value) {
-if ($val === $key) {
-return true;
-}
-}
-}
-return false;
-}
-
-function get_session($key) {
-if (session_key($key)) {
-return $_SESSION[$key];
-}
-}
-
-function bool_to_enum($value) {
-return ($value == true)?'T':'F';
-}*/
-
 function ft_echo($str) {
 	echo '<script type="text/javascript">console.log("';
 	echo $str;
 	echo '");</script>';
+	return;
+}
+
+function ft_makedir($path) {
+	if (!file_exists($path)) {
+	    mkdir($path, 0777, true);
+	}
 	return;
 }

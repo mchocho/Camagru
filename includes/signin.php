@@ -3,19 +3,16 @@ $session_ready = (session_start())?true:false;
 require_once ('ft_util.php');
 scream();
 
-//echo "Hello signin.php<br />";
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$errors        = array();
-	//print_r($_POST);
 
-	if (issetstr($_POST['username'])) {
+	if (isset($_POST['username'])) {
 		$u = trim($_POST['username']);
 	} else {
 		$errors[] = 'Please enter your password';
 	}
 
-	if (issetstr($_POST['password'])) {
+	if (isset($_POST['password'])) {
 		$p = trim($_POST['password']);
 	} else {
 		$errors[] = 'Please enter your password.';

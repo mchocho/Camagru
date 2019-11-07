@@ -4,17 +4,16 @@ require ('ft_util.php');
 require ('sql_connect.php');
 scream();
 
-if (p_action() && isset($_POST['submit']) && isset($_SESSION['user_id'])) {
+if (p_action() && isset($_POST['submit'], $_FILES['file'], $_SESSION['id'])) {
 
 	$filename      = uniqid();
-	$target_file   = "../images/uploads/".$filename;
+	$target_file   = "../images/uploads/" . $filename;
 	$file          = $_FILES["file"];
 	$imageFileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
 	$allowed       = array('jpg', 'jpeg', 'gif', 'png', 'tif');
 
 	echo $target_file;
 
-	// Check if image file is a actual image or fake image
 	if (getimagesize($file['tmp_name'])) {
 		if ($file["error"] === 0) {
 			if ($file['size'] < 500000) {
@@ -22,23 +21,21 @@ if (p_action() && isset($_POST['submit']) && isset($_SESSION['user_id'])) {
 
 				move_uploaded_file($file['tmp_name'], $target_file);
 
-				//Create table if not there
 				try {
 					$q      = "CREATE TABLE IF NOT EXISTS `camagru`.`images` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `name` VARCHAR(120) NOT NULL , `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB";
 					$result = $dbc->prepare($q);
 					$result = $result->execute();
-				} catch (PDOException $e) {
-					echo "Something went wrong!";
-				}
 
-				try {
+
 					$q      = "INSERT INTO images (user_id, name) VALUES (?, ?)";
 					$result = $dbc->prepare($q);
-					$result = $result->execute([$_SESSION['user_id'], $filename]);
+					$result = $result->execute([$_SESSION['id'], $filename]);
+
+					ft_redirectuser('../image_uploads.php');
 				} catch (PDOException $e) {
 					echo "Something went wrong!";
 				}
-				ft_redirectuser('../image_uploads.php');
+				unlink($target_file);
 			} else {
 				echo 'The file you provided is too large.';
 			}
