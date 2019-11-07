@@ -123,7 +123,7 @@
 				<form method="POST" action="includes/comments.php">
 					<textarea id="comment" name="comment" placeholder="Add a comment"></textarea>
 					<input type="submit" name="submit" class="btn" value="Post" />
-					<input type="hidden" name="image" value="This will be an image id" />
+					<!-- <input type="hidden" name="image" value="This will be an image id" /> -->
 				</form>
 				<ol class="comments">
 					<li>

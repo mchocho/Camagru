@@ -3,8 +3,6 @@ require_once('ft_util.php');
 require_once('sql_connect.php');
 require_once('getusers.php');
 
-
-
 if (p_action() && isset($_POST['comment'], $_POST['submit'], $_POST['image'], $dbc) && is_array($result)) {
 	try {
 		$user = $result;
