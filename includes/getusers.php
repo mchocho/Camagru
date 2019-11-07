@@ -1,9 +1,8 @@
 <?php
-require_once('sql_connect.php');
-require_once('ft_util.php');
+require_once ('sql_connect.php');
+require_once ('ft_util.php');
 ft_session_start();
 scream();
-
 
 if (isset($_SESSION['username'])) {
 	try {

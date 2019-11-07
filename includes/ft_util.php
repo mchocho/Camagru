@@ -114,58 +114,60 @@ function ft_print_r($value) {
 	return;
 }
 
-function strtobool($value) {
-	if (issetstr($value)) {
-		if (strpos(strtolower($value), 't')) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	return NULL;
-}
-
 function ft_session_start() {
 	if (session_status() == PHP_SESSION_NONE) {
-	    session_start();
+		session_start();
 	}
 }
 
+/*function strtobool($value) {
+if (issetstr($value)) {
+if (strpos(strtolower($value), 't')) {
+return true;
+} else {
+return false;
+}
+}
+return NULL;
+}
+
+
+
 function ft_session_destroy() {
-	$helper = array_keys($_SESSION);
-	foreach ($helper as $key) {
-		unset($_SESSION[$key]);
-	}
+$helper = array_keys($_SESSION);
+foreach ($helper as $key) {
+unset($_SESSION[$key]);
+}
 }
 
 function user_is_logged_in() {
-	return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
+return (issetstr($_SESSION['username']) && issetstr($_SESSION['id']));
 }
 
 function session_key($val) {
-	if (!isset($_SESSION)) {
-		foreach ($_SESSION as $key => $value) {
-			if ($val === $key) {
-				return true;
-			}
-		}
-	}
-	return false;
+if (!isset($_SESSION)) {
+foreach ($_SESSION as $key => $value) {
+if ($val === $key) {
+return true;
+}
+}
+}
+return false;
 }
 
 function get_session($key) {
-	if (session_key($key)) {
-		return $_SESSION[$key];
-	}
+if (session_key($key)) {
+return $_SESSION[$key];
+}
 }
 
 function bool_to_enum($value) {
-	return ($value == true) ? 'T' : 'F';
-}
+return ($value == true)?'T':'F';
+}*/
 
 function ft_echo($str) {
 	echo '<script type="text/javascript">console.log("';
 	echo $str;
 	echo '");</script>';
-	return ;
+	return;
 }

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require('includes/ft_util.php');
-require('includes/getusers.php');
+require ('includes/ft_util.php');
+require ('includes/getusers.php');
 scream();
 if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['notifications'])) {
 	ft_redirectuser();
@@ -64,9 +64,9 @@ if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['no
 					<h1>Mojo</h1>
 				</div>
 			</a>
-			<?php
-			  require ('includes/profile_header.php');
-			?>
+<?php
+require ('includes/profile_header.php');
+?>
 		</header>
 		<div class="wrapper main settings" align="center">
 			<h2>Settings</h2>
@@ -88,7 +88,7 @@ if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['no
 
 				</div>
 				<div class="edit username">
-					<p>Your current username is <span><?php echo $_SESSION['username']; ?></span></p>
+					<p>Your current username is <span><?php echo $_SESSION['username'];?></span></p>
 					<input type="button" id="edit_username" value="Change Username" class="btn" />
 					<form action="includes/handle_settings.php" method="POST" id="username_input" class="input hide">
 						<label>
@@ -104,7 +104,7 @@ if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['no
 					</form>
 				</div>
 				<div class="edit email">
-					<p>Your current email address is <span><?php echo $result['email']; ?></span></p>
+					<p>Your current email address is <span><?php echo $result['email'];?></span></p>
 					<input type="button" id="edit_email" value="Change email" class="btn" />
 					<form action="includes/handle_settings.php" method="POST" id="email_input" class="input hide">
 						<label>
@@ -120,29 +120,36 @@ if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['no
 					</form>
 				</div>
 				<div class="edit notifications">
-					<?php
-						$str = "Notifications are currently ";
-						if ($result['notifications'] === 'T')
-							$str .= "enabled";
-						else
-							$str .= "disabled";
-						echo '<p>'.$str.'</p>';
-					?>
-					<input type="button" id="edit_notifications" value="Change notifications" class="btn" />
+<?php
+$str = "Notifications are currently ";
+if ($result['notifications'] === 'T') {
+	$str .= "enabled";
+} else {
+
+	$str .= "disabled";
+}
+
+echo '<p>'.$str.'</p>';
+?>
+<input type="button" id="edit_notifications" value="Change notifications" class="btn" />
 					<form action="includes/handle_settings.php" method="POST" id="notifications_input" class="input hide">
 						<label>
-							<?php
-								$val = '';
-								echo '<div id="icon_slider" class="icon slider';
-								if ($result['notifications'] === 'F')
-									echo ' off';
-								echo '">';
-								echo '<input type="checkbox" id="slider_input" name="notifications" value="on"'; 
-								if ($result['notifications'] === 'T')
-									echo ' checked="check"';
-								echo ' /></div>';
-							?>
-						</label>
+<?php
+$val = '';
+echo '<div id="icon_slider" class="icon slider';
+if ($result['notifications'] === 'F') {
+	echo ' off';
+}
+
+echo '">';
+echo '<input type="checkbox" id="slider_input" name="notifications" value="on"';
+if ($result['notifications'] === 'T') {
+	echo ' checked="check"';
+}
+
+echo ' /></div>';
+?>
+</label>
 						<input type="submit" name="submit" value="Save" class="btn" />
 						<input type="hidden" name="setnotifications" value="true" />
 					</form>
@@ -170,7 +177,7 @@ if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['no
 			</div>
 		</div>
 		<footer>
-			<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div> 
+			<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
 		</footer>
 		<script>
 			const btns = [
@@ -220,7 +227,7 @@ if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['no
 				const el = document.getElementById('slider_input');
 
 				if (el.checked) {
-					document.getElementById('icon_slider').classList.remove('off'); 
+					document.getElementById('icon_slider').classList.remove('off');
 				} else {
 					document.getElementById('icon_slider').classList.add('off');
 				}

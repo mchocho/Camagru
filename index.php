@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('getimages.php');
+// require('getimages.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -62,7 +62,7 @@ require('getimages.php');
         </div>
       </a>
 <?php
-  require ('includes/profile_header.php');
+require ('includes/profile_header.php');
 ?>
 </header>
     <div class="wrapper main" align="center">
@@ -77,38 +77,56 @@ require('getimages.php');
             <img src="images/uploads/mist.jpg">
             <img src="images/uploads/paris.jpg">
           </div>
-
           <div class="column">
-          <?php 
-            //Determine amount of images
-            $total = $result->rowCount();
-
-            $results_per_page = 7;
-
-            $page_count = ceil($total / $results_per_page);
-
-            //Determine the current page
-            if (!isset($_GET['page']))
-              $page = 1;              
-            else
-              $page = (is_numeric($_GET['page'])) ? $_GET['page'] : 1;
-
-            $first_results = ($page - 1) * $results_per_page;
-
-            try {
-              $q = 'SELECT images FROM images LIMIT ' . $first_results . ',' . $results_per_page;
-              $result = $dbc->prepare($q);
-              $result->execute();
-              $result = $result->fetchAll(PDO::FETCH_ARRAY);
-
-              foreach($result as $item) {
-                echo '<img src="images/uploads/' . $item . '" />';
-              }
-            } catch (PDOException $err) {
-              echo "Something went wrong";
-            }
-          ?>
+            <img src="images/uploads/wedding.jpg">
+            <img src="images/uploads/rocks.jpg">
+            <img src="images/uploads/falls2.jpg">
+            <img src="images/uploads/paris.jpg">
+            <img src="images/uploads/nature.jpg">
+            <img src="images/uploads/mist.jpg">
+            <img src="images/uploads/paris.jpg">
           </div>
+          <div class="column">
+            <img src="images/uploads/wedding.jpg">
+            <img src="images/uploads/rocks.jpg">
+            <img src="images/uploads/falls2.jpg">
+            <img src="images/uploads/paris.jpg">
+            <img src="images/uploads/nature.jpg">
+            <img src="images/uploads/mist.jpg">
+            <img src="images/uploads/paris.jpg">
+          </div>
+
+          <!-- <div class="column"> -->
+<?php
+/*//Determine amount of images
+$total = $result->rowCount();
+
+$results_per_page = 7;
+
+$page_count = ceil($total / $results_per_page);
+
+//Determine the current page
+if (!isset($_GET['page']))
+$page = 1;
+else
+$page = (is_numeric($_GET['page'])) ? $_GET['page'] : 1;
+
+$first_results = ($page - 1) * $results_per_page;
+
+try {
+$q = 'SELECT images FROM images LIMIT ' . $first_results . ',' . $results_per_page;
+$result = $dbc->prepare($q);
+$result->execute();
+$result = $result->fetchAll(PDO::FETCH_ARRAY);
+
+foreach($result as $item) {
+echo '<img src="images/uploads/' . $item . '" />';
+}
+} catch (PDOException $err) {
+echo "Something went wrong";
+}*/
+?>
+<!-- </div> -->
         </div>
       </div>
     </div>

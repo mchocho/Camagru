@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once ('ft_util.php');
 require_once ('sql_connect.php');
 scream();
@@ -19,12 +19,17 @@ try {
 	$q      = 'UPDATE users SET validated = ?  WHERE id = ?';
 	$result = $dbc->prepare($q);
 	$result->execute(['T', $token['user_id']]);
-	$result = $result->fetch(PDO::FETCH_ASSOC);
 
 	$q      = 'SELECT * FROM users WHERE id = ?';
 	$result = $dbc->prepare($q);
 	$result->execute([$token['user_id']]);
 	$result = $result->fetch(PDO::FETCH_ASSOC);
+
+	$_SESSION['username'] = $result['username'];
+	$_SESSION['id']       = $result['id'];
+	$_SESSION['admin']    = $result['admin'];
+
+	ft_redirectuser('../index.php');
 
 } catch (PDOException $e) {
 	echo "Error: ".$e->getMessage();
