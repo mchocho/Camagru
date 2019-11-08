@@ -185,7 +185,7 @@ try {
 							}
 						}
 					?>
-					<!-- <li>
+					<li>
 						<span class="username">Adam</span>
 						<blockquote>JFC this pic describes how I feel inside</blockquote>
 						<span class="created">3d</span>
@@ -204,12 +204,17 @@ try {
 						<span class="username">Buddy</span>
 						<blockquote>Big ups to the photographer. We know that these kind of shots are what make great photographers.</blockquote>
 						<span class="created">3d</span>
-					</li> -->
+					</li>
 				</ol>
 			</div>
 		</div>
 		<footer>
 			<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 		</footer>
+		<script type="text/javascript">
+			document.addEventListener("DOMContentLoaded", function() {
+				const 
+			});
+		</script>
 	</body>
 </html>

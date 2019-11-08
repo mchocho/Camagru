@@ -13,6 +13,7 @@ if (isset($_SESSION['username'])) {
 
 		$_SESSION['username'] = $result['username'];
 		$_SESSION['id']       = $result['id'];
+		$_SESSION['email']	  = $result['email'];
 		$_SESSION['admin']    = $result['admin'];
 	} catch (PDOException $err) {
 		echo "Something went wrong";

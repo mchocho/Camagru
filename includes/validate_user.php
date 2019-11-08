@@ -25,15 +25,16 @@ try {
 	$result->execute([$token['user_id']]);
 	$result = $result->fetch(PDO::FETCH_ASSOC);
 
-	$_SESSION['username'] = $result['username'];
-	$_SESSION['id']       = $result['id'];
-	$_SESSION['admin']    = $result['admin'];
+	// $_SESSION['username'] = $result['username'];
+	// $_SESSION['id']       = $result['id'];
+	// $_SESSION['admin']    = $result['admin'];
 
-	ft_redirectuser('../index.php');
+	ft_redirectuser('../signin.php');
 
 } catch (PDOException $e) {
 	echo "Error: ".$e->getMessage();
 	$errors[] = "Your email or password was incorrect.";
 	ft_print_r($errors);
+	//In reality you should just redirect user back to index
 }
 // }

@@ -13,7 +13,7 @@
 	<body>
 		<!-- Content goes here -->
 		<h1>Confirm Email</h1>
-		<form action="includes/reset_password.php" method="GET">
+		<form action="includes/password_reset_token.php" method="GET">
 			<label>
 				<span>Enter your email</span>
 				<input type="email" name="email" required="true" />

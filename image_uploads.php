@@ -64,28 +64,38 @@ if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) {
 			}
 
 			.image_gallery {
-				width: 80%;
-				overflow-y: scroll;
+				width: 100%;
+				margin: auto;
+				/*height: 450px;*/
+				/*overflow-y: scroll;*/
 			}
 
 			.image_gallery .img {
-				width: 450px;
-				height: 450px;
+				width: 400px;
+				height: 400px;
 				display: inline-block;
+				/*display: inline;*/
+				/*background: yellow;*/
 			}
 
 			.image_gallery .img img {
 				width: 100%;
-				display: inline-block;
+				/*height: 100%;*/
+				/*display: inline-block;*/
+				/*display: inline;*/
 			}
 
 			.image_gallery button {
 				/*background: unset;*/
 				/*width: 10%;*/
-				width: 80%;
+				width: 22%;
 				/*padding: unset;*/
 				/*float: right;*/
 				margin: auto;
+				position: relative;
+				right: 38%;
+				margin-top: -24%;
+				border: 1px solid #eee;
 			}
 
 			.button_container {
@@ -101,13 +111,18 @@ if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) {
 				top: 9px;
 			}
 
+			.image_gallery a {
+				text-decoration: none;
+			}
+
 			.img .delete {
 				/*position: absolute;*/
 				/*float: left;*/
 			}
 
-			form .save {
-				margin-top: 30px;
+			form button .upload {
+				/*margin-top: 30px;*/
+				/*display: inline-block;*/
 			}
 
 			/*.img .delete img {
@@ -148,14 +163,13 @@ require ('includes/profile_header.php');
 							Upload File<input type="file" accept="image/*" class="file" name="file" id="file" />
 						</label>
 					</button>
-					<br />
 					<button type="submit" id="save" class="btn save" name="submit" value="save">Save</button>
 				</form>
 			</div>
 			<div class="clip-art_container">
 				<span>A bunch of selectable images go here!</span>
 			</div>
-			<div id="gallery" class="image_gallery">
+			<div id="gallery" class="image_gallery" align="center">
 				<?php
 					try {
 						$q      = "SELECT * FROM images WHERE user_id = ?";
@@ -171,7 +185,7 @@ require ('includes/profile_header.php');
 							$content  = '<div class="img"><img class="item" src="images/uploads/' . $value['name'] . '" />';
 							$content .= '<a href=includes/remove_post.php?image=' . $value['id'] . '>';
 							$content .= '<button type="submit" value="' . $value['id'] . '" >Delete</button></a>';
-							$content .= '</div><br />';
+							$content .= '</div>';
 							echo $content;
 						}
 					} catch (PDOException $err) {
@@ -196,7 +210,7 @@ require ('includes/profile_header.php');
 	let streamActive = false;
 
 	//Disable save button by default
-	save_btn.setAttribute('disable', 'true');
+	save_btn.setAttribute('disabled', 'true');
 
 	function hasGetUserMedia() {
   		return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -213,8 +227,8 @@ require ('includes/profile_header.php');
 				  formData = new FormData(),
 				  url = 'includes/upload_file_json.php',
 				  gallery = document.getElementById('gallery');
-			file_uploader.setAttribute('disable', 'true');
-			trigger.setAttribute('disable', 'true');
+			file_uploader.setAttribute('disabled', 'true');
+			trigger.setAttribute('disabled', 'true');
 
 			formData.append('file', file);
 			// formData.append("file_2", file2);
@@ -249,8 +263,8 @@ require ('includes/profile_header.php');
 
 
 			    }
-				file_uploader.removeAttribute('disable');
-				trigger.removeAttribute('disable');
+				file_uploader.removeAttribute('disabled');
+				trigger.removeAttribute('disabled');
 			});
 
 			// console.log('Hello FileUpload()\n\n');
@@ -266,9 +280,9 @@ require ('includes/profile_header.php');
 	//Disable save button if file input is empty
 	file_uploader.addEventListener('change', function() {
 		if (file_uploader.files.length == 0) {
-			save_btn.setAttribute('disable', 'true');
+			save_btn.setAttribute('disabled', 'true');
 		} else {
-			save_btn.removeAttribute('disable');
+			save_btn.removeAttribute('disabled');
 		}
 		return;
 	});

@@ -1,5 +1,4 @@
 <?php
-
 require_once ('ft_util.php');
 require_once ('sql_connect.php');
 scream();
