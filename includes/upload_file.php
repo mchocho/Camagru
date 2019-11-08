@@ -18,6 +18,7 @@ if (p_action() && isset($_POST['submit'], $_FILES['file'], $_SESSION['id'])) {
 		if ($file["error"] === 0) {
 			if ($file['size'] < 500000) {
 				$target_file .= '.'.explode('/', $file['type'])[1];
+				$filename	 .= '.'.explode('/', $file['type'])[1];
 
 				move_uploaded_file($file['tmp_name'], $target_file);
 

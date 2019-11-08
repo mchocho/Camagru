@@ -16,6 +16,7 @@ if (g_action() && isset($_GET['image_id'], $dbc) && is_array($result)) {
 			$q = 'DELETE * FROM likes WHERE (user_id = ?) AND (image_id = ?)';
 			$result = $dbc->prepare($q);
 			$result->execute([$result['id'], $_GET['image_id']]);
+			
 		} else {
 			$q = 'INSERT INTO likes (user_id, image_id) VALUES (?, ?)';
 			$result = $dbc->prepare($q);

@@ -10,7 +10,8 @@ if (isset($_SESSION['username'])) {
 		$q      = "SELECT name FROM images";
 		$result = $dbc->prepare($q);
 		$result->execute();
-		// $result = $result->fetch(PDO::FETCH_ASSOC);
+		$result = $result->fetch(PDO::FETCH_ASSOC);
+		$result = array_reverse($result);
 	} catch (PDOException $err) {
 		echo "Something went wrong";
 	}

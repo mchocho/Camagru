@@ -97,36 +97,35 @@ require ('includes/profile_header.php');
           </div>
 
           <!-- <div class="column"> -->
-<?php
-/*//Determine amount of images
-$total = $result->rowCount();
+          <?php
+            //Determine amount of images
+           /* $total = $result->rowCount();
 
-$results_per_page = 7;
+            $results_per_page = 14;
 
-$page_count = ceil($total / $results_per_page);
+            $page_count = ceil($total / $results_per_page);
 
-//Determine the current page
-if (!isset($_GET['page']))
-$page = 1;
-else
-$page = (is_numeric($_GET['page'])) ? $_GET['page'] : 1;
+            //Determine the current page
+            if (!isset($_GET['page']))
+              $page = 1;
+            else
+              $page = (is_numeric($_GET['page'])) ? $_GET['page'] : 1;
 
-$first_results = ($page - 1) * $results_per_page;
+            $first_results = ($page - 1) * $results_per_page;
 
-try {
-$q = 'SELECT images FROM images LIMIT ' . $first_results . ',' . $results_per_page;
-$result = $dbc->prepare($q);
-$result->execute();
-$result = $result->fetchAll(PDO::FETCH_ARRAY);
+            try {
+              $q = 'SELECT * FROM images LIMIT ' . $first_results . ',' . $results_per_page;
+              $result = $dbc->prepare($q);
+              $result->execute();
+              $result = $result->fetchAll(PDO::FETCH_ARRAY);
 
-foreach($result as $item) {
-echo '<img src="images/uploads/' . $item . '" />';
-}
-} catch (PDOException $err) {
-echo "Something went wrong";
-}*/
-?>
-<!-- </div> -->
+              foreach($result as $key => $value) {
+                echo '<img src="images/uploads/' . $value['name'] . '" />';
+              }
+            } catch (PDOException $err) {
+              ft_echo("Something went wrong");
+            }*/
+          ?>
         </div>
       </div>
     </div>

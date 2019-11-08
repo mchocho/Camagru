@@ -1,3 +1,22 @@
+<?php
+session_start();
+require('includes/ft_util.php');
+require('includes/sql_connect.php');
+
+if (!isset($_GET['id']))
+	ft_redirectuser();
+
+try {
+	$q      = "SELECT * FROM images WHERE (id = ?)";
+	$result = $dbc->prepare($q);
+	$result->execute([$_GET['id']]);
+	$result = $result->fetch(PDO::FETCH_ASSOC);
+	// ft_print_r($result);
+} catch (PDOException $e) {
+	ft_echo($e->getMessage());
+}
+
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -102,7 +121,10 @@
 		</header>
 		<div class="wrapper main settings" align="center">
 			<div class="image_container">
-				<img src="images/uploads/underwater.jpg" />
+				<!-- <img src="images/uploads/underwater.jpg" /> -->
+				<?php
+					echo '<img src="images/uploads/' . $result['name'] . '" />';
+				?>
 			</div>
 			<div class="social_container">
 				<button id="like" name="like">
@@ -116,9 +138,27 @@
 				</button>
 			</div>
 			<div class="comments_container">
+				<?php 
+					try {
+						$q      = "SELECT * FROM comment WHERE (image_id = ?)";
+						$comment = $dbc->prepare($q);
+						$comment->execute([$_GET['id']]);
+						$comment = $result->fetchAll()/*(PDO::FETCH_ASSOC)*/;
+						$comment_count = count($comment);
+					} catch (PDOException $e) {
+						ft_echo($e->getMessage());
+					}
+				?>
 				<hr />
 				<span class="heading">Comments</span>
-				<span class="count">4</span>
+				<span class="count">
+					<?php
+						ft_echo("hello world"); 
+						if (isset($comment_count))
+							echo $comment_count;
+						else echo "0";
+					?>
+				</span>
 				<hr />
 				<form method="POST" action="includes/comments.php">
 					<textarea id="comment" name="comment" placeholder="Add a comment"></textarea>
@@ -126,7 +166,26 @@
 					<!-- <input type="hidden" name="image" value="This will be an image id" /> -->
 				</form>
 				<ol class="comments">
-					<li>
+					<?php 
+						if (isset($comment)) {	
+							foreach ($comment as $key => $value) {
+								try {
+									$q      = "SELECT username FROM users WHERE (image_id = ?)";
+									$user = $dbc->prepare($q);
+									$user->execute([$value['user_id']]);
+									$user = $user->fetch(PDO::FETCH_ASSOC);
+
+									$html = '<li><span class="username">' . $user['username'] . '</span>';
+									$html .= '<blockquote>' . $result['message'] . '</<blockquote></li>';
+
+									echo $html;
+								}  catch (PDOException $e) {
+									ft_echo($e->getMessage());
+								}
+							}
+						}
+					?>
+					<!-- <li>
 						<span class="username">Adam</span>
 						<blockquote>JFC this pic describes how I feel inside</blockquote>
 						<span class="created">3d</span>
@@ -145,7 +204,7 @@
 						<span class="username">Buddy</span>
 						<blockquote>Big ups to the photographer. We know that these kind of shots are what make great photographers.</blockquote>
 						<span class="created">3d</span>
-					</li>
+					</li> -->
 				</ol>
 			</div>
 		</div>

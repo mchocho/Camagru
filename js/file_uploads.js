@@ -112,4 +112,4 @@ document.addEventListener("DOMContentLoaded", function() {
 	  const file = new File([blob], 'dot.png', blob)
 	  console.log(file)
 	}*/
-}
+});
