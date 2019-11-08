@@ -159,7 +159,7 @@
 			<div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 		</footer>
 <script type="text/javascript">
-	const video = document.getElementById('video'),
+	/*const video = document.getElementById('video'),
 	img = document.getElementById('image'),
 	trigger = document.getElementById('trigger'),
 	canvas = document.getElementsByTagName('canvas')[0],
@@ -175,12 +175,12 @@
 	    return file && file['type'].split('/')[0] === 'image';
 	}
 
-	function FileUpload(file/*, file2*/) {
+	function FileUpload(file) {//, file2) {
 		if ('Blob' in window && file instanceof Blob && isImageFile(file)) {
 			console.log("Hello file upload");
 			const xhr = new XMLHttpRequest(),
 				  formData = new FormData(),
-				  url = /*location.hostname + '/camagru/*/'includes/upload_file_json.php';
+				  url = 'includes/upload_file_json.php';
 			file_uploader.setAttribute('disable', 'true');
 			trigger.setAttribute('disable', 'true');
 
@@ -199,7 +199,7 @@
 			console.log('Hello FileUpload()\n\n');
 			console.log(url);
 
-			xhr.open('POST', /*location.hostname + '/camagru/*/'includes/upload_file_json.php');
+			xhr.open('POST', 'includes/upload_file_json.php');
 			// xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
 			// xhr.setRequestHeader('Content-Type', 'multipart/form-data');
 			xhr.send(formData);
@@ -230,7 +230,7 @@
 			canvas.width = video.videoWidth;
 			canvas.height = video.videoHeight;
 			canvas.getContext('2d').drawImage(video, 0, 0);
-			img.setAttribute('src', canvas.toDataURL('image/webp'));
+			img.setAttribute('src', canvas.toDataURL('image/jpeg'));
 			if (gallery.hasChildNodes())
 				gallery.insertBefore(img, gallery.childNodes[0]);
 			else gallery.appendChild(img);
@@ -242,7 +242,7 @@
 
 			// FileUpload(file);
 		}
-	});
+	});*/
 
 	/*file_uploader.addEventListener('change', function(e) {
 		if (isFileImage(file_uploader[0])) {
