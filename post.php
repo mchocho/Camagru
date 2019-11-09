@@ -121,7 +121,6 @@ try {
 		</header>
 		<div class="wrapper main settings" align="center">
 			<div class="image_container">
-				<!-- <img src="images/uploads/underwater.jpg" /> -->
 				<?php
 					echo '<img src="images/uploads/' . $result['name'] . '" />';
 				?>
@@ -141,10 +140,10 @@ try {
 				<?php 
 					try {
 						$q      = "SELECT * FROM comment WHERE (image_id = ?)";
-						$comment = $dbc->prepare($q);
-						$comment->execute([$_GET['id']]);
-						$comment = $result->fetchAll()/*(PDO::FETCH_ASSOC)*/;
-						$comment_count = count($comment);
+						$comments = $dbc->prepare($q);
+						$comments->execute([$_GET['id']]);
+						$comments = $result->fetchAll()/*(PDO::FETCH_ASSOC)*/;
+						$comment_count = count($comments);
 					} catch (PDOException $e) {
 						ft_echo($e->getMessage());
 					}
@@ -167,10 +166,10 @@ try {
 				</form>
 				<ol class="comments">
 					<?php 
-						if (isset($comment)) {	
-							foreach ($comment as $key => $value) {
+						if (isset($comments)) {	
+							foreach ($comments as $key => $value) {
 								try {
-									$q      = "SELECT username FROM users WHERE (image_id = ?)";
+									$q      = "SELECT username FROM comments WHERE (image_id = ?)";
 									$user = $dbc->prepare($q);
 									$user->execute([$value['user_id']]);
 									$user = $user->fetch(PDO::FETCH_ASSOC);
