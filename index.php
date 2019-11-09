@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once('includes/ft_util.php');
+require_once('includes/getimages.php');
+scream();
 // require('getimages.php');
 ?>
 <!DOCTYPE html>
@@ -68,7 +71,7 @@ require ('includes/profile_header.php');
     <div class="wrapper main" align="center">
       <div class="image_container">
         <div class="row">
-          <div class="column">
+          <!-- <div class="column">
             <img src="images/uploads/wedding.jpg">
             <img src="images/uploads/rocks.jpg">
             <img src="images/uploads/falls2.jpg">
@@ -94,18 +97,16 @@ require ('includes/profile_header.php');
             <img src="images/uploads/nature.jpg">
             <img src="images/uploads/mist.jpg">
             <img src="images/uploads/paris.jpg">
-          </div>
+          </div> -->
 
           <!-- <div class="column"> -->
           <?php
-            //Determine amount of images
-           /* $total = $result->rowCount();
+            $i = 0;
 
-            $results_per_page = 14;
-
+            $total = count($result);
+            $results_per_page = 4;
             $page_count = ceil($total / $results_per_page);
 
-            //Determine the current page
             if (!isset($_GET['page']))
               $page = 1;
             else
@@ -114,17 +115,20 @@ require ('includes/profile_header.php');
             $first_results = ($page - 1) * $results_per_page;
 
             try {
-              $q = 'SELECT * FROM images LIMIT ' . $first_results . ',' . $results_per_page;
+              $q = 'SELECT id, name FROM images LIMIT ' . $first_results . ',' . $results_per_page;
               $result = $dbc->prepare($q);
               $result->execute();
-              $result = $result->fetchAll(PDO::FETCH_ARRAY);
+              $result = $result->fetchAll(PDO::FETCH_ASSOC);
 
               foreach($result as $key => $value) {
-                echo '<img src="images/uploads/' . $value['name'] . '" />';
+                echo '<a href="post.php?id=' . $value['id'] . '"><img src="images/uploads/' . $value['name'] . '" /></a>';
               }
+
+              // if ($total > 0)
+                // echo '<div>/';
             } catch (PDOException $err) {
               ft_echo("Something went wrong");
-            }*/
+            }
           ?>
         </div>
       </div>

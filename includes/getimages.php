@@ -5,7 +5,7 @@ ft_session_start();
 scream();
 
 
-if (isset($_SESSION['username'])) {
+// if (isset($_SESSION['username'])) {
 	try {
 		$q      = "SELECT name FROM images";
 		$result = $dbc->prepare($q);
@@ -15,4 +15,4 @@ if (isset($_SESSION['username'])) {
 	} catch (PDOException $err) {
 		echo "Something went wrong";
 	}
-}
+// }
