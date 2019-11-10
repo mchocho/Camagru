@@ -16,9 +16,16 @@ scream();
 	    <style>
 
 .row {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   padding: 0 4px;
+  margin: auto;
+}
+
+img {
+  width: 350px;
+  height: 350px;
 }
 
 /* Create four equal columns that sits next to each other */
@@ -26,12 +33,21 @@ scream();
   flex: 25%;
   max-width: 25%;
   padding: 0 4px;
+  margin: auto;
 }
 
 .column img {
   margin-top: 8px;
   vertical-align: middle;
   width: 100%;
+}
+
+.wrapper a {
+  position: unset !important;
+}
+
+.wrapper.main {
+
 }
 
 /* Responsive layout - makes a two column-layout instead of four columns */
@@ -69,37 +85,8 @@ require ('includes/profile_header.php');
 ?>
 </header>
     <div class="wrapper main" align="center">
-      <div class="image_container">
-        <div class="row">
-          <!-- <div class="column">
-            <img src="images/uploads/wedding.jpg">
-            <img src="images/uploads/rocks.jpg">
-            <img src="images/uploads/falls2.jpg">
-            <img src="images/uploads/paris.jpg">
-            <img src="images/uploads/nature.jpg">
-            <img src="images/uploads/mist.jpg">
-            <img src="images/uploads/paris.jpg">
-          </div>
-          <div class="column">
-            <img src="images/uploads/wedding.jpg">
-            <img src="images/uploads/rocks.jpg">
-            <img src="images/uploads/falls2.jpg">
-            <img src="images/uploads/paris.jpg">
-            <img src="images/uploads/nature.jpg">
-            <img src="images/uploads/mist.jpg">
-            <img src="images/uploads/paris.jpg">
-          </div>
-          <div class="column">
-            <img src="images/uploads/wedding.jpg">
-            <img src="images/uploads/rocks.jpg">
-            <img src="images/uploads/falls2.jpg">
-            <img src="images/uploads/paris.jpg">
-            <img src="images/uploads/nature.jpg">
-            <img src="images/uploads/mist.jpg">
-            <img src="images/uploads/paris.jpg">
-          </div> -->
-
-          <!-- <div class="column"> -->
+      <div class="image_container" align="center">
+        <div class="row" >
           <?php
             $i = 0;
 
@@ -119,6 +106,7 @@ require ('includes/profile_header.php');
               $result = $dbc->prepare($q);
               $result->execute();
               $result = $result->fetchAll(PDO::FETCH_ASSOC);
+              // $result = array_reverse($result);
 
               foreach($result as $key => $value) {
                 echo '<a href="post.php?id=' . $value['id'] . '"><img src="images/uploads/' . $value['name'] . '" /></a>';
@@ -131,6 +119,18 @@ require ('includes/profile_header.php');
             }
           ?>
         </div>
+        <?php 
+          // if (isset($page_count)) {
+              $page_i = 1;
+
+              while ($page_i <= $page_count) {
+                if ($page_i != 1)
+                  echo ' | ';
+                echo '<a href="index.php?page=' . $page_i . '">' . $page_i . '</a>';
+                $page_i++;
+              }
+          // }
+        ?>
       </div>
     </div>
   </body>

@@ -9,18 +9,19 @@ if (g_action() && isset($_GET['image_id'], $dbc) && is_array($result)) {
 		$user = $result;
 		$q = 'SELECT * FROM likes WHERE (user_id = ?) AND (image_id = ?)';
 		$result = $dbc->prepare($q);
-		$result->execute([$result['id'], $_GET['image_id']]);
+		$result->execute([$user['id'], $_GET['image_id']]);
 		$result = $result->fetch(PDO::FETCH_ASSOC);
 		
-		if (isset($result)) {
-			$q = 'DELETE * FROM likes WHERE (user_id = ?) AND (image_id = ?)';
-			$result = $dbc->prepare($q);
-			$result->execute([$result['id'], $_GET['image_id']]);
-			
+		if (is_array($result)) {
+			$q = 'DELETE FROM likes WHERE (user_id = ?) AND (image_id = ?)';
+			$like = $dbc->prepare($q);
+			$like->execute([$user['id'], $_GET['image_id']]);
+			echo '{"result": "unliked"}';
 		} else {
 			$q = 'INSERT INTO likes (user_id, image_id) VALUES (?, ?)';
-			$result = $dbc->prepare($q);
-			$result->execute([$result['id'], $_GET['image_id']]);
+			$like = $dbc->prepare($q);
+			$like->execute([$user['id'], $_GET['image_id']]);
+			echo '{"result": "liked"}';
 		}
 	} catch(PDOException $e) {
 		echo 'Something went wrong<br />';

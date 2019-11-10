@@ -2,15 +2,27 @@
 session_start();
 require('includes/ft_util.php');
 require('includes/sql_connect.php');
+require('includes/getusers.php');
+scream();
 
 if (!isset($_GET['id']))
 	ft_redirectuser();
 
 try {
+	//Fetch image details
 	$q      = "SELECT * FROM images WHERE (id = ?)";
 	$result = $dbc->prepare($q);
 	$result->execute([$_GET['id']]);
 	$result = $result->fetch(PDO::FETCH_ASSOC);
+
+	if (!isset($result))
+		ft_redirectuser();
+
+	//Fetch user who posted image
+	$q      = "SELECT username, email FROM users WHERE (id = ?)";
+	$p_user = $dbc->prepare($q);
+	$p_user->execute([$result['user_id']]);
+	$p_user = $p_user->fetch(PDO::FETCH_ASSOC);
 	// ft_print_r($result);
 } catch (PDOException $e) {
 	ft_echo($e->getMessage());
@@ -22,7 +34,7 @@ try {
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Awesome Title</title>
+		<title><?php echo $p_user['username'] . "'s POST"; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="manifest" href="manifest.webmanifest">
 		<link rel="stylesheet" href="css/style.css" media="all" />
@@ -125,15 +137,31 @@ try {
 					echo '<img src="images/uploads/' . $result['name'] . '" />';
 				?>
 			</div>
+			<span class="props">Posted by <?php echo $p_user['username']; ?></span>
 			<div class="social_container">
-				<button id="like" name="like">
-					<img src="images/icons/like.png" alt="like icon" />
-				</button>
+					<!-- <img src="images/icons/like.png" id="like-img" alt="like icon" /> -->
+					<?php
+						if (isset($_SESSION['id'])) {
+							try {
+								"SELECT id FROM likes WHERE (user_id = ?) AND (image_id = )";
+								$like = $dbc->prepare($q);
+								$like->execute([$_GET['id']]);
+								$like = $like->fetch(PDO::FETCH_ASSOC);
+
+								echo '<button id="like" name="like">';
+								if (isset($like))
+									echo '<img src="images/icons/like_red.png" id="like-img" alt="like icon" />';
+								else
+									echo '<img src="images/icons/like.png" id="like-img" alt="like icon" />';
+								echo '</button>';
+							} catch (PDOException $e) {
+								ft_echo($e->getMessage());
+							}
+						}
+
+					?>
 				<button id="share" name="share">
 					<img src="images/icons/share.png" alt="share icon" />
-				</button>
-				<button id="delete" name="delete">
-					<img src="images/icons/delete.png" alt="delte icon" />
 				</button>
 			</div>
 			<div class="comments_container">
@@ -142,7 +170,7 @@ try {
 						$q      = "SELECT * FROM comment WHERE (image_id = ?)";
 						$comments = $dbc->prepare($q);
 						$comments->execute([$_GET['id']]);
-						$comments = $result->fetchAll()/*(PDO::FETCH_ASSOC)*/;
+						$comments = $comments->fetchAll()/*(PDO::FETCH_ASSOC)*/;
 						$comment_count = count($comments);
 					} catch (PDOException $e) {
 						ft_echo($e->getMessage());
@@ -152,7 +180,7 @@ try {
 				<span class="heading">Comments</span>
 				<span class="count">
 					<?php
-						ft_echo("hello world"); 
+						// ft_echo("hello world"); 
 						if (isset($comment_count))
 							echo $comment_count;
 						else echo "0";
@@ -169,7 +197,7 @@ try {
 						if (isset($comments)) {	
 							foreach ($comments as $key => $value) {
 								try {
-									$q      = "SELECT username FROM comments WHERE (image_id = ?)";
+									$q      = "SELECT username FROM users WHERE (image_id = ?)";
 									$user = $dbc->prepare($q);
 									$user->execute([$value['user_id']]);
 									$user = $user->fetch(PDO::FETCH_ASSOC);
@@ -216,7 +244,7 @@ try {
 					document.getElementById('like'),
 					document.getElementById('share'),
 					document.getElementById('delete')
-				];
+				], likeImage = document.getElementById('like-img');
 
 				function xhr(url, method, onSuccess, onError) {
 					// 1. Create a new XMLHttpRequest object
@@ -230,6 +258,7 @@ try {
 
 					// 4. This will be called after the response is received
 					xhr.onload = function() {
+						console.log(xhr.status);
 					  if (xhr.status != 200) { // analyze HTTP status of the response
 					    // alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
 					    onError(xhr)
@@ -239,14 +268,14 @@ try {
 					  }
 					};
 
-					xhr.onprogress = function(event) {
+					/*xhr.onprogress = function(event) {
 					  if (event.lengthComputable) {
 					    alert(`Received ${event.loaded} of ${event.total} bytes`);
 					  } else {
 					    alert(`Received ${event.loaded} bytes`); // no Content-Length
 					  }
 
-					};
+					};*/
 
 					xhr.onerror = function() {
 					  alert("Request failed");
@@ -254,7 +283,24 @@ try {
 				}
 
 				buttons[0].addEventListener('click', function() {
-
+					/*if (likeImage.classList.contains('liked')) {
+						
+					} else {
+						
+					}*/
+					<?php echo "xhr('includes/likes.php?image_id=" . $result['id'] . '\''; ?>, 'GET', function(xhr) {
+						console.log(xhr.responseText);
+						const result = JSON.parse(xhr.responseText);
+						if (result.result === 'liked') {
+							likeImage.src = 'images/icons/like_red.png';
+							likeImage.classList.add('liked');
+						} else {
+							likeImage.src = 'images/icons/like.png';
+							likeImage.classList.remove('liked');
+						}
+					}, function(xhr) {
+						console.log(xhr.responseText);
+					});
 				});
 			});
 		</script>

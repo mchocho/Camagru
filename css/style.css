@@ -1,3 +1,7 @@
+body {
+	background: white;
+}
+
 .header {
 	display: block;
 }
@@ -82,7 +86,7 @@ h1 {
 
 .wrapper.main {
 	width: 100%;
-	padding-left: 12%;
+	/*padding-left: 12%;*/
 }
 
 .wrapper.main.settings {
