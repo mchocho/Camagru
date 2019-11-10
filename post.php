@@ -38,83 +38,7 @@ try {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="manifest" href="manifest.webmanifest">
 		<link rel="stylesheet" href="css/style.css" media="all" />
-		<style>
-			.wrapper {
-				margin: auto;
-				width: 100%;
-			}
-
-			.wrapper * {
-				/*margin: auto;*/
-			}
-
-			.image_container img {
-				width: 40%;
-				height: 500px;
-			}
-
-			button, button:active, button:focus {
-				width: 25%;
-				height: 25px;
-				background: unset;
-				border: unset;
-				margin-top: -2%;
-				margin-left: -20%;
-				cursor: pointer;
-				display: inline-block;
-				/*background: yellow;*/
-			}
-
-			button #share, button #delete {
-				/*margin-left: -25%;*/
-				/*position: relative;*/
-				/*right: 11%;*/
-			}
-
-			#like {
-				z-index: 99999;
-			}
-
-			#share {
-				right: 16%;
-			}
-
-			.social_container img {
-				-webkit-transform: scale(0.5);
-        			-ms-transform: scale(0.5);
-            			transform: scale(0.5);
-			}
-
-			.comments_container {
-				margin-top: -25px;
-			}
-
-			hr {
-				width: 40%;
-			}
-
-			.comments {
-				width: 40%;
-				list-style: none;
-				text-align: left;
-
-			}
-
-			.username {
-				display: inline-block;
-				font-size: 105%;
-				font-weight: bold;
-				font-style: italic;
-			}
-
-			blockquote {
-				display: inline-block;
-			}
-
-			.created {
-				display: block;
-			}
-		</style>
+		<link rel="stylesheet" href="css/post.css" media="all" />
 	</head>
 	<body>
 		<!-- Content goes here -->
@@ -179,7 +103,6 @@ try {
 				<span class="heading">Comments</span>
 				<span class="count">
 					<?php
-						// ft_echo("hello world"); 
 						if (isset($comment_count))
 							echo $comment_count;
 						else echo "0";
@@ -190,7 +113,6 @@ try {
 					<textarea id="comment" name="comment" placeholder="Add a comment"></textarea>
 					<input type="submit" id="comment_submit" name="submit" class="btn" value="Post" disabled="disabled"/>
 					<?php echo '<input type="hidden" name="image" value="' . $_GET['id'] . '" />'; ?>
-					<!-- <input type="hidden" name="image" value="This will be an image id" /> -->
 				</form>
 				<ol class="comments" id="comment_list" >
 					<?php 

@@ -1,0 +1,75 @@
+.wrapper {
+	margin: auto;
+	width: 100%;
+}
+
+.wrapper * {
+	/*margin: auto;*/
+}
+
+.image_container img {
+	width: 40%;
+	height: 500px;
+}
+
+button, button:active, button:focus {
+	width: 25%;
+	height: 25px;
+	background: unset;
+	border: unset;
+	margin-top: -2%;
+	margin-left: -20%;
+	cursor: pointer;
+	display: inline-block;
+	/*background: yellow;*/
+}
+
+button #share, button #delete {
+	/*margin-left: -25%;*/
+	/*position: relative;*/
+	/*right: 11%;*/
+}
+
+#like {
+	z-index: 99999;
+}
+
+#share {
+	right: 16%;
+}
+
+.social_container img {
+	-webkit-transform: scale(0.5);
+		-ms-transform: scale(0.5);
+			transform: scale(0.5);
+}
+
+.comments_container {
+	margin-top: -25px;
+}
+
+hr {
+	width: 40%;
+}
+
+.comments {
+	width: 40%;
+	list-style: none;
+	text-align: left;
+
+}
+
+.username {
+	display: inline-block;
+	font-size: 105%;
+	font-weight: bold;
+	font-style: italic;
+}
+
+blockquote {
+	display: inline-block;
+}
+
+.created {
+	display: block;
+}

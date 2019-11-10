@@ -302,6 +302,20 @@ require ('includes/profile_header.php');
 		}
 	});
 
+	function addSup(el) {
+	    var imageSrc = el.src;
+	    var sup = document.getElementById('supImage');
+	    sup.setAttribute('src', imageSrc);
+	    document.getElementById('capture').disabled = false;
+	}
+
+	function addSup1(el1) {
+	    var imageSrc = el1.src;
+	    var sup1 = document.getElementById('supImage1');
+	    sup1.setAttribute('src', imageSrc);
+	    document.getElementById('capture').disabled = false;
+	}
+
 	trigger.addEventListener('click', function() {
 		if (streamActive === true) {
 			const img = document.createElement('img'),
