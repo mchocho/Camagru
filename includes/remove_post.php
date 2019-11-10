@@ -10,12 +10,9 @@ if (isset($_GET['image'], $_SESSION['id'])) {
 		$result = $dbc->prepare($q);
 		$result->execute([$_SESSION['id'], $_GET['image']]);
 
-		// echo "Removed image id --> " . $_GET['image'];
-		ft_redirectuser('../image_uploads.php');
-		// $result = $result->fetch(PDO::FETCH_ASSOC);
 	} catch (PDOException $err) {
-		// echo "Something went wrong</br />";
 		ft_print_r($err);
 	}
 }
+ft_redirectuser('../image_uploads.php');
 ?>

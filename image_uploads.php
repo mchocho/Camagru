@@ -4,7 +4,7 @@ require_once ('includes/ft_util.php');
 scream();
 require_once('includes/sql_connect.php');
 if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) {
-	ft_redirectuser();
+	ft_redirectuser('login.php');
 }
 ?>
 <!DOCTYPE html>

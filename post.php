@@ -139,17 +139,16 @@ try {
 			</div>
 			<span class="props">Posted by <?php echo $p_user['username']; ?></span>
 			<div class="social_container">
-					<!-- <img src="images/icons/like.png" id="like-img" alt="like icon" /> -->
 					<?php
 						if (isset($_SESSION['id'])) {
 							try {
-								"SELECT id FROM likes WHERE (user_id = ?) AND (image_id = )";
+								$q = "SELECT id FROM likes WHERE (user_id = ?) AND (image_id = ?)";
 								$like = $dbc->prepare($q);
-								$like->execute([$_GET['id']]);
+								$like->execute([$_SESSION['id'], $_GET['id']]);
 								$like = $like->fetch(PDO::FETCH_ASSOC);
 
 								echo '<button id="like" name="like">';
-								if (isset($like))
+								if (is_array($like))
 									echo '<img src="images/icons/like_red.png" id="like-img" alt="like icon" />';
 								else
 									echo '<img src="images/icons/like.png" id="like-img" alt="like icon" />';
@@ -187,23 +186,29 @@ try {
 					?>
 				</span>
 				<hr />
-				<form method="POST" action="includes/comments.php">
+				<form method="POST" action="includes/comments.php" id="comment_form" >
 					<textarea id="comment" name="comment" placeholder="Add a comment"></textarea>
-					<input type="submit" name="submit" class="btn" value="Post" />
+					<input type="submit" id="comment_submit" name="submit" class="btn" value="Post" disabled="disabled"/>
+					<?php echo '<input type="hidden" name="image" value="' . $_GET['id'] . '" />'; ?>
 					<!-- <input type="hidden" name="image" value="This will be an image id" /> -->
 				</form>
-				<ol class="comments">
+				<ol class="comments" id="comment_list" >
 					<?php 
 						if (isset($comments)) {	
 							foreach ($comments as $key => $value) {
 								try {
-									$q      = "SELECT username FROM users WHERE (image_id = ?)";
+									$q      = "SELECT username FROM users WHERE (id = ?)";
 									$user = $dbc->prepare($q);
 									$user->execute([$value['user_id']]);
 									$user = $user->fetch(PDO::FETCH_ASSOC);
 
-									$html = '<li><span class="username">' . $user['username'] . '</span>';
-									$html .= '<blockquote>' . $result['message'] . '</<blockquote></li>';
+									$username = $user['username'];
+									if (isset($_SESSION['username']) && $_SESSION['username'] === $user['username'])
+										$username = 'You';
+
+
+									$html = '<li><span class="username">' . $username . '</span>';
+									$html .= '<blockquote>' . htmlspecialchars($value['message']) . '</<blockquote></li>';
 
 									echo $html;
 								}  catch (PDOException $e) {
@@ -212,26 +217,6 @@ try {
 							}
 						}
 					?>
-					<li>
-						<span class="username">Adam</span>
-						<blockquote>JFC this pic describes how I feel inside</blockquote>
-						<span class="created">3d</span>
-					</li>
-					<li>
-						<span class="username">Tshego</span>
-						<blockquote>Wow</blockquote>
-						<span class="created">3h</span>
-					</li>
-					<li>
-						<span class="username">Guy</span>
-						<blockquote>Cool</blockquote>
-						<span class="created">3m</span>
-					</li>
-					<li>
-						<span class="username">Buddy</span>
-						<blockquote>Big ups to the photographer. We know that these kind of shots are what make great photographers.</blockquote>
-						<span class="created">3d</span>
-					</li>
 				</ol>
 			</div>
 		</div>
@@ -243,15 +228,23 @@ try {
 				const buttons = [
 					document.getElementById('like'),
 					document.getElementById('share'),
-					document.getElementById('delete')
-				], likeImage = document.getElementById('like-img');
+					document.getElementById('delete'),
+					document.getElementById('comment_submit')
+				],
+				likeImage = document.getElementById('like-img'),
+				comment_form = document.getElementById('comment_form'),
+				comment_box = document.getElementById('comment'),
+				imageId = <?php echo "'" . $result['id'] . "'"; ?>;
 
-				function xhr(url, method, onSuccess, onError) {
+				function xhr(url, method, form, onSuccess, onError) {
 					// 1. Create a new XMLHttpRequest object
 					let xhr = new XMLHttpRequest();
 
 					// 2. Configure it: GET-request for the URL /article/.../load
 					xhr.open(method, url);
+
+					//Check if formData has been set
+
 
 					// 3. Send the request over the network
 					xhr.send();
@@ -282,26 +275,49 @@ try {
 					};
 				}
 
-				buttons[0].addEventListener('click', function() {
-					/*if (likeImage.classList.contains('liked')) {
-						
+				//Like button clicked
+				if (buttons[0] !== null) {
+					buttons[0].addEventListener('click', function() {
+						xhr('includes/likes.php?image_id=' + imageId, 'GET', null, function(xhr) {
+							console.log(xhr.responseText);
+							const result = JSON.parse(xhr.responseText);
+							if (result.result === 'liked') {
+								likeImage.src = 'images/icons/like_red.png';
+								likeImage.classList.add('liked');
+							} else {
+								likeImage.src = 'images/icons/like.png';
+								likeImage.classList.remove('liked');
+							}
+						}, function(xhr) {
+							console.log(xhr.responseText);
+						});
+					});
+				}
+
+				//Text box event listener
+				comment_box.addEventListener('keyup', function() {
+					if (comment_box.value) {
+						buttons[3].removeAttribute('disabled');
 					} else {
-						
-					}*/
-					<?php echo "xhr('includes/likes.php?image_id=" . $result['id'] . '\''; ?>, 'GET', function(xhr) {
+						buttons[3].setAttribute('disabled', 'true');
+					}
+				});
+
+				//Comment submit button
+				/*buttons[3].addEventListener('click', function() {
+					const formData = new FormData(comment_form),
+						  comment_list = document.getElementById('comment_list');
+					xhr('includes/comments.php', 'POST', null, function(xhr) {
 						console.log(xhr.responseText);
 						const result = JSON.parse(xhr.responseText);
-						if (result.result === 'liked') {
-							likeImage.src = 'images/icons/like_red.png';
-							likeImage.classList.add('liked');
-						} else {
-							likeImage.src = 'images/icons/like.png';
-							likeImage.classList.remove('liked');
+						
+						if (result.status === 'OK') {
+
 						}
 					}, function(xhr) {
 						console.log(xhr.responseText);
 					});
-				});
+				});*/
 			});
 		</script>
 	</body>

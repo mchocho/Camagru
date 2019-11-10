@@ -24,8 +24,8 @@ scream();
 }
 
 img {
-  width: 350px;
-  height: 350px;
+  width: 400px;
+  height: 400px;
 }
 
 /* Create four equal columns that sits next to each other */
@@ -44,7 +44,12 @@ img {
 
 .wrapper a {
   position: unset !important;
+  display: flex-inline;
 }
+
+.wrapper a img {
+  /*margin: auto;*/
+} 
 
 .wrapper.main {
 
@@ -80,18 +85,17 @@ img {
           <h1>Mojo</h1>
         </div>
       </a>
-<?php
-require ('includes/profile_header.php');
-?>
-</header>
+      <?php
+      require ('includes/profile_header.php');
+      ?>
+    </header>
     <div class="wrapper main" align="center">
       <div class="image_container" align="center">
-        <div class="row" >
+        <div class="row" align="center">
           <?php
             $i = 0;
-
             $total = count($result);
-            $results_per_page = 4;
+            $results_per_page = 8;
             $page_count = ceil($total / $results_per_page);
 
             if (!isset($_GET['page']))
@@ -101,21 +105,11 @@ require ('includes/profile_header.php');
 
             $first_results = ($page - 1) * $results_per_page;
 
-            try {
-              $q = 'SELECT id, name FROM images LIMIT ' . $first_results . ',' . $results_per_page;
-              $result = $dbc->prepare($q);
-              $result->execute();
-              $result = $result->fetchAll(PDO::FETCH_ASSOC);
-              // $result = array_reverse($result);
-
-              foreach($result as $key => $value) {
-                echo '<a href="post.php?id=' . $value['id'] . '"><img src="images/uploads/' . $value['name'] . '" /></a>';
-              }
-
-              // if ($total > 0)
-                // echo '<div>/';
-            } catch (PDOException $err) {
-              ft_echo("Something went wrong");
+            while($i < $results_per_page) {
+              if ($first_results > -1)
+                echo '<a href="post.php?id=' . $result[$first_results]['id'] . '"><img src="images/uploads/' . $result[$first_results]['name'] . '" /></a>';
+              $first_results--;
+              $i++;
             }
           ?>
         </div>

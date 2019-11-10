@@ -64,9 +64,9 @@ if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['no
 					<h1>Mojo</h1>
 				</div>
 			</a>
-<?php
-require ('includes/profile_header.php');
-?>
+			<?php
+				require ('includes/profile_header.php');
+			?>
 		</header>
 		<div class="wrapper main settings" align="center">
 			<h2>Settings</h2>
@@ -120,36 +120,34 @@ require ('includes/profile_header.php');
 					</form>
 				</div>
 				<div class="edit notifications">
-<?php
-$str = "Notifications are currently ";
-if ($result['notifications'] === 'T') {
-	$str .= "enabled";
-} else {
+					<?php
+						$str = "Notifications are currently ";
+						if ($result['notifications'] === 'T') {
+							$str .= "enabled";
+						} else {
 
-	$str .= "disabled";
-}
+							$str .= "disabled";
+						}
 
-echo '<p>'.$str.'</p>';
-?>
-<input type="button" id="edit_notifications" value="Change notifications" class="btn" />
+						echo '<p>'.$str.'</p>';
+					?>
+					<input type="button" id="edit_notifications" value="Change notifications" class="btn" />
 					<form action="includes/handle_settings.php" method="POST" id="notifications_input" class="input hide">
 						<label>
-<?php
-$val = '';
-echo '<div id="icon_slider" class="icon slider';
-if ($result['notifications'] === 'F') {
-	echo ' off';
-}
-
-echo '">';
-echo '<input type="checkbox" id="slider_input" name="notifications" value="on"';
-if ($result['notifications'] === 'T') {
-	echo ' checked="check"';
-}
-
-echo ' /></div>';
-?>
-</label>
+						<?php
+							$val = '';
+							echo '<div id="icon_slider" class="icon slider';
+							if ($result['notifications'] === 'F') {
+								echo ' off';
+							}
+							echo '">';
+							echo '<input type="checkbox" id="slider_input" name="notifications" value="on"';
+							if ($result['notifications'] === 'T') {
+								echo ' checked="check"';
+							}
+							echo ' /></div>';
+						?>
+						</label>
 						<input type="submit" name="submit" value="Save" class="btn" />
 						<input type="hidden" name="setnotifications" value="true" />
 					</form>
@@ -202,7 +200,6 @@ echo ' /></div>';
 			});
 
 			document.getElementById('file').addEventListener('change', function handleFiles(files) {
-  				//for (let i = 0; i < files.length; i++) {
 				const file = document.getElementById('file')[0],
 					img = document.getElementById('pic');
 
@@ -220,7 +217,6 @@ echo ' /></div>';
 					};
 				};
 				reader.readAsDataURL(file);
-				//}
 			});
 
 			document.getElementById('slider_input').addEventListener('change', function() {
