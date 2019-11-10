@@ -35,6 +35,10 @@ function scream() {
 	return;
 }
 
+function stfu() {
+	error_reporting(0);
+}
+
 function issetstr($value) {
 	return (is_string($value) && !empty($value));
 }
@@ -74,7 +78,7 @@ function hash_password($password) {
 
 function email_client($to, $subject, $body) {
 	if (is_email($to) && issetstr($subject) && issetstr($body)) {
-		return mail($to, $subject, wordwrap($body, 70), 'From: no-reply@Mojo.com');
+		return @mail($to, $subject, wordwrap($body, 70), 'From: no-reply@Mojo.com');
 	}
 	return false;
 }
