@@ -1,0 +1,102 @@
+.hide {
+	display: none;
+	visibility: hidden;
+}
+
+video {
+	width: 600px;
+	height: 600px;
+	position: absolute;
+	display: inline-block;
+}
+
+input {
+	display: block;
+}
+
+.prview_container {
+	position: absolute;
+}
+
+canvas {
+	display: none;
+	visibility: hidden;
+}
+
+.stream.container {
+	width: 600px;
+	height: 600px;
+	border: 1px solid #000;
+	display: inline-block;
+	margin-left: 6%;
+}
+
+.camera {
+	width: 128px;
+	height: 128px;
+	background: url('../images/icons/camera.png');
+	margin: auto;
+}
+
+.file {
+	display: none;
+	visibility: hidden;
+}
+
+.image_gallery {
+	width: 100%;
+	margin: auto;
+}
+
+.image_gallery .img {
+	width: 400px;
+	height: 400px;
+	display: inline-block;
+}
+
+.image_gallery .img img {
+	width: 100%;
+}
+
+.image_gallery button {
+	width: 22%;
+	margin: auto;
+	position: relative;
+	right: 38%;
+	margin-top: -24%;
+	border: 1px solid #eee;
+}
+
+.button_container {
+	width: 20%;
+	display: inline-block;
+	margin-left: 5%;
+}
+
+.button_container .upload {
+	position: relative;
+	top: 9px;
+}
+
+.button_container .save {
+	float: right;
+	position: relative;
+	left: 65%;
+	margin-top: -14%;
+}
+
+.clip-art_container {
+	margin: 3% auto 0% auto;
+	width: 75%;
+	display: block;
+}
+
+.clip-art_container img {
+	width: 120px;
+	height: 120px;
+	border: 1px solid #000;
+}
+
+.image_gallery a {
+	text-decoration: none;
+}
