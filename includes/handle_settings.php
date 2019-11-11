@@ -2,7 +2,7 @@
 session_start();
 require ('sql_connect.php');
 require ('ft_util.php');
-scream();
+stfu();
 
 function changePassword($dbc, $newpassword) {
 	if (issetstr($newpassword) && isset($_SESSION['id'])) {//&& is_decentpw($newpassword)

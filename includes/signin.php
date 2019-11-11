@@ -1,26 +1,30 @@
 <?php
-$session_ready = (session_start())?true:false;
 require_once ('ft_util.php');
-scream();
+ft_session_start();
+stfu();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_SESSION['id'])) {
 	$errors        = array();
 
-	if (isset($_POST['username'])) {
+	if (isset($_POST['username']) && !empty($_POST['username'])) {
 		$u = trim($_POST['username']);
 	} else {
-		$errors[] = 'Please enter your password';
+		$errors[] = 'error_1=1';
 	}
 
-	if (isset($_POST['password'])) {
+	if (isset($_POST['password']) && !empty($_POST['password'])) {
 		$p = trim($_POST['password']);
 	} else {
-		$errors[] = 'Please enter your password.';
+		$errors[] = 'error_2=2';
 	}
 
 	if (!empty($errors)) {
-		print_r($errors);
-		die();
+		$url = '?';
+
+		foreach($errors as $key => $value) {
+			$url .= $value . '&';
+		}
+		ft_redirectuser('../signin.php' . $url);
 	}
 
 	try {
@@ -36,19 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if ($result['validated'] === 'F') {
 				ft_redirectuser('../verify_email.php');
 			} else {
-				if ($session_ready) {
-					$_SESSION['username'] = $result['username'];
-					$_SESSION['id']       = $result['id'];
-					$_SESSION['admin']    = $result['admin'];
-				}
+				$_SESSION['username'] = $result['username'];
+				$_SESSION['id']       = $result['id'];
+				$_SESSION['admin']    = $result['admin'];
 				ft_redirectuser('../');
 			}
 		} else {
-			echo "No results were found!";
+			ft_redirectuser('../signin.php?error_3=3' . $url);
 		}
 	} catch (PDOException $e) {
-		echo "Error: ".$e->getMessage();
-		$errors[] = "Your email or password was incorrect.";
-		ft_print_r($errors);
+		ft_redirectuser('../signin.php?error_3=3' . $url);
 	}
 }
+ft_redirectuser('../');

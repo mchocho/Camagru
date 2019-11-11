@@ -1,6 +1,7 @@
 <?php
 require_once ('ft_util.php');
 require_once ('sql_connect.php');
+ft_session_start();
 scream();
 
 function compose_letter($str) {
@@ -14,10 +15,6 @@ function compose_letter($str) {
 		return $letter;
 	}
 }
-
-// if (!session_start() || !issetstr($_SESSION['id'])) {
-// 	ft_redirectuser();
-// }
 
 if (!isset($_SESSION['email'])) {
 	$result = array(false, 'Please enter your email address');

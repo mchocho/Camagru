@@ -4,6 +4,16 @@ body {
 	height: 100%;
 }
 
+textarea {
+	resize: none;
+}
+
+ul.errors li {
+	color: red;
+	list-style: none;
+	text-overflow: wrap;
+}
+
 .header {
 	display: block;
 }
@@ -15,7 +25,6 @@ body {
 
 .header div {
 	display: inline;
-	/*float: left;*/
 }
 
 .header img {
@@ -47,8 +56,6 @@ h1 {
 }
 
 .user_profile_container.settings {
-	/*display: inline-block;*/
-	/*width: 100px;*/
 	margin-top: -18%;
 }
 
@@ -65,7 +72,6 @@ h1 {
 	font-weight: bold;
 	font-style: italic;
 	color: black;
-	/*text-align: center;*/
 }
 
 .user_profile_container .username, .user_profile_container .logout {
@@ -88,7 +94,6 @@ h1 {
 
 .wrapper.main {
 	width: 100%;
-	/*padding-left: 12%;*/
 }
 
 .wrapper.main.settings {

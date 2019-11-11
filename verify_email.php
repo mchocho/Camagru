@@ -1,4 +1,10 @@
-<?php require_once ('includes/ft_util.php');?>
+<?php 
+require_once ('includes/ft_util.php');
+ft_session_start();
+stfu();
+if (isset($_SESSION['username']) || isset($_SESSION['id']))
+	ft_redirectuser();
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,20 +13,26 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="manifest" href="manifest.webmanifest">
-		<!-- Use inline css -->
 		<style>
+			.content {
+				width: 100%;
+			}
 
+			.icon {
+				width: 90px;
+				height: 90px;
+			}
 		</style>
-		<!-- Or link external file -->
 		<link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
-		<!-- Content goes here -->
-
-		<div class="content">
+		<div class="wrapper" align="center">
 			<h2>A verification link has been sent to your email account</h2>
-			<p>Thanks for signing up. In order to start using Mojo, you need to confirm your email address.</p>
-			<p>Please click on the link that has just been sent to your email account to continue</p>
+			<img class="icon" src="images/icons/envelope.png" alt="envelope image" />
+			<div class="content">
+				<p>Thanks for signing up. In order to start using Mojo, you need to confirm your email address.</p>
+				<p>Please click on the link that has just been sent to your email account to continue</p>
+			</div>
 		</div>
 	</body>
 </html>

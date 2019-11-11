@@ -2,7 +2,7 @@
 session_start();
 require ('includes/ft_util.php');
 require ('includes/getusers.php');
-scream();
+stfu();
 if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['notifications'])) {
 	ft_redirectuser();
 }

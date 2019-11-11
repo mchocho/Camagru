@@ -1,8 +1,9 @@
 <?php
 require_once ('includes/ft_util.php');
-// if (session_start() && issetstr($_SESSION['username']) && issetstr($_SESSION['id'])) {
-	// ft_redirectuser();
-// }
+ft_session_start();
+stfu();
+if (isset($_SESSION['username']) || isset($_SESSION['id']))
+	ft_redirectuser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,9 +12,6 @@ require_once ('includes/ft_util.php');
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <title>Sign Up | Camagru</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <!-- Use inline css -->
-	    <!-- <style></style> -->
-	    <!-- Or link external file -->
         <link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body>
@@ -34,6 +32,33 @@ require_once ('includes/ft_util.php');
 		<div class="wrapper" align="center">
 			<h2>Sign Up</h2>
 			<form action="includes/registration.php" method="POST">
+				<ul class="errors">
+					<?php 
+						if (isset($_GET['error_1']))
+							echo '<li>Please enter your username</li>';
+
+						if (isset($_GET['error_2']))
+							echo '<li>Please enter your email address.</li>';
+
+						if (isset($_GET['error_3']))
+							echo '<li>The passwords provided don\'t match.</li>';
+
+						if (isset($_GET['error_4']))
+							echo '<li>Please enter a password of 5 characters. Use uppercase && lowercase.</li>';
+
+						if (isset($_GET['error_5']))
+							echo '<li>Please enter your password</li>';
+
+						if (isset($_GET['error_6']))
+							echo '<li>Email already exists</li>';
+
+						if (isset($_GET['error_7']))
+							echo '<li>Username already exists.</li>';
+
+						if (isset($_GET['error_8']))
+							echo '<li>Something went wrong. Please try again</li>';
+					?>
+				</ul>
 				<label>
 					<span>Username</span>
 					<input type="text" name="username" required="true" class="text" />

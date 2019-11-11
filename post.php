@@ -9,7 +9,6 @@ if (!isset($_GET['id']))
 	ft_redirectuser();
 
 try {
-	//Fetch image details
 	$q      = "SELECT * FROM images WHERE (id = ?)";
 	$result = $dbc->prepare($q);
 	$result->execute([$_GET['id']]);
@@ -18,16 +17,13 @@ try {
 	if (!isset($result))
 		ft_redirectuser();
 
-	//Fetch user who posted image
 	$q      = "SELECT username, email FROM users WHERE (id = ?)";
 	$p_user = $dbc->prepare($q);
 	$p_user->execute([$result['user_id']]);
 	$p_user = $p_user->fetch(PDO::FETCH_ASSOC);
-	// ft_print_r($result);
 } catch (PDOException $e) {
 	ft_echo($e->getMessage());
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -71,6 +67,12 @@ try {
 								$like->execute([$_SESSION['id'], $_GET['id']]);
 								$like = $like->fetch(PDO::FETCH_ASSOC);
 
+								$q	    = "SELECT id FROM likes WHERE (image_id = ?)";
+								$like_count = $dbc->prepare($q);
+								$like_count->execute([$_GET['id']]);
+								$like_count = $like_count->fetchAll();
+								$like_count = count($like_count);
+
 								echo '<button id="like" name="like">';
 								if (is_array($like))
 									echo '<img src="images/icons/like_red.png" id="like-img" alt="like icon" />';
@@ -93,7 +95,7 @@ try {
 						$q      = "SELECT * FROM comment WHERE (image_id = ?)";
 						$comments = $dbc->prepare($q);
 						$comments->execute([$_GET['id']]);
-						$comments = $comments->fetchAll()/*(PDO::FETCH_ASSOC)*/;
+						$comments = $comments->fetchAll();
 						$comment_count = count($comments);
 					} catch (PDOException $e) {
 						ft_echo($e->getMessage());
@@ -101,18 +103,27 @@ try {
 				?>
 				<hr />
 				<span class="heading">Comments</span>
-				<span class="count">
+				<span id="comment_count" class="count">
 					<?php
 						if (isset($comment_count))
 							echo $comment_count;
 						else echo "0";
 					?>
 				</span>
+				<span> | </span>
+				<span class="heading">Likes</span>
+				<span id="like_count" class="count">
+					<?php
+						if (isset($like_count))
+							echo $like_count;
+						else echo "0";
+					?>
+				</span>
 				<hr />
 				<form method="POST" action="includes/comments.php" id="comment_form" >
-					<textarea id="comment" name="comment" placeholder="Add a comment"></textarea>
+					<textarea id="comment" name="comment" placeholder="Add a comment" <?php if (!isset($_SESSION['id'])) echo 'disabled="disabled"'; ?> ></textarea>
 					<input type="submit" id="comment_submit" name="submit" class="btn" value="Post" disabled="disabled"/>
-					<?php echo '<input type="hidden" name="image" value="' . $_GET['id'] . '" />'; ?>
+					<?php echo '<input type="hidden" id="image" name="image" value="' . $_GET['id'] . '" />'; ?>
 				</form>
 				<ol class="comments" id="comment_list" >
 					<?php 
@@ -156,22 +167,21 @@ try {
 				likeImage = document.getElementById('like-img'),
 				comment_form = document.getElementById('comment_form'),
 				comment_box = document.getElementById('comment'),
-				imageId = <?php echo "'" . $result['id'] . "'"; ?>;
+				imageId = <?php
+						if (isset($result['id']))
+							echo "'" . $result['id'] . "';";
+						else
+							echo "null;";
+					?>
+
 
 				function xhr(url, method, form, onSuccess, onError) {
-					// 1. Create a new XMLHttpRequest object
 					let xhr = new XMLHttpRequest();
-
-					// 2. Configure it: GET-request for the URL /article/.../load
 					xhr.open(method, url);
-
-					//Check if formData has been set
-
-
-					// 3. Send the request over the network
-					xhr.send();
-
-					// 4. This will be called after the response is received
+					if (form instanceof FormData)
+						xhr.send(form);
+					else
+						xhr.send();
 					xhr.onload = function() {
 						console.log(xhr.status);
 					  if (xhr.status != 200) { // analyze HTTP status of the response
@@ -202,13 +212,16 @@ try {
 					buttons[0].addEventListener('click', function() {
 						xhr('includes/likes.php?image_id=' + imageId, 'GET', null, function(xhr) {
 							console.log(xhr.responseText);
-							const result = JSON.parse(xhr.responseText);
+							const result = JSON.parse(xhr.responseText),
+							     like_count = document.getElementById('like_count');
 							if (result.result === 'liked') {
 								likeImage.src = 'images/icons/like_red.png';
 								likeImage.classList.add('liked');
+								like_count.innerHTML = parseInt(like_count.innerHTML) + 1;
 							} else {
 								likeImage.src = 'images/icons/like.png';
 								likeImage.classList.remove('liked');
+								like_count.innerHTML = parseInt(like_count.innerHTML) - 1;
 							}
 						}, function(xhr) {
 							console.log(xhr.responseText);
@@ -229,12 +242,30 @@ try {
 				/*buttons[3].addEventListener('click', function() {
 					const formData = new FormData(comment_form),
 						  comment_list = document.getElementById('comment_list');
+					
+					//formData.append('image_id', document.getElementById('image_id').value);
 					xhr('includes/comments.php', 'POST', null, function(xhr) {
 						console.log(xhr.responseText);
-						const result = JSON.parse(xhr.responseText);
-						
-						if (result.status === 'OK') {
+						const result = JSON.parse(xhr.responseText),
+						     li = document.createElement('li'),
+						     span = document.createElement('span'),
+						     bq = document.createElement('blockquote');
 
+						if (result.status === 'OK') {
+							
+							span.textContent = 'You';
+							span.setAttribute('class', 'username');
+							bq.textContent = commentBox.value;
+
+							li.appendChild(span);
+							li.appendChild(bq);
+							
+							if (comment_list.hasChildNodes())
+								comment_list.insertBefore(li, comment_list.childNodes[0]);
+							else
+								comment_list.appendChild(li);
+						} else {
+							console.log("You're comment could not be processed.");
 						}
 					}, function(xhr) {
 						console.log(xhr.responseText);

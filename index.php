@@ -2,8 +2,7 @@
 session_start();
 require_once('includes/ft_util.php');
 require_once('includes/getimages.php');
-scream();
-// require('getimages.php');
+stfu();
 ?>
 <!DOCTYPE html>
 <html>
@@ -108,7 +107,7 @@ img {
             while($i < $results_per_page) {
               if ($first_results > -1)
                 echo '<a href="post.php?id=' . $result[$first_results]['id'] . '"><img src="images/uploads/' . $result[$first_results]['name'] . '" /></a>';
-              $first_results--;
+              $first_results++;
               $i++;
             }
           ?>

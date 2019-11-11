@@ -64,8 +64,23 @@ function presetinput_select($name, $value) {
 	return;
 }
 
+
 function is_email($value) {
 	return (is_string($value) && isset($value) && filter_var($value, FILTER_VALIDATE_EMAIL));
+}
+
+function contains_lc($str) {
+	return ($str !== strtoupper($str));
+}
+
+function contains_up($str) {
+	return ($str !== strtolower($str));
+}
+
+function is_securepassword($password) {
+	if (issetstr($password))
+		return (contains_lc($password) && contains_up($password) && strlen($password) <= 5);
+	return false;
 }
 
 function is_validpassword($password, $hash) {

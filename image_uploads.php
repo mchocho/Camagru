@@ -4,7 +4,7 @@ require_once ('includes/ft_util.php');
 scream();
 require_once('includes/sql_connect.php');
 if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) {
-	ft_redirectuser('login.php');
+	ft_redirectuser('signin.php');
 }
 ?>
 <!DOCTYPE html>
@@ -12,131 +12,12 @@ if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) {
 	<head>
 	    <meta charset="utf-8" />
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	    <title>Awesome Title</title>
+	    <title>Image uploads | Mojo</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <!-- Use inline css -->
-		<style>
-			.hide {
-				display: none;
-				visibility: hidden;
-			}
-
-			video {
-				width: 100%;
-				height: 100%;
-				display: inline-block;
-			}
-
-			button.upload {
-			/*	width: 25%;
-				border: none;
-				background: #000;
-				color: white;
-			*/}
-
-			input {
-				display: block;
-			}
-
-			canvas {
-				display: none;
-				visibility: hidden;
-			}
-
-			.stream.container {
-				width: 600px;
-				height: 600px;
-				border: 1px solid #000;
-				display: inline-block;
-				margin-left: 6%;
-			}
-
-			.camera {
-				width: 128px;
-				height: 128px;
-				background: url('images/icons/camera.png');
-				margin: auto;
-			}
-
-			.file {
-				display: none;
-				visibility: hidden;
-			}
-
-			.image_gallery {
-				width: 100%;
-				margin: auto;
-				/*height: 450px;*/
-				/*overflow-y: scroll;*/
-			}
-
-			.image_gallery .img {
-				width: 400px;
-				height: 400px;
-				display: inline-block;
-				/*display: inline;*/
-				/*background: yellow;*/
-			}
-
-			.image_gallery .img img {
-				width: 100%;
-				/*height: 100%;*/
-				/*display: inline-block;*/
-				/*display: inline;*/
-			}
-
-			.image_gallery button {
-				/*background: unset;*/
-				/*width: 10%;*/
-				width: 22%;
-				/*padding: unset;*/
-				/*float: right;*/
-				margin: auto;
-				position: relative;
-				right: 38%;
-				margin-top: -24%;
-				border: 1px solid #eee;
-			}
-
-			.button_container {
-				width: 30%;
-				display: inline-block;
-				margin-left: 5%;
-				/*position: relative;*/
-				/*top: 30px;*/
-			}
-
-			.button_container .upload {
-				position: relative;
-				top: 9px;
-			}
-
-			.image_gallery a {
-				text-decoration: none;
-			}
-
-			.img .delete {
-				/*position: absolute;*/
-				/*float: left;*/
-			}
-
-			form button .upload {
-				/*margin-top: 30px;*/
-				/*display: inline-block;*/
-			}
-
-			/*.img .delete img {
-				width: 25%;
-				height: 25%;
-				text-align: left;
-			}*/
-
-		</style>
-	    <!-- Or link external file -->
         <link rel="stylesheet" href="css/style.css" media="all" />
+        <link rel="stylesheet" href="css/uploads.css" media="all" />
 	</head>
 	<body>
-		<!-- Content goes here -->
 		<header class="header">
 			<a href="index.php">
 				<div class="logo">
@@ -146,13 +27,21 @@ if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) {
 					<h1>Mojo</h1>
 				</div>
 			</a>
-<?php
-require ('includes/profile_header.php');
-?></header>
-		<div class="wrapper main settings">
+			<?php
+				require ('includes/profile_header.php');
+			?></header>
+		<div class="wrapper main settings">	
 			<div id="stream_container" class="stream container">
-				<span id="hint">Click to open camera <div class="camera"></div></span>
+				<span id="hint" class="">Click to open camera <div class="camera"></div></span>
 				<video id="video" class="hide" autoplay></video>
+				<div class="prview_container">
+					<div id="preview">
+						<img src="images/stickers/empty.png" id="supImage" width="160px" height="120px" />
+					</div>
+					<div id="preview1">
+						<img src="images/stickers/empty.png" id="supImage1" width="260px" height="220px" />
+					</div>
+				</div>
 				<canvas></canvas>
 			</div>
 			<div class="button_container">
@@ -166,8 +55,27 @@ require ('includes/profile_header.php');
 					<button type="submit" id="save" class="btn save" name="submit" value="save">Save</button>
 				</form>
 			</div>
-			<div class="clip-art_container">
-				<span>A bunch of selectable images go here!</span>
+			<div class="clip-art_container" align="center">
+				<div id="sticker" width= 1px>
+                       <img class="thumbnail" src="images/stickers/empty.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/mojo.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/mojo_1.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/mojo_2.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/hey.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/lowkey_dog.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/sexy_dog.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/sad_dog.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/cool_dog.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/dog_overlay.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/dinosaur.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/thinking.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/donald_trump.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/donald_trump_1.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/food.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/money.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/aliengrid.png" onclick="addSup(this)"/>
+                       <img class="thumbnail" src="images/stickers/chestburster.png" onclick="addSup(this)"/>
+				</div>
 			</div>
 			<div id="gallery" class="image_gallery" align="center">
 				<?php
@@ -179,9 +87,7 @@ require ('includes/profile_header.php');
 						$result = array_reverse($result);
 
 
-						// print_r($result);
 						foreach($result as $image => $value) {
-							//ft_echo($value['name']);
 							$content  = '<div class="img"><img class="item" src="images/uploads/' . $value['name'] . '" />';
 							$content .= '<a href=includes/remove_post.php?image=' . $value['id'] . '>';
 							$content .= '<button type="submit" value="' . $value['id'] . '" >Delete</button></a>';
@@ -205,11 +111,11 @@ require ('includes/profile_header.php');
 	trigger = document.getElementById('trigger'),
 	canvas = document.getElementsByTagName('canvas')[0],
 	file_uploader = document.getElementById('file'),
-	save_btn = document.getElementById('save');
+	save_btn = document.getElementById('save'),
+	stream = document.getElementById('stream_container');
 
 	let streamActive = false;
 
-	//Disable save button by default
 	save_btn.setAttribute('disabled', 'true');
 
 	function hasGetUserMedia() {
@@ -220,59 +126,40 @@ require ('includes/profile_header.php');
 	    return file && file['type'].split('/')[0] === 'image';
 	}
 
-	function FileUpload(file, url) {//, file2) {
+	function FileUpload(file, url) {
 		if ('Blob' in window && file instanceof Blob && isImageFile(file)) {
-			console.log("Hello file upload");
-			const xhr = new XMLHttpRequest(),
-				  formData = new FormData(),
-				  url = 'includes/upload_file_json.php',
-				  gallery = document.getElementById('gallery');
+			const xhr 		= new XMLHttpRequest(),
+				  formData  = new FormData(),
+				  url 		= 'includes/upload_file_json.php',
+				  gallery 	= document.getElementById('gallery');
+
 			file_uploader.setAttribute('disabled', 'true');
 			trigger.setAttribute('disabled', 'true');
 
 			formData.append('file', file);
-			// formData.append("file_2", file2);
 			formData.append("submit", "OK");
 
 			xhr.addEventListener('loadend', function(e){
-				// console.log("xhr status: " + xhr.status);
-				// console.log('status => ' + xhr.statusText)
-			    console.log('response => ' + xhr.responseText);
 			    const obj = JSON.parse(xhr.responseText),
-			    	  // image_id = url + '?image=' + obj.image,
 			    	  html = '<a href=includes/remove_post.php?image=' + obj.image + '><button type="submit" value="' + '" >Delete</button></a></div><br />';
-			    console.log("id of image --> " + obj.image);
 
 			    for (let i = 0, n = gallery.children.length; i < n; i++) {
 			    	const el = gallery.children[i];
 			    	let child;
-			    	//Find correct img tag
 
-			    	console.log("Found element");
 			    	if (el.hasChildNodes()) {
 			    		child = el.childNodes[0];
 
-			    		console.log("Found a posible image tag --> " + child.tagName);
-
-			    		if (child.tagName == 'IMG' /*&& child.src == url*/) {
-			    			// console.log('We found an img tag --> ' + child.src);
+			    		if (child.tagName == 'IMG') {
 			    			el.innerHTML += html;
 			    			break;
 			    		}
 			    	}
-
-
 			    }
 				file_uploader.removeAttribute('disabled');
 				trigger.removeAttribute('disabled');
 			});
-
-			// console.log('Hello FileUpload()\n\n');
-			console.log(url);
-
 			xhr.open('POST', 'includes/upload_file_json.php');
-			// xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
-			// xhr.setRequestHeader('Content-Type', 'multipart/form-data');
 			xhr.send(formData);
 		}
 	}
@@ -287,7 +174,7 @@ require ('includes/profile_header.php');
 		return;
 	});
 
-	document.getElementById('stream_container').addEventListener('click', function activateStream() {
+	stream.addEventListener('click', function activateStream() {
 		if (hasGetUserMedia()) {
 			document.getElementById('hint').className += ' hide';
 
@@ -295,9 +182,10 @@ require ('includes/profile_header.php');
 				video.classList.remove('hide');
 				video.srcObject = stream;
 				streamActive = true;
+
+				this.removeEventListener('click', arguments.callee);
 			});
 		} else {
-			//You can do better
   			alert('getUserMedia() is not supported by your browser');
 		}
 	});
@@ -306,26 +194,32 @@ require ('includes/profile_header.php');
 	    var imageSrc = el.src;
 	    var sup = document.getElementById('supImage');
 	    sup.setAttribute('src', imageSrc);
-	    document.getElementById('capture').disabled = false;
+	    trigger.disabled = false;
 	}
 
 	function addSup1(el1) {
 	    var imageSrc = el1.src;
 	    var sup1 = document.getElementById('supImage1');
 	    sup1.setAttribute('src', imageSrc);
-	    document.getElementById('capture').disabled = false;
+	    trigger.disabled = false;
 	}
+
 
 	trigger.addEventListener('click', function() {
 		if (streamActive === true) {
 			const img = document.createElement('img'),
 				  container = document.createElement('div'),
 				  gallery = document.getElementById('gallery');
+				  sup = document.getElementById('supImage');
+				  sup1 = document.getElementById('supImage1');
 			// let file;
 
 			canvas.width = video.videoWidth;
 			canvas.height = video.videoHeight;
-			canvas.getContext('2d').drawImage(video, 0, 0);
+			canvas.getContext('2d').drawImage(video, 0, 0,640,480);
+			canvas.getContext('2d').drawImage(sup, 0, 0, 240, 180);
+			canvas.getContext('2d').drawImage(sup1, 0, 0, 400, 480);
+
 			const url = canvas.toDataURL('image/jpeg');
 			img.setAttribute('src', url);
 			img.setAttribute('class', 'item');
@@ -336,20 +230,10 @@ require ('includes/profile_header.php');
 			else gallery.appendChild(container);
 
 			canvas.toBlob(function(blob) {
-				// file = new File([blob], img.src, { type: "image/jpeg" });
 				FileUpload(blob, url);
 			})
-
-			// FileUpload(file);
 		}
 	});
-
-	/*file_uploader.addEventListener('change', function(e) {
-		if (isFileImage(file_uploader[0])) {
-			FileUpload(file_uploader[0]);
-		}
-	});*/
-
 
 	/*****************************************
 

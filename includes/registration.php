@@ -1,64 +1,85 @@
 <?php
 session_start();
 require ('ft_util.php');
-//scream();
+require_once ('sql_connect.php');
+stfu();
 
-if (p_action()) {
+if (p_action() && !isset($_SESSION['id'])) {
 	$errors = array();
 
 	if (issetstr($_POST['username'])) {
 		$user = trim($_POST['username']);
 	} else {
-		$errors[] = 'Please enter your username';
+		$errors[] = 'error_1=1';
 	}
 
-	if (is_email($_POST['email'])) {
-		$e = trim($_POST['email']);
+	if (isset($_POST['email'])) {
+		if (is_email($_POST['email']))
+			$e = trim($_POST['email']);
+		else
+			$errors[] = 'error_2=2';
 	} else {
-		$errors[] = 'Please enter your email address';
+		$errors[] = 'error_2=2';
 	}
 
-	if (issetstr($_POST['password'])) {
-		if ($_POST['password'] != $_POST['password2']) {
-			$errors[] = 'The passwords provided don\'t match';
+	if (isset($_POST['password'])) {
+		if (!is_securepassword($_POST['password'])) {
+			$errors[] = 'error_4=4';
+		} else if ($_POST['password'] != $_POST['password2']) {
+			$errors[] = 'error_3=3';
 		} else {
 			$p = $_POST['password2'];
 		}
 	} else {
-
-		$erros[] = 'Please enter your password';
+		$errors[] = 'error_5=5';
 	}
 
 	if (!empty($errors)) {
-		print_r($errors);
-	} else {
-		require_once ('sql_connect.php');
+		$url = '?';
 
+		foreach($errors as $key => $value) {
+			$url .= $value . '&';
+		}
+		ft_redirectuser('../signup.php' . $url);
+	} else {
 		try {
+			$q      = "SELECT id FROM users WHERE email = ?";
+			$result = $dbc->prepare($q);
+			$result->execute([$e]);
+			$result = $result->fetch(PDO::FETCH_ASSOC);
+
+
+
+			if (is_array($result)) {
+				ft_redirectuser('../signup.php?error_6=6' . $url);
+			}
+
+			$q      = "SELECT id FROM users WHERE (username = ?)";
+			$result = $dbc->prepare($q);
+			$result->execute([$user]);
+			$result = $result->fetch(PDO::FETCH_ASSOC);
+
+			if (is_array($result)) {
+				ft_redirectuser('../signup.php?error_7=7' . $url);
+			}
+
+
 			$q      = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
 			$result = $dbc->prepare($q);
 			$p      = hash_password($p);
+
 			if ($result->execute([$user, $e, $p])) {
-				echo "Registration successful";
 				$_SESSION['email'] = $e;
 				$_SESSION['name']  = $user;
 				$_SESSION['id']    = $dbc->lastInsertId();
-				//Send verification email;
 				require ("validate_email.php");
 				ft_redirect_user('verify_email.php');
 			}
-		} catch (PDOException $err) {
-			if (array_substr_search($err, 'Duplicate entry')) {
-				if (array_substr_search($err, "for key 'email'")) {
-					echo "This email already exists.";
-				}
 
-				if (array_substr_search($err, "for key 'username'")) {
-					echo "<br />This username already exists";
-				}
-			}
+		} catch (PDOException $err) {
+			ft_redirectuser('../signin.php?error_8=8' . $url);
 		}
 	}
 }
-
+ft_redirectuser('../');
 ?>
