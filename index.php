@@ -4,6 +4,7 @@ require_once('includes/ft_util.php');
 require_once('includes/getimages.php');
 stfu();
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,20 +15,11 @@ stfu();
       <link rel="stylesheet" href="css/style.css" media="all" />
 	</head>
 	<body class="index">
-		<!-- Content goes here -->
-    <header class="header">
-      <a href="index.php">
-        <div class="logo">
-          <img src="images/icons/logo_true.jpg" />
-        </div>
-        <div class="heading">
-          <h1>Mojo</h1>
-        </div>
-      </a>
-      <?php
-      require ('includes/profile_header.php');
-      ?>
-    </header>
+    <!-- Render app header -->
+    <?php
+      require('includes/header.php');
+    ?>
+    
     <div class="wrapper main" align="center">
       <div class="image_container" align="center">
         <div class="row" align="center">
