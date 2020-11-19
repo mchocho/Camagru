@@ -4,6 +4,55 @@ body {
 	height: 100%;
 }
 
+body.index .row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+  margin: auto;
+}
+
+body.index img {
+  width: 400px;
+  height: 400px;
+}
+
+/* Create four equal columns that sits next to each other */
+body.index .column {
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+  margin: auto;
+}
+
+body.index .column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+body.index .wrapper a {
+  position: unset !important;
+  display: flex-inline;
+}
+
+
+
+@media screen and (max-width: 800px) {
+  body.index .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  body.index .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+
+
 textarea {
 	resize: none;
 }
