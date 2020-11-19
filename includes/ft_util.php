@@ -50,6 +50,17 @@ function presetinput_text($name) {
 	return;
 }
 
+function HTMLHead($title = "Camagru")
+{
+	echo "<head>";
+	echo '<meta charset="utf-8" />';
+	echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+	echo '<title>' .$title .'</title>';
+	echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
+	echo '<link rel="stylesheet" href="css/style.css" media="all" />';
+	echo "</head>";
+}
+
 function presetinput_radio($name, $value) {
 	if (is_string($name) && isset($name) && $name === $value) {
 		echo 'checked="checked"';
