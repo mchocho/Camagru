@@ -2,6 +2,7 @@
 /images/uploads/*
 /images/temp/*
 *-tmp
-.phpintel/
+*.php-tmp
+.phpintel
 .*swp
 Makefile
