@@ -1,8 +1,11 @@
 <?php
+session_start();
+
 require_once('includes/ft_util.php');
 require_once('includes/sql_connect.php');
+
 scream();
-ft_session_start();
+
 if (!isset($_GET['key']) || isset($_SESSION['id']))
 	ft_redirectuser('index.php');
 
@@ -32,27 +35,16 @@ try {
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Reset Password | Camagru</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="manifest" href="manifest.webmanifest">
-		<link rel="stylesheet" href="css/style.css" media="all" />
+		<?php
+      HTMLHead("Reset Password | Mojo");
+    ?>
 	</head>
+
 	<body>
-		<header class="header">
-			<a href="index.php">
-				<div class="logo">
-					<img src="images/icons/logo_true.jpg" />
-				</div>
-				<div class="heading">
-					<h1>Mojo</h1>
-				</div>
-			</a>
-			<?php 
-				require_once('includes/profile_header.php');
-			?>
-		</header>
+		<?php
+      require_once('includes/header.php');
+    ?>
+
 		<div class="wrapper" align="center">
 			<h2>Reset Password</h2>
 			<form action="includes/reset_user_password.php" method="POST">

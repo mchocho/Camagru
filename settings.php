@@ -1,73 +1,30 @@
 <?php
 session_start();
+
 require ('includes/ft_util.php');
 require ('includes/getusers.php');
+
 stfu();
-if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['notifications'])) {
+
+if (!isset($_SESSION['id'], $_SESSION['username'], $result['email'], $result['notifications']))
 	ft_redirectuser();
-}
+
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-	    <meta charset="utf-8" />
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	    <title>Settings | Camagru</title>
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <!-- Use inline css -->
-		<style>
-			h2 {
-				margin-top: 0% !important;
-			}
-
-			.settings_container {
-				width : 40%;
-			}
-
-			.edit img {
-				width: 50%;
-				height: 50%;
-			}
-
-			.hide, input.file {
-				display: none;
-				visibility: hidden;
-			}
-
-			div.icon.slider {
-				width: 128px;
-				height: 128px;
-				background: url('images/icons/slider.png');
-				cursor: pointer;
-			}
-
-			div.icon.slider.off {
-				background: url('images/icons/slider_off.png');
-			}
-
-			.icon.slider input {
-				visibility: hidden;
-			}
-
-		</style>
-	    <!-- Or link external file -->
-        <link rel="stylesheet" href="css/style.css" media="all" />
+	  <?php
+     HTMLHead("Settings | Mojo");
+    ?>
+    <link rel="stylesheet" href="css/settings.css" media="all" />
 	</head>
+
 	<body>
-		<!-- Content goes here -->
-		<header class="header">
-			<a href="index.php">
-				<div class="logo">
-					<img src="images/icons/logo_true.jpg" />
-				</div>
-				<div class="heading">
-					<h1>Mojo</h1>
-				</div>
-			</a>
-			<?php
-				require ('includes/profile_header.php');
-			?>
-		</header>
+		<!-- Render app header -->
+		<?php
+      require_once('includes/header.php');
+    ?>
+
 		<div class="wrapper main settings" align="center">
 			<h2>Settings</h2>
 			<div class="settings_container">

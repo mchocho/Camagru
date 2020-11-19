@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once('includes/ft_util.php');
 // stfu();
 scream();
@@ -7,9 +8,13 @@ scream();
 
 <!DOCTYPE html>
 <html>
-  <?php
-    HTMLHead("Camagru");
-  ?>
+  <!-- Render HTML head contents -->
+  <head>
+    <?php
+      HTMLHead("Mojo");
+    ?>
+  </head>
+
 	<body class="index">
     <!-- Render app header -->
     <?php
@@ -17,9 +22,7 @@ scream();
     ?>
     
     <div class="wrapper main" align="center">
-
       <div class="image_container" align="center">
-        
         <div class="row" align="center">
 
           <!-- Render image layout -->

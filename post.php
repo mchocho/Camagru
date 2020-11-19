@@ -1,56 +1,55 @@
 <?php
 session_start();
+
 require('includes/ft_util.php');
 require('includes/sql_connect.php');
 require('includes/getusers.php');
+
 scream();
 
 if (!isset($_GET['id']))
 	ft_redirectuser();
 
-try {
+try
+{
 	$q      = "SELECT * FROM images WHERE (id = ?)";
 	$result = $dbc->prepare($q);
 	$result->execute([$_GET['id']]);
 	$result = $result->fetch(PDO::FETCH_ASSOC);
 
 	if (!isset($result))
+  {
 		ft_redirectuser();
+    return;
+  }
 
 	$q      = "SELECT username, email FROM users WHERE (id = ?)";
 	$p_user = $dbc->prepare($q);
 	$p_user->execute([$result['user_id']]);
 	$p_user = $p_user->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
+}
+catch (PDOException $e)
+{
 	ft_echo($e->getMessage());
 }
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title><?php echo $p_user['username'] . "'s POST"; ?></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="manifest" href="manifest.webmanifest">
-		<link rel="stylesheet" href="css/style.css" media="all" />
-		<link rel="stylesheet" href="css/post.css" media="all" />
-	</head>
+    <?php
+      $title = $p_user["username"] . "'s post | Mojo";
+
+      HTMLHead($title);
+    ?>
+    <link rel="stylesheet" href="css/post.css" media="all" />
+  </head>
+
 	<body>
-		<!-- Content goes here -->
-		<header class="header">
-			<a href="index.php">
-				<div class="logo">
-					<img src="images/icons/logo_true.jpg" />
-				</div>
-				<div class="heading">
-					<h1>Mojo</h1>
-				</div>
-			</a>
-			<?php
-			  require ('includes/profile_header.php');
-			?>
-		</header>
+		 <!-- Render app header -->
+		<?php
+      require_once('includes/header.php');
+    ?>
+
 		<div class="wrapper main settings" align="center">
 			<div class="image_container">
 				<?php

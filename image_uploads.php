@@ -1,35 +1,30 @@
 <?php
 session_start();
+
 require_once ('includes/ft_util.php');
-scream();
 require_once('includes/sql_connect.php');
-if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) {
+
+if (!isset($_SESSION['username']) && !isset($_SESSION['id']))
 	ft_redirectuser('signin.php');
-}
+
+scream();
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
-	    <meta charset="utf-8" />
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	    <title>Image uploads | Mojo</title>
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/style.css" media="all" />
-        <link rel="stylesheet" href="css/uploads.css" media="all" />
+    <?php
+      HTMLHead("Image uploads | Mojo");
+    ?>
+    <link rel="stylesheet" href="css/uploads.css" media="all" />
 	</head>
+	
 	<body>
-		<header class="header">
-			<a href="index.php">
-				<div class="logo">
-					<img src="images/icons/logo_true.jpg" />
-				</div>
-				<div class="heading">
-					<h1>Mojo</h1>
-				</div>
-			</a>
-			<?php
-				require ('includes/profile_header.php');
-			?></header>
+		<?php
+      require_once('includes/header.php');
+      ?>
+
+
 		<div class="wrapper main settings">	
 			<div id="stream_container" class="stream container">
 				<span id="hint" class="">Click to open camera <div class="camera"></div></span>
