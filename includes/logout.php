@@ -1,6 +1,5 @@
 <?php
+require_once("session_start.php");
 
-session_start();
 session_destroy();
-require ('ft_util.php');
-ft_redirectuser('../index.php');
+ft_redirectuser(ROOT_PATH);

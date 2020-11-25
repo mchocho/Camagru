@@ -1,160 +1,100 @@
 <?php
-session_start();
-
-require('includes/ft_util.php');
-require('includes/sql_connect.php');
-require('includes/getusers.php');
-
-scream();
-
-if (!isset($_GET['id']))
-	ft_redirectuser();
-
-try
-{
-	$q      = "SELECT * FROM images WHERE (id = ?)";
-	$result = $dbc->prepare($q);
-	$result->execute([$_GET['id']]);
-	$result = $result->fetch(PDO::FETCH_ASSOC);
-
-	if (!isset($result))
-  {
-		ft_redirectuser();
-    return;
-  }
-
-	$q      = "SELECT username, email FROM users WHERE (id = ?)";
-	$p_user = $dbc->prepare($q);
-	$p_user->execute([$result['user_id']]);
-	$p_user = $p_user->fetch(PDO::FETCH_ASSOC);
-}
-catch (PDOException $e)
-{
-	ft_echo($e->getMessage());
-}
+require_once("includes/post.php");
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
     <?php
-      $title = $p_user["username"] . "'s post | Mojo";
-
-      HTMLHead($title);
+      HTMLHeadTemplate("$postUser["username"]'s post | Mojo");
     ?>
     <link rel="stylesheet" href="css/post.css" media="all" />
   </head>
 
 	<body>
-		 <!-- Render app header -->
+		<!-- Render app header -->
 		<?php
-      require_once('includes/header.php');
+      include_once('includes/header.php');
     ?>
 
 		<div class="wrapper main settings" align="center">
-			<div class="image_container">
+		
+      <!-- Display the post -->
+    	<div class="image_container">
 				<?php
-					echo '<img src="images/uploads/' . $result['name'] . '" />';
+					echo '<img src="images/uploads/' .$image["name"] . '" />';
 				?>
 			</div>
-			<span class="props">Posted by <?php echo $p_user['username']; ?></span>
-			<div class="social_container">
-					<?php
-						if (isset($_SESSION['id'])) {
-							try {
-								$q = "SELECT id FROM likes WHERE (user_id = ?) AND (image_id = ?)";
-								$like = $dbc->prepare($q);
-								$like->execute([$_SESSION['id'], $_GET['id']]);
-								$like = $like->fetch(PDO::FETCH_ASSOC);
-
-								$q	    = "SELECT id FROM likes WHERE (image_id = ?)";
-								$like_count = $dbc->prepare($q);
-								$like_count->execute([$_GET['id']]);
-								$like_count = $like_count->fetchAll();
-								$like_count = count($like_count);
-
-								echo '<button id="like" name="like">';
-								if (is_array($like))
-									echo '<img src="images/icons/like_red.png" id="like-img" alt="like icon" />';
-								else
-									echo '<img src="images/icons/like.png" id="like-img" alt="like icon" />';
-								echo '</button>';
-							} catch (PDOException $e) {
-								ft_echo($e->getMessage());
-							}
-						}
-
-					?>
-				<button id="share" name="share">
+			
+      <!-- Display the author's usernane -->
+      <span class="props">
+        <?php
+          echo "Posted by ";
+          echo $postUser["username"];
+        ?>
+      </span>
+			
+      <div class="social_container">
+        
+        <!-- Display like or unlike button -->
+				<button id="like" name="like">
+          <?php
+            echo '<img src="' .$likeIconSrc .'" id="like-img" alt="like icon" />';
+          ?>
+        </button>
+				
+        <!-- Display the share button -->
+        <button id="share" name="share">
 					<img src="images/icons/share.png" alt="share icon" />
 				</button>
 			</div>
+
+
 			<div class="comments_container">
-				<?php 
-					try {
-						$q      = "SELECT * FROM comment WHERE (image_id = ?)";
-						$comments = $dbc->prepare($q);
-						$comments->execute([$_GET['id']]);
-						$comments = $comments->fetchAll();
-						$comment_count = count($comments);
-					} catch (PDOException $e) {
-						ft_echo($e->getMessage());
-					}
-				?>
 				<hr />
-				<span class="heading">Comments</span>
+
+        <span class="heading">Comments</span>
+
+        <!-- Display comment count -->
 				<span id="comment_count" class="count">
-					<?php
-						if (isset($comment_count))
-							echo $comment_count;
-						else echo "0";
-					?>
+					<?php             
+            echo $comment_count;
+          ?>
 				</span>
+
 				<span> | </span>
-				<span class="heading">Likes</span>
-				<span id="like_count" class="count">
+
+				<span class="heading">Likes </span>
+
+        <!-- Display likes counts -->
+        <span id="like_count" class="count">
 					<?php
-						if (isset($like_count))
 							echo $like_count;
-						else echo "0";
 					?>
 				</span>
+
 				<hr />
-				<form method="POST" action="includes/comments.php" id="comment_form" >
-					<textarea id="comment" name="comment" placeholder="Add a comment" <?php if (!isset($_SESSION['id'])) echo 'disabled="disabled"'; ?> ></textarea>
-					<input type="submit" id="comment_submit" name="submit" class="btn" value="Post" disabled="disabled"/>
-					<?php echo '<input type="hidden" id="image" name="image" value="' . $_GET['id'] . '" />'; ?>
-				</form>
+				
+        <!-- Display comment form -->
+        <?php
+          renderCommentForm();
+        ?>
+
+        <!-- Display comments for this post -->
 				<ol class="comments" id="comment_list" >
 					<?php 
-						if (isset($comments)) {	
-							foreach ($comments as $key => $value) {
-								try {
-									$q      = "SELECT username FROM users WHERE (id = ?)";
-									$user = $dbc->prepare($q);
-									$user->execute([$value['user_id']]);
-									$user = $user->fetch(PDO::FETCH_ASSOC);
-
-									$username = $user['username'];
-									if (isset($_SESSION['username']) && $_SESSION['username'] === $user['username'])
-										$username = 'You';
-
-
-									$html = '<li><span class="username">' . $username . '</span>';
-									$html .= '<blockquote>' . htmlspecialchars($value['message']) . '</<blockquote></li>';
-
-									echo $html;
-								}  catch (PDOException $e) {
-									ft_echo($e->getMessage());
-								}
-							}
-						}
+            renderPostComments($comments);
 					?>
 				</ol>
-			</div>
+			
+      </div>
 		</div>
-		<footer>
-			<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-		</footer>
+		
+    <!-- Display the app footer -->
+    <?php
+      include_once('views/footer.php');
+    ?>
+
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function() {
 				const buttons = [

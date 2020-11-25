@@ -1,0 +1,32 @@
+h2 {
+	margin-top: 0% !important;
+}
+
+.settings_container {
+	width : 40%;
+}
+
+.edit img {
+	width: 50%;
+	height: 50%;
+}
+
+.hide, input.file {
+	display: none;
+	visibility: hidden;
+}
+
+div.icon.slider {
+	width: 128px;
+	height: 128px;
+	background: url('images/icons/slider.png');
+	cursor: pointer;
+}
+
+div.icon.slider.off {
+	background: url('images/icons/slider_off.png');
+}
+
+.icon.slider input {
+	visibility: hidden;
+}

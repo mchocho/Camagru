@@ -1,8 +1,9 @@
 <?php
-require_once('sql_connect.php');
+require_once('session_start.php');
+require_once('sql.php');
 require_once('ft_util.php');
-ft_session_start();
-scream();
+
+dev_mode();
 
 if (isset($_GET['image'], $_SESSION['id'])) {
 	try {

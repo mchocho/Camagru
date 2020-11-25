@@ -1,55 +1,48 @@
 <?php
-require_once ('ft_util.php');
-ft_session_start();
-stfu();
+require_once("session_start.php");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_SESSION['id'])) {
-	$errors        = array();
+dev_mode();
 
-	if (isset($_POST['username']) && !empty($_POST['username'])) {
-		$u = trim($_POST['username']);
-	} else {
-		$errors[] = 'error_1=1';
-	}
-
-	if (isset($_POST['password']) && !empty($_POST['password'])) {
-		$p = trim($_POST['password']);
-	} else {
-		$errors[] = 'error_2=2';
-	}
-
-	if (!empty($errors)) {
-		$url = '?';
-
-		foreach($errors as $key => $value) {
-			$url .= $value . '&';
-		}
-		ft_redirectuser('../signin.php' . $url);
-	}
-
-	try {
-		require_once ('sql_connect.php');
-
-		$q      = "SELECT * FROM users WHERE (username=?) OR (email=?)";
-		$result = $dbc->prepare($q);
-		$result->execute([$u, $u]);
-		$result = $result->fetch(PDO::FETCH_ASSOC);
-
-		if (is_validpassword($p, $result['password'])) {
-			$_SESSION['email'] = $e;
-			if ($result['validated'] === 'F') {
-				ft_redirectuser('../verify_email.php');
-			} else {
-				$_SESSION['username'] = $result['username'];
-				$_SESSION['id']       = $result['id'];
-				$_SESSION['admin']    = $result['admin'];
-				ft_redirectuser('../');
-			}
-		} else {
-			ft_redirectuser('../signin.php?error_3=3' . $url);
-		}
-	} catch (PDOException $e) {
-		ft_redirectuser('../signin.php?error_3=3' . $url);
-	}
+if (isset($_SESSION["id"]))
+{
+  ft_redirectuser(ROOT_PATH);
+  exit($msgs["errors"]["already_signed_in"]);
 }
-ft_redirectuser('../');
+
+if ($_SERVER["REQUEST_METHOD"] === "POST")
+{
+  if (!validateSignIn())
+    exit();
+
+  $username = trim($_POST["username"]);
+  $password = trim($_POST["password"]);
+  $redirect = ROOT_PATH .$redirects["SIGN_IN_INCORRECT_CREDENTIALS"];
+
+  $user = selectUserByNameOrEmail($username, $username);
+
+  if (!isset($user)
+  {
+    ft_redirectuser($redirect);
+    exit();
+  }
+
+  if (!is_correctpassword($password, $user["password"]))
+  {
+    ft_redirectuser($redirect);
+    exit();
+  }
+
+	if ($user["validated"] === 'F')
+  {
+    $_SESSION["email"]  = $user["email"];
+		ft_redirectuser(ROOT_PATH .$redirects["EMAIL_VERIFICATION_SENT"]);
+    exit();
+	}
+
+  $_SESSION["id"]       = $user["id"];
+  $_SESSION["email"]    = $user["email"];
+  $_SESSION["username"] = $user["username"];
+  $_SESSION["admin"]    = $user["admin"];
+
+  ft_redirectuser(ROOT_PATH);
+}

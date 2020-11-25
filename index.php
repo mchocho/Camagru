@@ -1,9 +1,7 @@
 <?php
-session_start();
+require_once('includes/session_start.php');
 
-require_once('includes/ft_util.php');
-// stfu();
-scream();
+dev_mode();
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +9,7 @@ scream();
   <!-- Render HTML head contents -->
   <head>
     <?php
-      HTMLHead("Mojo");
+      HTMLHeadTemplate();
     ?>
   </head>
 

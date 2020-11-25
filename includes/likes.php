@@ -1,35 +1,33 @@
 <?php
-require_once('ft_util.php');
-require_once('sql_connect.php');
-require_once('getusers.php');
-scream();
+require_once("session_start.php");
+require_once("sql.php");
+require_once("messages.php");
+require_once("ft_util.php");
 
-if (g_action() && isset($_GET['image_id'], $dbc) && is_array($result)) {
-	try {
-		$user = $result;
-		$q = 'SELECT * FROM likes WHERE (user_id = ?) AND (image_id = ?)';
-		$result = $dbc->prepare($q);
-		$result->execute([$user['id'], $_GET['image_id']]);
-		$result = $result->fetch(PDO::FETCH_ASSOC);
+dev_mode();
 
-		$q = "SELECT id FROM likes WHERE image_id = ?";
-		$count = $dbc->prepare($q);
-		$count->execute([$_GET['image_id']]);
-		$count = $count->rowCount();
-		
-		if (is_array($result)) {
-			$q = 'DELETE FROM likes WHERE (user_id = ?) AND (image_id = ?)';
-			$like = $dbc->prepare($q);
-			$like->execute([$user['id'], $_GET['image_id']]);
-			echo '{"result": "unliked", "count": ' . $count . ' }';
-		} else {
-			$q = 'INSERT INTO likes (user_id, image_id) VALUES (?, ?)';
-			$like = $dbc->prepare($q);
-			$like->execute([$user['id'], $_GET['image_id']]);
-			echo '{"result": "liked", "count": ' . $count . '}';
-		}
-	} catch(PDOException $e) {
-		echo 'Something went wrong<br />';
-		ft_print_r($e);
-	}
-}
+if ($_SERVER["REQUEST_METHOD"] !== "GET")
+  exit($msgs["errors"]["invalid_request"]);
+
+if (!isset($_SESSION["id"]) )
+  exit($msgs["errors"]["not_signed_in"]);
+
+if (!isset($_GET["image_id"]) )
+  exit($msgs["errors"]["invalid_request"]);
+
+$userId     = $_SESSION["id"];
+$imageId    = $_GET["image_id"];
+
+$likes      = selectAllLikeIdsAndUsersByImageId($imageId);
+
+$likeCount  = (is_array($likes) ) ? count($likes) : 0;
+
+$response  	= array(
+  "liked"   => '{"result": "unliked", "count": ' . $likeCount . ' }',
+  "unliked" => '{"result": "liked", "count": ' . $likeCount . '}'
+);
+
+if (userLikesThisPost($userId, $imageId) )                //The request is to unlike
+  (deleteLikeByUserIdAndImageId($userId, $imageId) ) ? echo response["unliked"] : echo response["liked"];
+else                                                      //The requst is to like the image
+  (insertNewLike($userId, $imageId) ) ? echo response["liked"] : echo response["unliked"];

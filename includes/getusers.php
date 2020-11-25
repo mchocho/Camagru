@@ -1,21 +1,17 @@
 <?php
-require_once ('sql_connect.php');
-require_once ('ft_util.php');
-ft_session_start();
-scream();
+require_once("session_start.php");
 
-if (isset($_SESSION['username'])) {
-	try {
-		$q      = "SELECT * FROM users WHERE username=?";
-		$result = $dbc->prepare($q);
-		$result->execute([$_SESSION['username']]);
-		$result = $result->fetch(PDO::FETCH_ASSOC);
+dev_mode();
 
-		$_SESSION['username'] = $result['username'];
-		$_SESSION['id']       = $result['id'];
-		$_SESSION['email']	  = $result['email'];
-		$_SESSION['admin']    = $result['admin'];
-	} catch (PDOException $err) {
-		echo "Something went wrong";
-	}
+if (isset($_SESSION["id"]))
+{
+  $user = selectUserById($_SESSION["id"]);
+
+  if (isset($user))
+  {
+    $_SESSION["username"] = $user["username"];
+    $_SESSION["id"]       = $user["id"];
+    $_SESSION["email"]	  = $user["email"];
+    $_SESSION["admin"]    = $user["admin"];
+  }
 }

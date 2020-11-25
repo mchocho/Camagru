@@ -14,7 +14,7 @@ scream();
 <html>
 	<head>
     <?php
-      HTMLHead("Image uploads | Mojo");
+      HTMLHeadTemplate("Image uploads | Mojo");
     ?>
     <link rel="stylesheet" href="css/uploads.css" media="all" />
 	</head>
