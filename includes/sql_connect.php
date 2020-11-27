@@ -1,35 +1,32 @@
 <?php
 require_once("config.php");
-require_once(ROOT_PATH ."/config/credentials");
+// require_once("config/credentials.php");
 
-/*$servername = "localhost";
-$username   = "root";
-$password   = "654321";*/
-
-try
+function createConnection()
 {
-	$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
-	$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch (PDOException $e)
-{
-	echo "Connection failed: ".$e->getMessage();
-}
+  $servername = "localhost";
+  $username   = "root";
+  $password   = "654321";
 
-function gettoken($key)
-{
-	$result = $dbc->prepare($q);
-	$result->execute([$key]);
+  try
+  {
+  	$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
+  	$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$token = $result->fetch(PDO::FETCH_ASSOC);
-
-	return $token;
+    return $dbc;
+  }
+  catch (PDOException $e)
+  {
+  	echo "Connection failed: ".$e->getMessage();
+  }
 }
 
 function runSelectQuery($stm, $values, $fetchAll = false)
 {
 	try
   {
+    $dbc    = createConnection();
+
     $result = $dbc->prepare($stm);
     $result->execute($values);
     $result = ($fetchAll) ? $result->fetchAll() : $result->fetch(PDO::FETCH_ASSOC);
@@ -51,6 +48,8 @@ function runInsertQuery($stm, $values)
 {
   try
   {
+    $dbc    = createConnection();
+
     $result = $dbc->prepare($stm);
     $result->execute($values);
 
@@ -71,6 +70,8 @@ function runUpdateQuery($stm, $values)
 {
   try
   {
+    $dbc    = createConnection();
+
     $result = $dbc->prepare($stm);
     $result->execute($values);
 
@@ -91,6 +92,8 @@ function runDeleteQuery($stm, $values)
 {
   try
   {
+    $dbc    = createConnection();
+    
     $result = $dbc->prepare($stm);
     $result->execute($values);
 
@@ -106,6 +109,3 @@ function runDeleteQuery($stm, $values)
     return false;
   }
 }
-
-
-?>

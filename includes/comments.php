@@ -2,7 +2,7 @@
 require_once("session_start.php");
 require_once('email_templates.php');
 
-handleNewComment($post_user_id, $image_id)
+function handleNewComment($post_user_id, $image_id)
 {
   $userSignedIn = isset($_SESSION["id"]);
 
@@ -26,3 +26,4 @@ handleNewComment($post_user_id, $image_id)
     email_client($post_user["email"], $title, $template);
   }
 }
+

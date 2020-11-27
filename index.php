@@ -1,7 +1,5 @@
 <?php
 require_once('includes/session_start.php');
-
-dev_mode();
 ?>
 
 <!DOCTYPE html>
@@ -21,11 +19,12 @@ dev_mode();
     
     <div class="wrapper main" align="center">
       <div class="image_container" align="center">
+        
         <div class="row" align="center">
 
           <!-- Render image layout -->
           <?php
-            require_once('includes/images.php');
+            require_once('includes/gallery.php');
           ?>          
         </div>
         

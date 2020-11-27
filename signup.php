@@ -1,11 +1,11 @@
 <?php
-require_once('includes/signup.php');
+require_once("includes/signup.php");
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <?php
-     HTMLHead("Sign Up | Mojo");
+     HTMLHeadTemplate("Sign Up | Mojo");
     ?>
   </head>
   <body>

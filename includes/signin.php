@@ -16,11 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   $username = trim($_POST["username"]);
   $password = trim($_POST["password"]);
-  $redirect = ROOT_PATH .$redirects["SIGN_IN_INCORRECT_CREDENTIALS"];
+  $redirect = ROOT_PATH .redirects()["SIGN_IN_INCORRECT_CREDENTIALS"];
 
   $user = selectUserByNameOrEmail($username, $username);
 
-  if (!isset($user)
+  if (!isset($user))
   {
     ft_redirectuser($redirect);
     exit();
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 	if ($user["validated"] === 'F')
   {
     $_SESSION["email"]  = $user["email"];
-		ft_redirectuser(ROOT_PATH .$redirects["EMAIL_VERIFICATION_SENT"]);
+		ft_redirectuser(ROOT_PATH .redirects()["EMAIL_VERIFICATION_SENT"]);
     exit();
 	}
 

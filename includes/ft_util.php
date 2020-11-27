@@ -85,7 +85,7 @@ function issetstr($value)
   return (is_string($value) && !empty($value));
 }
 
-function HTMLHead($title = "Mojo")
+function HTMLHeadTemplate($title = "Mojo")
 {
   echo '<meta charset="utf-8" />';
   echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
@@ -119,7 +119,7 @@ function is_email($value)
 {
   if (!isset($value) )
     return false;
-  return filter_var($value, FILTER_VALIDATE_EMAIL));
+  return filter_var($value, FILTER_VALIDATE_EMAIL);
 }
 
 function contains_lc($str)
@@ -166,13 +166,13 @@ function p_action()
 }*/
 
 
-function generate_token()
+/*function generate_token()
 {
   $token = openssl_random_pseudo_bytes(16);
   $token = bin2hex($token);
   
   return $token;
-}
+}*/
 
 function userLikesThisPost($id, $likes)
 {
@@ -181,4 +181,15 @@ function userLikesThisPost($id, $likes)
       return true;
 
   return false;
+}
+
+function generate_token()
+{
+  $key      = hash("sha256", date_timestamp_get(date_create()));
+  $hash     = hash_password($key);
+
+  return array(
+    "key"  => $key,
+    "hash" => $hash
+  );
 }

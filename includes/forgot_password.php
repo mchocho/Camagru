@@ -9,8 +9,7 @@ if (isset($_SESSION["id"]) )
   exit($msgs["errors"]["already_signed_in"]);
 }
 
-
-if ($_SERVER["REQUEST_METHOD"] !== "POST")
+if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
   if (!isset($_POST["submit"], $_POST["email"])) 
     exit($msgs["errors"]["invalid_request"]);
@@ -37,14 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST")
   
 
   $title    = "Reset Password | " .APP_NAME;
-  $url      = current_path() .ROOT_PATH .$redirects["VERIFY_APP_TOKEN"] ."?key=$key";
+  $url      = current_path() .ROOT_PATH .redirects()["VERIFY_APP_TOKEN"] ."?key=$key";
   $template = compose_reset_password_template($url);
 
   if (isset($tokenId))
     email_client($email, $title, $template);
 
-		echo "A verification message has been sent to your email address.";
-	} else {
-		echo "Something went wrong";
-	}
+  ft_redirectuser(redirects()["PASSWORD_RESET_EMAIL_SENT"]);
 }

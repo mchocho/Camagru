@@ -1,6 +1,4 @@
 <?php
-require_once("config.php");
-
 $startYear 	= "2019";
 $thisYear 	= date('Y');
 ?>

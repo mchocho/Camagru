@@ -1,10 +1,27 @@
 <?php
-session_start();
-require ('ft_util.php');
-require ('sql_connect.php');
-scream();
+require ("session_start.php");
 
-if (p_action() && isset($_POST['submit'], $_FILES['file'], $_SESSION['id'])) {
+if (!isset($_SESSION["id"]))
+{
+  ft_redirectuser(ROOT_PATH);
+  exit($msgs["errors"]["not_signed_in"]);
+}
+
+dev_mode();
+
+if ($_SERVER["REQUEST_METHOD"] === "POST")
+{
+  $staticFile = true;
+
+  if ($_FILES["file"])
+  {
+    
+  }
+
+
+}
+
+if (isset($_POST['submit'], $_FILES['file'], $_SESSION['id'])) {
 
 	$filename      = uniqid();
 	$target_file   = "../images/uploads/" . $filename;
@@ -34,17 +51,17 @@ if (p_action() && isset($_POST['submit'], $_FILES['file'], $_SESSION['id'])) {
 
 					ft_redirectuser('../image_uploads.php');
 				} catch (PDOException $e) {
-					echo "Something went wrong!";
+					ft_redirectuser('../image_uploads.php?error=1');
 				}
 				unlink($target_file);
 			} else {
-				echo 'The file you provided is too large.';
+				ft_redirectuser('../image_uploads.php?error=2');
 			}
 		} else {
-			echo "Something went wrong. Please try again.";
+			ft_redirectuser('../image_uploads.php?error=3');
 		}
 	} else {
-		echo "You can't upload files of this type.";
+		ft_redirectuser('../image_uploads.php?error=4');
 	}
 }
 

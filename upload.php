@@ -1,79 +1,31 @@
 <?php
-session_start();
-
-require_once ('includes/ft_util.php');
-require_once('includes/sql_connect.php');
-
-if (!isset($_SESSION['username']) && !isset($_SESSION['id']))
-	ft_redirectuser('signin.php');
-
-scream();
+require_once ('includes/upload.php');
 ?>
 
 <!DOCTYPE html>
 <html>
-	<head>
+  <head>
     <?php
       HTMLHeadTemplate("Image uploads | Mojo");
     ?>
     <link rel="stylesheet" href="css/uploads.css" media="all" />
-	</head>
-	
-	<body>
-		<?php
-      require_once('includes/header.php');
-      ?>
+  </head>
+  
+  <body>
+    <?php
+      require_once("includes/header.php");
+    ?>
+
+    <div class="wrapper main settings">	
+      <?php
+        require_once("views/upload.php");
+      ?>			
+
+      <div id="gallery" class="image_gallery" align="center">
+        <?php
+          require_once("includes/uploads_gallary");
 
 
-		<div class="wrapper main settings">	
-			<div id="stream_container" class="stream container">
-				<span id="hint" class="">Click to open camera <div class="camera"></div></span>
-				<video id="video" class="hide" autoplay></video>
-				<div class="prview_container">
-					<div id="preview">
-						<img src="images/stickers/empty.png" id="supImage" width="160px" height="120px" />
-					</div>
-					<div id="preview1">
-						<img src="images/stickers/empty.png" id="supImage1" width="260px" height="220px" />
-					</div>
-				</div>
-				<canvas></canvas>
-			</div>
-			<div class="button_container">
-				<button class="trigger" id="trigger">Take Picture</button>
-				<form action="includes/upload_file.php" method="post" enctype="multipart/form-data" >
-					<button type="button" class="upload" id="upload" aria-label-for="file">
-						<label>
-							Upload File<input type="file" accept="image/*" class="file" name="file" id="file" />
-						</label>
-					</button>
-					<button type="submit" id="save" class="btn save" name="submit" value="save">Save</button>
-				</form>
-			</div>
-			<div class="clip-art_container" align="center">
-				<div id="sticker" width= 1px>
-                       <img class="thumbnail" src="images/stickers/empty.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/mojo.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/mojo_1.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/mojo_2.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/hey.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/lowkey_dog.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/sexy_dog.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/sad_dog.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/cool_dog.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/dog_overlay.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/dinosaur.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/thinking.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/donald_trump.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/donald_trump_1.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/food.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/money.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/aliengrid.png" onclick="addSup(this)"/>
-                       <img class="thumbnail" src="images/stickers/chestburster.png" onclick="addSup(this)"/>
-				</div>
-			</div>
-			<div id="gallery" class="image_gallery" align="center">
-				<?php
 					try {
 						$q      = "SELECT * FROM images WHERE user_id = ?";
 						$result = $dbc->prepare($q);

@@ -1,8 +1,5 @@
 <?php
-session_start();
-
-require ('sql_connect.php');
-require ('ft_util.php');
+require ('session_start.php');
 
 function changePassword($dbc, $newpassword)
 {
@@ -39,6 +36,7 @@ function changeEmail($dbc, $newemail)
 	}
 }
 
+<<<<<<< HEAD
 function changeUsername($dbc, $username)
 {
 	if (issetstr($username) && isset($_SESSION['id']))
@@ -52,11 +50,22 @@ function changeUsername($dbc, $username)
 		}
 		catch (PDOException $err)
 		{
+=======
+function changeUsername($dbc, $newusername) {
+	if (issetstr($newusername) && isset($_SESSION['id'])) {
+		try {
+			$q      = "UPDATE users SET username = ? WHERE id = ?";
+			$result = $dbc->prepare($q);
+			$result->execute([$newusername, $_SESSION['id']]);
+			$_SESSION['username'] = $newusername;
+		} catch (PDOException $err) {
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648
 			echo "something went wrong";
 		}
 	}
 }
 
+<<<<<<< HEAD
 function changeNotifications($dbc, $value)
 {
 	if (isset($_SESSION['id']) && ($value === 'T' || $value === 'F'))
@@ -69,21 +78,39 @@ function changeNotifications($dbc, $value)
 		}
 		catch (PDOException $err)
 		{
+=======
+function changeNotifications($dbc, $value) {
+	if (isset($_SESSION['id']) && ($value === 'T' || $value === 'F')) {
+		try {
+			$q      = "UPDATE users SET notifications = ? WHERE id = ?";
+			$result = $dbc->prepare($q);
+			$result->execute([$value, $_SESSION['id']]);
+		} catch (PDOException $err) {
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648
 			echo "something went wrong";
 		}
 	}
 }
 
+<<<<<<< HEAD
 if (p_action() && isset($_POST['password']))
 {
 	try
 	{
+=======
+if (p_action() && isset($_POST['password'])) {
+	try {
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648
 		$q      = "SELECT password FROM users WHERE id = ?";
 		$result = $dbc->prepare($q);
 		$result->execute([$_SESSION['id']]);
 		$result = $result->fetch(PDO::FETCH_ASSOC);
 
+<<<<<<< HEAD
 		if (is_correctpassword($_POST['password'], $result['password'])) {
+=======
+		if (is_validpassword($_POST['password'], $result['password'])) {
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648
 			if (isset($_POST['resetpassword'], $_POST['passwordconfirm'], $_POST['password'])) {
 				if ($_POST['newpassword'] !== $_POST['passwordconfirm']) {
 					echo "The passwords provided don't match.";

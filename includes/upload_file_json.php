@@ -3,7 +3,11 @@
 session_start();
 require ('ft_util.php');
 require ('sql_connect.php');
+<<<<<<< HEAD
 scream();
+=======
+stfu();
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648
 
 if (p_action() /*&& isset($_POST['submit'], $_POST['file'], $_SESSION['id'])*/) {
 
@@ -47,11 +51,16 @@ if (p_action() /*&& isset($_POST['submit'], $_POST['file'], $_SESSION['id'])*/) 
 		echo '{"image": "' . $id . '" }';
 		// ft_redirectuser('../image_uploads.php');
 	} catch (PDOException $e) {
+<<<<<<< HEAD
 		echo "Something went wrong!";
 	}
 				// unlink($target_file);
 
 	// if
 
+=======
+		echo '{"image": "null" }';
+	}
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648
 
 }

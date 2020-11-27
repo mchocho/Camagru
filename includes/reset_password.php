@@ -33,5 +33,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   setUserPassword($password, $email);
   session_destroy();
 
-  ft_redirectuser(ROOT_PATH .$redirects["SIGN_IN"]);
+  ft_redirectuser(ROOT_PATH .redirects()["SIGN_IN"]);
 }

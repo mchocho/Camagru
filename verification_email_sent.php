@@ -1,13 +1,5 @@
 <?php 
-session_start();
-
-require_once ('includes/ft_util.php');
-
-stfu();
-
-if (isset($_SESSION['id']))
-	ft_redirectuser('index.php');
-
+require_once("includes/verification_email_sent.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,7 +28,7 @@ if (isset($_SESSION['id']))
 
       <!-- Render content -->
       <?php
-        require_once('views/email_verification_sent.php');
+        require_once("views/verification_email_sent.php");
       ?>
 		</div>
 	</body>

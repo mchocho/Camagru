@@ -5,7 +5,7 @@ require_once('includes/signin.php');
 <html>
   <head>
     <?php
-     HTMLHead("Sign In | Mojo");
+     HTMLHeadTemplate("Sign In | Mojo");
     ?>
     <style>
       .wrapper {

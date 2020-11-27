@@ -4,6 +4,7 @@ body {
 	height: 100%;
 }
 
+<<<<<<< HEAD
 .index .row {
   width: 100%;
   display: flex;
@@ -53,6 +54,8 @@ body {
 }
 
 
+=======
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648
 textarea {
 	resize: none;
 }
@@ -196,9 +199,12 @@ form .btn, input[type="button"], button {
 	top: 30px;
 	font-size: 120%;
 }
+<<<<<<< HEAD
 
 footer .hrt
 {
 	color: red;
 	font-size: 130%;
 }
+=======
+>>>>>>> 3342713f0688a23ed4cc828482fd439d84b1c648

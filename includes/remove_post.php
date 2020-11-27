@@ -1,19 +1,28 @@
 <?php
 require_once('session_start.php');
-require_once('sql.php');
-require_once('ft_util.php');
 
 dev_mode();
 
-if (isset($_GET['image'], $_SESSION['id'])) {
-	try {
-		$q      = "DELETE FROM images WHERE (user_id = ?) AND (id = ?)";
-		$result = $dbc->prepare($q);
-		$result->execute([$_SESSION['id'], $_GET['image']]);
-
-	} catch (PDOException $err) {
-		ft_print_r($err);
-	}
+if (!isset($_SESSION["id"]))
+{
+  ft_redirectuser(ROOT_PATH);
+  exit($msgs["errors"]["not_signed_in"]);
 }
-ft_redirectuser('../image_uploads.php');
-?>
+
+$redirect = ROOT_PATH .redirects()["UPLOAD"];
+
+if ($_SERVER["REQUEST_METHOD"] !== "GET")
+{
+  ft_redirectuser($redirect);
+  exit($msgs["errors"]["invalid_request"]);
+}
+
+if (isset($_GET["image"]))
+{
+  $image_id = $_GET["image"];
+  $user_id  = $_SESSION["id"];
+
+  deleteImageByIdAndUserId($image_id, $user_id);
+}
+
+ft_redirectuser($redirect);

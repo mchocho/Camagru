@@ -1,8 +1,5 @@
 <?php
 require_once("session_start.php");
-require_once("sql.php");
-require_once("messages.php");
-require_once("ft_util.php");
 
 dev_mode();
 

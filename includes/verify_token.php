@@ -37,11 +37,10 @@ switch($request)
   case "registration":
     validateUserAccount($id));
 
-    $redirect = ROOT_PATH .$redirects["SIGN_IN"];
+    $redirect = ROOT_PATH .redirects()["SIGN_IN"];
 
     ft_redirectuser($redirect);
     break;
-
   case "password_reset":
     $user_id  = selectUserById($id);
 
@@ -50,7 +49,8 @@ switch($request)
 
     $_SESSION["email"] = $user["email"];
 
-    $redirect = ROOT_PATH .$redirects["RESET_PASSWORD"];
-}
+    $redirect = ROOT_PATH .redirects()["RESET_PASSWORD"];
 
-// ft_redirectuser($redirect);
+    ft_redirectuser($redirect);
+    break;
+}

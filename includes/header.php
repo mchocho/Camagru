@@ -18,7 +18,9 @@ require_once("session_start.php");
     if (isset($_SESSION['username']))
     {
       echo '<div class="user_profile_container settings" align="right">';
-      echo   '<img src="images/mojo.jpg" class="profile_pic" />';
+      echo   '<a href="upload.php">';
+      echo     '<img src="images/mojo.jpg" class="profile_pic" />';
+      echo   '</a>';
       echo   '<span class="username">' .$_SESSION['username'] .'</span>';
       echo   '<a href="includes/logout.php" class="logout">Log out</a>';
       echo '</div>';

@@ -13,14 +13,14 @@ $results_per_page = 8;            //You can change this based on screen size
 $total = count($images);
 $page_count = ceil($total / $results_per_page);
 
-if (!isset($_GET['page']))
+if (!isset($_GET["page"]))
   $page = 1;
 else
   $page = (is_numeric($_GET['page'])) ? $_GET['page'] : 1;
 
 $first_results = ($page - 1) * $results_per_page;
 
-while($i < $results_per_page)
+while($i < $results_per_page && $i < $total)
 {
   if ($first_results > -1)
   {

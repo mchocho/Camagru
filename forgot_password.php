@@ -1,5 +1,5 @@
 <?php
-  require_once("includes/forgot_password.php");
+require_once("includes/forgot_password.php");
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
     
       <!-- Render content -->
       <?php
-        require_once('views/forgot_password.php');
+        require_once("views/forgot_password.php");
       ?>
     </div>
   </body>
