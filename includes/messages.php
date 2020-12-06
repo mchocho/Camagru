@@ -1,14 +1,19 @@
 <?php
 
 $msgs = array(
-  "success" => array(
+  "success"  => array(
 
   ),
  
-  "errors"	=> array(
+  "errors"   => array(
     "not_signed_in"     => "Please sign in.",
     "already_signed_in" => "You are already signed in",
     "invalid_request"   => "Request invalid.",
-    "unkown_post"       => "Post does not exist."
+    "unknown_error"     => "Something went wrong. Please try again.", 
+    "unknown_post"      => "Post does not exist."
+  ),
+  "response" => array(
+    "invalid_request"   => '{"response": "Invalid Request"}',
+    "not_signed_in"     => '{"response": "Please sign in."}'
   )
 );

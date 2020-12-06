@@ -5,8 +5,7 @@ dev_mode();
 
 if (isset($_SESSION["id"]))
 {
-  // ft_redirectuser(ROOT_PATH);
-  echo $msgs["errors"]["already_signed_in"];
+  ft_redirectuser(ROOT_PATH);
   exit($msgs["errors"]["already_signed_in"]);
 }
 
@@ -21,25 +20,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   if (emailIsReserved($email))
   {
-    echo "WHAT";
-		// ft_redirectuser(ROOT_PATH .redirects()["SIGN_UP_EMAIL_ALREADY_EXISTS"]);
+    ft_redirectuser(ROOT_PATH .redirects("SIGN_UP_EMAIL_ALREADY_EXISTS") );
     exit();
   }
 
   if (usernameIsReserved($username))
   {
-     echo "WHY";
-    // ft_redirectuser(ROOT_PATH .redirects()["SIGN_UP_USERNAME_ALREADY_EXISTS"]);
+    ft_redirectuser(ROOT_PATH .redirects("SIGN_UP_USERNAME_ALREADY_EXISTS") );
     exit();
-	}
+  }
 
   $password  = hash_password($password);
   $user      = insertNewUser($username, $email, $password);
   
   if (!isset($user) )
   {
-     echo "THE";
-    // ft_redirectuser(ROOT_PATH .redirects()["SIGN_UP_UNKOWN_ERROR"]);
+    ft_redirectuser(ROOT_PATH .redirects("SIGN_UP_UNKOWN_ERROR") );
     exit();
   }
 
@@ -49,5 +45,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   if (isset($tokenId))
     sendVerificationEmail($user, $email, $token["key"]);
 
-	ft_redirectuser(ROOT_PATH .redirects()["EMAIL_VERIFICATION_SENT"]);
+  ft_redirectuser(ROOT_PATH .redirects("EMAIL_VERIFICATION_SENT") );
 }

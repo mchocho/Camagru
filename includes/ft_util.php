@@ -115,7 +115,7 @@ function presetinput_select($name, $value)
 }
 
 
-function is_email($value)
+function isemail($value)
 {
   if (!isset($value) )
     return false;
@@ -132,12 +132,12 @@ function contains_uc($str)
   return ($str !== strtolower($str));
 }
 
-function is_strongpassword($password)
+function isstrongpassword($password)
 {
   return (contains_lc($password) && contains_uc($password) && strlen($password) <= 5);
 }
 
-function is_correctpassword($password, $hash)
+function iscorrectpassword($password, $hash)
 {
   return (isset($password, $hash) && password_verify($password, $hash));
 }
@@ -149,7 +149,7 @@ function hash_password($password)
 
 function email_client($to, $subject, $body)
 {
-  if (is_email($to) && isset($subject, $body) )
+  if (isemail($to) && isset($subject, $body) )
     return false;
   
   return @mail($to, $subject, wordwrap($body, 70), "From: no-reply@Mojo.com");
@@ -192,4 +192,23 @@ function generate_token()
     "key"  => $key,
     "hash" => $hash
   );
+}
+
+function getimagetype($file)
+{
+  return strtolower(pathinfo($file, PATHINFO_EXTENSION));
+}
+
+
+function isvalidimage($file)
+{
+  $allowed  = array("jpg", "jpeg", "gif", "png", "tif");
+  $filetype = getimagetype($file);
+
+  foreach ($allowed as $key => $type)
+    if ($type === $filetype)
+      return true; 
+
+  return false;
+
 }

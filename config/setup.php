@@ -1,7 +1,18 @@
 <?php
 require("database.php");
-require_once('../includes/ft_util.php');
-scream();
+
+/*$file = file_get_contents("setup.sql");
+
+$statements = explode(";", $file);
+
+
+foreach ($statements as $statement)
+{
+	$result = $dbc->prepare($statement);
+
+	$result->execute();
+}*/
+
 
 $q = "CREATE DATABASE IF NOT EXISTS camagru";
 $result = $dbc->prepare($q);

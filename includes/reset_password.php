@@ -14,7 +14,7 @@ if (!isset($_SESSION["email"]))
   ft_redirectuser(ROOT_PATH);
   exit($msgs["errors"]["invalid_request"]);
 }
-else if (!is_email($_SESSION["email"]))
+else if (!isemail($_SESSION["email"]))
 {
   session_destroy();
 
@@ -30,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   $email    = $_SESSION["email"];
   $password = hash_password($_POST["password"]);
 
-  setUserPassword($password, $email);
+  setUserPasswordByEmail($password, $email);
   session_destroy();
 
-  ft_redirectuser(ROOT_PATH .redirects()["SIGN_IN"]);
+  ft_redirectuser(ROOT_PATH .redirects("SIGN_IN") );
 }

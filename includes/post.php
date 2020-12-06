@@ -37,7 +37,10 @@ if ($userSignedIn)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $userSignedIn)
   handleNewComment($post_user["id"], $image["id"]);
 
-$post_user = $post_user["username"];
+define("TITLE",         $post_user['username'] ."'s post | Mojo");
+define("HTML_IMG_POST", '<img src="images/uploads/' .$image["name"] . '" />');
+define("HTML_IMG_LIKE", '<img src="' .$likeIconSrc .'" id="like-img" alt="like icon" />');
+define("ATTRIBUTE", "   Posted by " .$post_user['username']);
 
 function renderCommentForm()
 {

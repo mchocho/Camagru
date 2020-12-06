@@ -24,9 +24,13 @@ while($i < $results_per_page && $i < $total)
 {
   if ($first_results > -1)
   {
-    echo '<a href="post.php?id='      . $images[$first_results]['id']   . '">';
-    echo '<img src="images/uploads/'  . $images[$first_results]['name'] . '" /></a>';
+    $image = $images[$first_results];
+
+    echo '<a href="post.php?id='      . $image['id']   . '">';
+    echo  '<img src="images/uploads/'  . $image['name'] . '" />';
+    echo '</a>';
   }
+  
   $first_results++;
   $i++;
 }

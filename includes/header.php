@@ -1,5 +1,4 @@
 <?php
-//Move this file to the views folder
 require_once("session_start.php");
 ?>
 
@@ -28,7 +27,7 @@ require_once("session_start.php");
     else
     {
     	echo '<div class="user_profile_container">';
-    	echo    '<a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>';
+    	echo   '<a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>';
     	echo '</div>';
     }
   ?>

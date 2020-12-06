@@ -3,22 +3,21 @@ require_once("includes/reset_password.php");
 ?>
 <!DOCTYPE html>
 <html>
-	<head>
-		<?php
+  <head>
+    <?php
       HTMLHeadTemplate("Reset Password | Mojo");
     ?>
-	</head>
+  </head>
 
-	<body>
-		<?php
-      require_once("includes/header.php");
+  <body>
+    <?php
+      include_once("includes/header.php");
     ?>
 
-		<div class="wrapper" align="center">
-			<?php
-      	require_once("views/reset_password.php");
-    	?>
-
-		</div>
-	</body>
+    <div class="wrapper" align="center">
+      <?php
+        include_once("views/reset_password.php");
+      ?>
+    </div>
+  </body>
 </html>

@@ -1,5 +1,7 @@
 <?php
-require ("session_start.php");
+require_once("session_start.php");
+
+dev_mode();
 
 if (!isset($_SESSION["id"]))
 {
@@ -7,62 +9,87 @@ if (!isset($_SESSION["id"]))
   exit($msgs["errors"]["not_signed_in"]);
 }
 
-dev_mode();
-
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
-  $staticFile = true;
-
-  if ($_FILES["file"])
+  if (!isset($_POST["submit"]))
   {
-    
+    ft_redirectuser(ROOT_PATH .redirects("UPLOAD"));
+    exit($msgs["errors"]["invalid_requst"]);
+  }
+  else if (empty($_FILES))
+  {
+    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_NO_FILE_PROVIDED") );
+    exit();
+  }
+  else if (!isset($_FILES["file"]))
+  {
+    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_NO_FILE_PROVIDED") );
+    exit();
   }
 
+  $file         = $_FILES["file"];
+  $tmp          = $file["tmp_name"];
 
+  if ($file["error"] !== 0)
+  {
+    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_UNKNOWN_ERROR"));
+    exit();
+  }
+  else if ($file["size"] < MAX_UPLOAD_SIZE)
+  {
+    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_FILE_TOO_LARGE"));
+    exit();
+  }
+  else if (!getimagesize($tmp) || !isvalidimage($tmp))
+  {
+    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_INVALID_FILE_PROVIDED"));
+    exit();
+  }
+
+  $filename     = uniqid();
+  $directory    = ROOT_PATH ."images/uploads/";
+  $mime         = getimagetype($tmp);
+
+  $newfile      = $filename .'.' .$mime;
+  $destination  = $directory .$newfile;
+
+  move_uploaded_file($tmp, $destination)
+
+  if (!saveNewImage($_SESSION["id"], $newfile))
+  {
+    unlink($destination);
+    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_UNKNOWN_ERROR");
+    exit();
+  }
 }
 
-if (isset($_POST['submit'], $_FILES['file'], $_SESSION['id'])) {
+$images = selectAllUserImages($_SESSION["id"]);
 
-	$filename      = uniqid();
-	$target_file   = "../images/uploads/" . $filename;
-	$file          = $_FILES["file"];
-	$imageFileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
-	$allowed       = array('jpg', 'jpeg', 'gif', 'png', 'tif');
+if (isset($images))
+  array_reverse($images);
 
-	echo $target_file;
+$stickers = array(
+  "empty",        "mojo",           "mojo_1",     "mojo_2", 
+  "hey",          "lowkey_dog",     "sexy_dog",   "sad_dog",
+  "cool_dog",     "dog_overlay",    "dinosaur",   "thinking",
+  "donald_trump", "donald_trump_1", "food",       "money",
+  "aliengrid",    "chestburster",   "empty"
+);
 
-	if (getimagesize($file['tmp_name'])) {
-		if ($file["error"] === 0) {
-			if ($file['size'] < 500000) {
-				$target_file .= '.'.explode('/', $file['type'])[1];
-				$filename	 .= '.'.explode('/', $file['type'])[1];
-
-				move_uploaded_file($file['tmp_name'], $target_file);
-
-				try {
-					$q      = "CREATE TABLE IF NOT EXISTS `camagru`.`images` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `name` VARCHAR(120) NOT NULL , `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB";
-					$result = $dbc->prepare($q);
-					$result = $result->execute();
-
-
-					$q      = "INSERT INTO images (user_id, name) VALUES (?, ?)";
-					$result = $dbc->prepare($q);
-					$result = $result->execute([$_SESSION['id'], $filename]);
-
-					ft_redirectuser('../image_uploads.php');
-				} catch (PDOException $e) {
-					ft_redirectuser('../image_uploads.php?error=1');
-				}
-				unlink($target_file);
-			} else {
-				ft_redirectuser('../image_uploads.php?error=2');
-			}
-		} else {
-			ft_redirectuser('../image_uploads.php?error=3');
-		}
-	} else {
-		ft_redirectuser('../image_uploads.php?error=4');
-	}
+function renderstickers($stickers)
+{
+  foreach ($stickers as $sticker)
+    echo '<img class="thumbnail" src="images/stickers/' $sticker '.png" onclick="addSup(this)"/>';
 }
 
-?>
+function renderimages($images)
+{
+  foreach($images as $key => $image)
+  {
+    echo '<div class="img"><img class="item" src="images/uploads/' .$image['name'] . '" />';
+    echo   '<a href=includes/remove_post.php?image=' .$image['id'] .'>';
+    echo     '<button type="submit" value="' .$image['id'] .'" >Delete</button>';
+    echo   '</a>';
+    echo '</div>';
+  }
+}

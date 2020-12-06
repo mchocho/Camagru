@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   if (!isset($_POST["submit"], $_POST["email"])) 
     exit($msgs["errors"]["invalid_request"]);
 
-  if (!is_email($_POST["email"]))
+  if (!isemail($_POST["email"]))
   {
     // ft_redirectuser(ROOT_APP);
     exit("Please enter a valid email address.");

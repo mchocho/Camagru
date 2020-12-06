@@ -21,12 +21,12 @@ require_once('includes/signin.php');
   <body>
     <!-- Render app header -->
     <?php
-      require_once('includes/header.php');
+      include_once('includes/header.php');
     ?>
     <div class="wrapper" align="center">
       <!-- Render content -->
       <?php
-        require_once('views/signin.php');
+        include_once('views/signin.php');
       ?>
     </div>
   </body>

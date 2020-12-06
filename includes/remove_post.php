@@ -9,7 +9,7 @@ if (!isset($_SESSION["id"]))
   exit($msgs["errors"]["not_signed_in"]);
 }
 
-$redirect = ROOT_PATH .redirects()["UPLOAD"];
+$redirect = ROOT_PATH .redirects("UPLOAD");
 
 if ($_SERVER["REQUEST_METHOD"] !== "GET")
 {

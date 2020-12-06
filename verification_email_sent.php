@@ -3,33 +3,33 @@ require_once("includes/verification_email_sent.php");
 ?>
 <!DOCTYPE html>
 <html>
-	<head>
-		<?php
+  <head>
+    <?php
      HTMLHeadTemplate("Email Verification | Mojo");
     ?>
-		<style>
+    <style>
       body {
         padding-top: 6%;
       }
 
-			.content {
-				width: 100%;
-			}
+      .content {
+        width: 100%;
+      }
 
-			.icon {
-				width: 90px;
-				height: 90px;
-			}
-		</style>
-	</head>
-	
+      .icon {
+        width: 90px;
+        height: 90px;
+      }
+    </style>
+  </head>
+
   <body>
-		<div class="wrapper" align="center">
+    <div class="wrapper" align="center">
 
       <!-- Render content -->
       <?php
-        require_once("views/verification_email_sent.php");
+        include_once("views/verification_email_sent.php");
       ?>
-		</div>
-	</body>
+    </div>
+  </body>
 </html>
