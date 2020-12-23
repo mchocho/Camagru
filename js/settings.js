@@ -46,14 +46,4 @@ function script()
   }
 
   fileInput.addEventListener("change", onFileInputChange);
-
-  document.getElementById("slider_input").addEventListener("change", function() {
-    const el = document.getElementById("slider_input");
-
-    if (el.checked) {
-      document.getElementById("icon_slider").classList.remove("off");
-    } else {
-      document.getElementById("icon_slider").classList.add("off");
-    }
-  });
 }

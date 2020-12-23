@@ -11,7 +11,7 @@ require_once('includes/session_start.php');
     ?>
   </head>
 
-	<body class="index">
+  <body class="index">
     <!-- Render app header -->
     <?php
       include_once("includes/header.php");
