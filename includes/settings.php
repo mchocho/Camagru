@@ -148,7 +148,7 @@ $checked_attribute      = ($notifications_enabled) ? 'checked="checked"' : "";
 
 
 $notification_icon      = '<div id="icon_slider" class="icon slider ' .$class_attribute .'>';
-$notification_icon     .=   '<input type="checkbox" id="slider_input" name="notifications" value="on" ' .$checked_attribute .' />';
+$notification_icon     .= '<input type="checkbox" id="slider_input" name="notifications" value="on" ' .$checked_attribute .' />';
 $notification_icon     .= "</div>";
 
 define("USERNAME",                 "<p>Your current username is <span>" .$username ."</span></p>");

@@ -60,10 +60,12 @@ function compose_reset_password_template($str)
   return $msg;
 }
 
-function compose_comment_notification_template($username, $commenter, $url) {
-  $msg  = '<h2>Hi' . $username . '</h2>';
+function compose_comment_notification_template($username, $commenter, $comment, $url)
+{
+  $msg  = '<h2>Hi ' . $username . '</h2>';
   $msg .= "<p>$commenter has just commented on your post.</p><br />";
-  $msg .= "<p>To view the post, click on the link below</p><br />";
+  $msg .= "<blockquote>" . $comment . "</blockquote></br />";
+  $msg .= "<p>To reply to the comment, click on the link below</p><br />";
   $msg .= '<a href=""' . $url . '</a>';
   $msg .= "<br /><br />";
   $msg .= createFooter();

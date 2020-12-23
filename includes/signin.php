@@ -32,12 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     exit();
   }
 
-	if ($user["validated"] === 'F')
+  if ($user["validated"] === 'F')
   {
     $_SESSION["email"]  = $user["email"];
-		ft_redirectuser(ROOT_PATH .redirects("EMAIL_VERIFICATION_SENT") );
+    ft_redirectuser(ROOT_PATH .redirects("EMAIL_VERIFICATION_SENT") );
     exit();
-	}
+  }
 
   $_SESSION["id"]             = $user["id"];
   $_SESSION["email"]          = $user["email"];

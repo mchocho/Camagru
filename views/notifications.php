@@ -5,7 +5,7 @@
   
   <input type="button" id="edit_notifications" value="Change notifications" class="btn" />
   
-  <form action="settings.php?option=notifications" method="POST" id="notifications_input" class="input hide">
+  <form action="includes/settings.php?option=notifications" method="POST" id="notifications_input" class="input hide">
     
     <label>
     <?php

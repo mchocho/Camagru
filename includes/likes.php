@@ -2,8 +2,6 @@
 require_once("session_start.php");
 
 dev_mode();
-$endRequest = "{}";
-
 
 if ($_SERVER["REQUEST_METHOD"] !== "GET")
   exit($msgs["response"]["invalid_request"]);
@@ -28,15 +26,15 @@ $response   = array(
 
 if (userLikesThisPost($userId, $imageId) )                //The request is to unlike
 {
-	if (deleteLikeByUserIdAndImageId($userId, $imageId) )
+  if (deleteLikeByUserIdAndImageId($userId, $imageId) )
     exit(response["unliked"]);
-	else
-		exit(response["liked"]);
+  else
+    exit(response["liked"]);
 }
 else    //The requst is to like the image
 {
-	if (insertNewLike($userId, $imageId) )
-		exit(response["liked"]);
+  if (insertNewLike($userId, $imageId) )
+    exit(response["liked"]);
   else
     exit(response["unliked"]);
 }

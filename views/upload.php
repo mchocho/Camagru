@@ -42,7 +42,7 @@
 	<!-- Camera trigger -->
   <button class="trigger" id="trigger">Take Picture</button>
 	
-  <form action="includes/upload_file.php" method="post" enctype="multipart/form-data" >
+  <form action="includes/upload.php" method="POST" enctype="multipart/form-data" >
     
     <button type="button" class="upload" id="upload" aria-label-for="file">
       <label>
@@ -50,14 +50,15 @@
       </label>
     </button>
 		
-    <button type="submit" id="save" class="btn save" name="submit" value="save">Save</button>
+    <button type="submit" id="save" class="btn save" name="submit" value="save" disabled="disabled">Save</button>
   </form>
 </div>
 
 <div class="clip-art_container" align="center">
-	<div id="sticker" width= 1px>
+	<div id="sticker">
     <?php
-      renderstickers($stickers);
+      if (isset($stickers))
+        renderstickers($stickers);
 	  ?>
   </div>
 </div>

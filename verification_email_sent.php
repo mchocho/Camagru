@@ -7,20 +7,7 @@ require_once("includes/verification_email_sent.php");
     <?php
      HTMLHeadTemplate("Email Verification | Mojo");
     ?>
-    <style>
-      body {
-        padding-top: 6%;
-      }
-
-      .content {
-        width: 100%;
-      }
-
-      .icon {
-        width: 90px;
-        height: 90px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/verification_email_sent.css" media="all" />
   </head>
 
   <body>

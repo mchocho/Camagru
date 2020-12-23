@@ -5,7 +5,7 @@
   
   <input type="button" id="edit_pic" value="Change Profile Pic" class="btn" />
   
-  <form action="settings.php?option=profile" method="POST" enctype="multipart/form-data" id="pic_input" class="input hide">
+  <form action="includes/settings.php?option=profile" method="POST" enctype="multipart/form-data" id="pic_input" class="input hide">
     <button>
       <label>
         Change profile picture

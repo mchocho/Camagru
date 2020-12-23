@@ -4,7 +4,7 @@ require_once('includes/session_start.php');
 
 <!DOCTYPE html>
 <html>
-  <!-- Render HTML head contents -->
+  <!-- Render HTML head content -->
   <head>
     <?php
       HTMLHeadTemplate();

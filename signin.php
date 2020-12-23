@@ -7,16 +7,7 @@ require_once('includes/signin.php');
     <?php
      HTMLHeadTemplate("Sign In | Mojo");
     ?>
-    <style>
-      .wrapper {
-        position: relative;
-        top: -20px;
-        border: 3px solid #DDDDDD;
-        width: 40%;
-        padding: 6%;
-        border-radius: 13px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/signin.css" media="all" />
   </head>
   <body>
     <!-- Render app header -->

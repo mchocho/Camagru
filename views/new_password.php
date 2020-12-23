@@ -3,7 +3,7 @@
   
   <input type="button" id="edit_password" value="Change my password" class="btn" />
   
-  <form action="settings.php?option=password" method="POST" id="password_input" class="input hide">
+  <form action="includes/settings.php?option=password" method="POST" id="password_input" class="input hide">
     
     <label>
       <span>Current password</span>

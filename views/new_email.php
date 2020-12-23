@@ -3,7 +3,7 @@
   
   <input type="button" id="edit_email" value="Change email" class="btn" />
   
-  <form action="settings.php?option=email" method="POST" id="email_input" class="input hide">
+  <form action="includes/settings.php?option=email" method="POST" id="email_input" class="input hide">
     
     <label>
       <span>New email</span>
@@ -16,6 +16,5 @@
     </label>
 
     <input type="submit" name="submit" value="Save" class="btn" />
-    <input type="hidden" name="resetemail" value="true" />
   </form>
 </div>
