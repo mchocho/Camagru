@@ -14,17 +14,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
   if (!isset($_POST["submit"]))
   {
-    ft_redirectuser(ROOT_PATH .redirects("UPLOAD"));
+    ft_redirectuser(redirects("UPLOAD"));
     exit($msgs["errors"]["invalid_requst"]);
   }
   else if (empty($_FILES))
   {
-    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_NO_FILE_PROVIDED") );
+    ft_redirectuser(redirects("UPLOAD_NO_FILE_PROVIDED") );
     exit();
   }
   else if (!isset($_FILES["file"]))
   {
-    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_NO_FILE_PROVIDED") );
+    ft_redirectuser(redirects("UPLOAD_NO_FILE_PROVIDED") );
     exit();
   }
 
@@ -33,17 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   if ($file["error"] !== 0)
   {
-    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_UNKNOWN_ERROR"));
+    ft_redirectuser(redirects("UPLOAD_UNKNOWN_ERROR"));
     exit();
   }
   else if ($file["size"] < MAX_UPLOAD_SIZE)
   {
-    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_FILE_TOO_LARGE"));
+    ft_redirectuser(redirects("UPLOAD_FILE_TOO_LARGE"));
     exit();
   }
   else if (!getimagesize($tmp) || !isvalidimage($tmp))
   {
-    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_INVALID_FILE_PROVIDED"));
+    ft_redirectuser(redirects("UPLOAD_INVALID_FILE_PROVIDED"));
     exit();
   }
 
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   if (!saveNewImage($_SESSION["id"], $newfile))
   {
     unlink($destination);
-    ft_redirectuser(ROOT_PATH .redirects("UPLOAD_UNKNOWN_ERROR");
+    ft_redirectuser(redirects("UPLOAD_UNKNOWN_ERROR");
     exit();
   }
 }

@@ -1,5 +1,5 @@
 <?php
-require_once('includes/session_start.php');
+require_once("includes/session_start.php");
 ?>
 
 <!DOCTYPE html>
@@ -22,5 +22,10 @@ require_once('includes/session_start.php');
         include_once("views/index.php");
       ?>
     </div>
+
+    <!-- Display the app footer -->
+    <?php
+      include_once("views/footer.php");
+    ?>
   </body>
 </html>

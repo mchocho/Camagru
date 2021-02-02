@@ -4,6 +4,7 @@
 /images/temp/*
 *-tmp
 *.php-tmp
-.phpintel
 .*swp
+.phpintel
+env.php
 Makefile

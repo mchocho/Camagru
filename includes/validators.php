@@ -1,12 +1,13 @@
 <?php
-require_once("session_start.php");
+require_once("redirects.php");
+require_once("ft_util.php");
 
 dev_mode();
 
 function validateSignUp()
 {
   $errors     = array();
-  $url        = ROOT_PATH .redirects("SIGN_UP");
+  $url        = redirects("SIGN_UP");
 
   //Validate username
   if (!isset($_POST["username"]) )
@@ -42,7 +43,7 @@ function validateSignUp()
 function validateSignIn()
 {
   $errors = array();
-  $url    = ROOT_PATH .redirects("SIGN_IN");
+  $url    = redirects("SIGN_IN");
 
   //Validate username
   if (!isset($_POST['username']) )
@@ -66,7 +67,7 @@ function validateSignIn()
 function sendVerificationEmail($user, $email, $key)
 {
   $title    = "Email verification | " .APP_NAME;
-  $url      = current_path() .ROOT_PATH .redirects("VERIFY_APP_TOKEN") ."?key=$key";
+  $url      = current_path() .redirects("VERIFY_APP_TOKEN") ."?key=$key";
   $template = compose_email_verification_template($url);
 
   if (!isset($key))
@@ -77,22 +78,22 @@ function validatePasswordReset()
 {
   if (!isset($_POST["password"]))
   {
-    ft_redirectuser(ROOT_PATH .redirects("PASSWORD_RESET_NO_PASSWORD_PROVIDED") );
+    ft_redirectuser(redirects("PASSWORD_RESET_NO_PASSWORD_PROVIDED") );
     return false;
   }
   else if (!isset($_POST["password_confirm"]))
   {
-    ft_redirectuser(ROOT_PATH .redirects("PASSWORD_RESET_NO_PASSWORD_CONFIRM") );
+    ft_redirectuser(redirects("PASSWORD_RESET_NO_PASSWORD_CONFIRM") );
     return false;
   }
   else if ($_POST["password"] !== $_POST["password_confirm"])
   {
-    ft_redirectuser(ROOT_PATH .redirects("PASSWORD_RESET_PASSWORDS_PROVIDED_DIFFER") );
+    ft_redirectuser(redirects("PASSWORD_RESET_PASSWORDS_PROVIDED_DIFFER") );
     return false;
   }
   else if (!isstrongpassword($_POST["password"]))
   {
-    ft_redirectuser(ROOT_PATH .redirects("PASSWORD_RESET_WEAK_PASSWORD_PROVIDED") );
+    ft_redirectuser(redirects("PASSWORD_RESET_WEAK_PASSWORD_PROVIDED") );
     return false;
   }
 }

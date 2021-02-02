@@ -58,5 +58,6 @@ function script()
   }
 
   //Text box event listener
-  commentInput.addEventListener("keyup", onCommentKeyUp);
+  if (commentInput)
+    commentInput.addEventListener("keyup", onCommentKeyUp);
 }

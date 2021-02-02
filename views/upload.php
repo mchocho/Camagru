@@ -9,12 +9,12 @@
   <div class="prview_container">
     <!-- First sticker -->
     <div id="preview">
-      <img src="images/stickers/empty.png" id="supImage" width="160px" height="120px" />
+      <img src="images/stickers/empty.png" id="sticker1" width="160px" height="120px" />
     </div>
     
     <!-- 2nd sticker -->
     <div id="preview1">
-      <img src="images/stickers/empty.png" id="supImage1" width="260px" height="220px" />
+      <img src="images/stickers/empty.png" id="sticker2" width="260px" height="220px" />
     </div>
   
   </div>

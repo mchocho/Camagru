@@ -2,19 +2,18 @@
 require_once("session_start.php");
 ?>
 
-<header class="header">
-  <a href="index.php">
+<header>
+  <a href="index.php" class="header">
     <div class="logo">
-       <img src="images/icons/logo_true.jpg" />
+       <img src="images/icons/mojo.png" />
     </div>
-
     <div class="heading">
      <h1>Mojo</h1>
     </div>
   </a>
 
   <?php
-    if (isset($_SESSION["username"]))
+    if (isset($_SESSION["id"], $_SESSION["username"]))
     {
       echo '<div class="user_profile_container settings" align="right">';
       echo   '<a href="upload.php">';
@@ -26,7 +25,7 @@ require_once("session_start.php");
     }
     else
     {
-    	echo '<div class="user_profile_container">';
+    	echo '<div class="auth">';
     	echo   '<a href="signup.php">Sign up</a> | <a href="signin.php">Sign in</a>';
     	echo '</div>';
     }

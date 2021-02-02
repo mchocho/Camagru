@@ -1,5 +1,5 @@
 <?php
-include_once("session_start.php");
+require_once("session_start.php");
 
 dev_mode();
 
@@ -20,13 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   if (emailIsReserved($email))
   {
-    ft_redirectuser(ROOT_PATH .redirects("SIGN_UP_EMAIL_ALREADY_EXISTS") );
+    ft_redirectuser(redirects("SIGN_UP_EMAIL_ALREADY_EXISTS") );
     exit();
   }
 
   if (usernameIsReserved($username))
   {
-    ft_redirectuser(ROOT_PATH .redirects("SIGN_UP_USERNAME_ALREADY_EXISTS") );
+    ft_redirectuser(redirects("SIGN_UP_USERNAME_ALREADY_EXISTS") );
     exit();
   }
 
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   
   if (!isset($user) )
   {
-    ft_redirectuser(ROOT_PATH .redirects("SIGN_UP_UNKOWN_ERROR") );
+    ft_redirectuser(redirects("SIGN_UP_UNKOWN_ERROR") );
     exit();
   }
 
@@ -45,5 +45,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   if (isset($tokenId))
     sendVerificationEmail($user, $email, $token["key"]);
 
-  ft_redirectuser(ROOT_PATH .redirects("EMAIL_VERIFICATION_SENT") );
+  ft_redirectuser(redirects("EMAIL_VERIFICATION_SENT") );
 }

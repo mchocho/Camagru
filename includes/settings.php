@@ -1,5 +1,5 @@
 <?php
-require("session_start.php");
+require_once("session_start.php");
 
 dev_mode();
 
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
   if (!isset($_GET["option"], $_POST["password"]))
   {
-    ft_redirectuser(ROOT_PATH .redirects("SETTINGS"));
+    ft_redirectuser(redirects("SETTINGS"));
     exit($msgs["errors"]["invalid_requst"]);
   }
 
@@ -24,14 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   if (!isset($password))
   {
-    ft_redirectuser(ROOT_PATH .redirects("SETTINGS"));
+    ft_redirectuser(redirects("SETTINGS"));
     exit();
   }
 
   if ($option !== "profile" && option !== "notifications")
     if (!iscorrectpassword($_POST['password'], $password["password"]))
     {
-      ft_redirectuser(ROOT_PATH .redirects("SETTINGS_INCORRECT_PASSWORD"));
+      ft_redirectuser(redirects("SETTINGS_INCORRECT_PASSWORD"));
       exit();
     }
 
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     case "username":
       if (!isset($_POST["username"]))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_NO_USERNAME_PROVIDED"));
+        ft_redirectuser(redirects("SETTINGS_NO_USERNAME_PROVIDED"));
         exit();
       }
 
@@ -52,12 +52,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
       if (usernameIsReserved($username))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_USERNAME_RESERVED"));
+        ft_redirectuser(redirects("SETTINGS_USERNAME_RESERVED"));
         exit();
       }
       else if (!setNewUserNameById($username, $id))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_UNKNOWN_ERROR"));
+        ft_redirectuser(redirects("SETTINGS_UNKNOWN_ERROR"));
         exit();
       }
 
@@ -65,12 +65,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     case "email":
       if (!isset($_POST["email"]))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_NO_EMAIL_PROVIDED"));
+        ft_redirectuser(redirects("SETTINGS_NO_EMAIL_PROVIDED"));
         exit();
       }
       else if (!isemail($_POST["email"]))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_NO_EMAIL_PROVIDED"));
+        ft_redirectuser(redirects("SETTINGS_NO_EMAIL_PROVIDED"));
         exit();
       }
 
@@ -78,12 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
       if (emailIsReserved($email))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_EMAIL_RESERVED"));
+        ft_redirectuser(redirects("SETTINGS_EMAIL_RESERVED"));
         exit();
       }
       else if (!setNewUserEmailById($email, $id))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_UNKNOWN_ERROR"));
+        ft_redirectuser(redirects("SETTINGS_UNKNOWN_ERROR"));
         exit();
       }
 
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     case "password":
       if (!isset($_POST["newpassword"], $_POST["confirm"]))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_NO_PASSWORD_PROVIDED"));
+        ft_redirectuser(redirects("SETTINGS_NO_PASSWORD_PROVIDED"));
         exit();
       }
 
@@ -100,17 +100,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
       if ($newpassword !== $confirm)
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_PASSWORDS_PROVIDED_DIFFER"));
+        ft_redirectuser(redirects("SETTINGS_PASSWORDS_PROVIDED_DIFFER"));
         exit();
       }
       else if (!isstrongpassword($newpassword))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_WEAK_PASSWORD_PROVIDED"));
+        ft_redirectuser(redirects("SETTINGS_WEAK_PASSWORD_PROVIDED"));
         exit(); 
       }
       else if (!setNewUserPasswordById($newpassword, $id))
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS_NO_PASSWORD_PROVIDED"));
+        ft_redirectuser(redirects("SETTINGS_NO_PASSWORD_PROVIDED"));
         exit();
       }
 
@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     case "notifications":
       if (!isset($_POST['notifications']) )
       {
-        ft_redirectuser(ROOT_PATH .redirects("SETTINGS"));
+        ft_redirectuser(redirects("SETTINGS"));
         exit();
       }
 
@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
       if (!(($request && $notifications) || (!$request && !$notifications) ) )
         if (!$setUserNotification($newvalue, $id))
         {
-          ft_redirectuser(ROOT_PATH .redirects("SETTINGS_UNKNOWN_ERROR"));
+          ft_redirectuser(redirects("SETTINGS_UNKNOWN_ERROR"));
           exit();
         }
 

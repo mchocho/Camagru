@@ -2,8 +2,6 @@
 require_once("sql_statements.php");
 require_once("sql_connect.php");
 
-// stm() = statementList();
-
 function selectUserById($userId)
 {
   return runSelectQuery(stm("selUserById"), [$userId]);
@@ -126,7 +124,7 @@ function saveNewImage($userId, $file)
 
 function deleteImageByIdAndUserId($imageId, $userId)
 {
-  return runDeleteQuery(stm("delImageByIdAndUserId"), [$imageId, $userId]);
+  return runDropQuery(stm("delImageByIdAndUserId"), [$imageId, $userId]);
 }
 
 function selectAllCommentsByImageId($imageId)
@@ -141,7 +139,7 @@ function selectAllLikeIdsAndUsersByImageId($imageId)
 
 function deleteLikeByUserIdAndImageId($userId, $imageId)
 {
-  return runDeleteQuery(stm("delLikeByUserIdAndImageId"), [$userId, $imageId]);
+  return runDropQuery(stm("delLikeByUserIdAndImageId"), [$userId, $imageId]);
 }
 
 function insertNewLike($userId, $imageId)
@@ -152,4 +150,11 @@ function insertNewLike($userId, $imageId)
 function insertNewComment($userId, $imageId, $comment)
 {
   return runInsertQuery(stm("insNewComment"), [$userId, $imageId, $message]);
+}
+
+function dropDB()
+{
+  echo stm("dropDB").'\n';
+
+  return runDropQuery(stm("dropDB"), []);
 }

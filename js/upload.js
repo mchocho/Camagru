@@ -5,6 +5,8 @@ function script()
   const fileInput      = document.getElementById("file");
   const stream         = document.getElementById("stream_container");
   const trigger        = document.getElementById("trigger");
+  const sticker1       = document.getElementById("preview");
+  const sticker2       = document.getElementById("preview1");
 
   let   cameraEnabled  = false;
 
@@ -61,14 +63,21 @@ function script()
   //Enable camera on request
   stream.addEventListener("click", enableCamera);
 
-
-  function changeSup(e)
+  function changeIcon(e)
   {
+    const target = e.currentTarget;
+    const src    = target.src;
+    const id     = (target.id === "preview") ? "sticker1" : "sticker2";
+    const img    = document.getElementById(id);
 
+    img.setAttribute("src", src);
+    trigger.disabled = false;
   }
 
+  sticker1.addEventListener("click", changeIcon);
+  sticker2.addEventListener("click", changeIcon);
 
-  function addSup(el) {
+  /*function addSup(el) {
       var imageSrc = el.src;
       var sup = document.getElementById("supImage");
       sup.setAttribute("src", imageSrc);
@@ -80,7 +89,7 @@ function script()
       var sup1 = document.getElementById("supImage1");
       sup1.setAttribute("src", imageSrc);
       trigger.disabled = false;
-  }
+  }*/
 
   function isImageFile(file)
   {

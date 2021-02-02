@@ -40,20 +40,20 @@ function compose_email_verification_template($url)
   return $msg;
 }
 
-function compose_reset_password_template($str)
+function compose_reset_password_template($url)
 {
   $msg  = "<h1>Hi There</h1>";
   $msg .= "<p>We received a request to reset your password for your Mojo account.</p>";
   $msg .= "<p>Simply click on the button below to set a new password:</p>";
   $msg .= "<button>";
-  $msg .=   '<a href="' . $str . '" target="_blank">';
+  $msg .=   '<a href="' . $url . '" target="_blank">';
   $msg .=     "Reset my password";
   $msg .=   "</a>";
   $msg .= "</button>";
   $msg .= "<p>";
   $msg .=   "Or copy and paste the link below into the address bar";
   $msg .= "</p>";
-  $msg .= $str;
+  $msg .= $url;
   $msg .= "<br /><br />";
   $msg .= createFooter();
 

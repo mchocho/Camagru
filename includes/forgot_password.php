@@ -17,13 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   if (!isemail($_POST["email"]))
   {
     // ft_redirectuser(ROOT_APP);
-    exit("Please enter a valid email address.");
+    exit($msgs["errors"]["invalid_email"]); //"Please enter a valid email address."
   }
 
   $user = selectUserByEmail($_POST["email"]);
 
   if (!isset($user))
-    exit(); //Email address does not exist, revealing this info is a security risk
+    exit($msgs["errors"]["invalid_email"); //Email address does not exist, revealing this info is a security risk
 
   $user_id  = $user["id"];
   $email    = $user["email"];
@@ -36,11 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   
 
   $title    = "Reset Password | " .APP_NAME;
-  $url      = current_path() .ROOT_PATH .redirects()["VERIFY_APP_TOKEN"] ."?key=$key";
+  $url      = current_path() .redirects("VERIFY_APP_TOKEN") ."?key=$key";
   $template = compose_reset_password_template($url);
 
   if (isset($tokenId))
     email_client($email, $title, $template);
 
-  ft_redirectuser(redirects()["PASSWORD_RESET_EMAIL_SENT"]);
+  ft_redirectuser(redirects("PASSWORD_RESET_EMAIL_SENT"));
 }

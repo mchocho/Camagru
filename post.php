@@ -16,7 +16,7 @@ require_once("includes/post.php");
       include_once("includes/header.php");
     ?>
 
-    <div class="wrapper main settings" align="center">
+    <div class="wrapper main post" align="center">
       <?php
         include_once("views/post.php");
       ?>

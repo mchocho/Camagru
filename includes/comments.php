@@ -1,6 +1,5 @@
 <?php
 require_once("session_start.php");
-require_once('email_templates.php');
 
 function handleNewComment($post_user_id, $image_id)
 {
@@ -58,7 +57,7 @@ function renderPostComments($comments)
     $username = $user["username"];
     $comment  = htmlspecialchars($comment["message"]);
     
-    if ($userSignedIn))
+    if ($userSignedIn)
       if ($username === $_SESSION["username"])
         $username = "You";
 

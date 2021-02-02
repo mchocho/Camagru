@@ -1,5 +1,5 @@
-<div class="image_container" align="center">
-  <div class="row" align="center">
+<div class="image_container">
+  <div class="row">
     <!-- Render image layout -->
     <?php
       include_once("includes/gallery.php");

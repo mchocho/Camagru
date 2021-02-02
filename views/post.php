@@ -1,66 +1,69 @@
-<!-- Display the post -->
-<div class="image_container">
-  <?php
-    echo HTML_IMG_POST;
-  ?>
-</div>
+<div class="content">
 
-<!-- Display the author's usernane -->
-<span class="props">
-  <?php
-    echo ATTRIBUTE;
-  ?>
-</span>
-
-<div class="social_container">
-  
-  <!-- Display like or unlike action button -->
-  <button id="like" name="like">
+  <!-- Display the author's usernane -->
+  <p class="props">
     <?php
-      echo HTML_IMG_LIKE;
+      echo ATTRIBUTE;
     ?>
-  </button>
+  </p>
 
-  <!-- Display the share button -->
-  <button id="share" name="share">
-    <img src="images/icons/share.png" alt="share icon" />
-  </button>
-</div>
-
-<div class="comments_container">
-  <hr />
-
-  <span class="heading">Comments</span>
-
-  <!-- Display comment count -->
-  <span id="comment_count" class="count">
+  <!-- Display the post -->
+  <div class="image_container">
     <?php
-      echo $comment_count;
+      echo HTML_IMG_POST;
     ?>
-  </span>
+  </div>
 
-  <span> | </span>
+  <div class="social_container">
+    
+    <!-- Display like or unlike action button -->
+    <button id="like" name="like">
+      <?php
+        echo HTML_IMG_LIKE;
+      ?>
+    </button>
 
-  <span class="heading">Likes </span>
+    <!-- Display the share button -->
+    <button id="share" name="share">
+      <img src="images/icons/share.png" alt="share icon" />
+    </button>
+  </div>
 
-  <!-- Display likes counts -->
-  <span id="like_count" class="count">
+  <div class="comments_container">
+    <hr />
+
+    <span class="heading">Comments</span>
+
+    <!-- Display comment count -->
+    <span id="comment_count" class="count">
+      <?php
+        echo $comment_count;
+      ?>
+    </span>
+
+    <span> | </span>
+
+    <span class="heading">Likes </span>
+
+    <!-- Display likes counts -->
+    <span id="like_count" class="count">
+      <?php
+          echo $like_count;
+      ?>
+    </span>
+
+    <hr />
+
+    <!-- Display comment form -->
     <?php
-        echo $like_count;
+      renderCommentForm();
     ?>
-  </span>
 
-  <hr />
-
-  <!-- Display comment form -->
-  <?php
-    renderCommentForm();
-  ?>
-
-  <!-- Display comments for this post -->
-  <ol class="comments" id="comment_list" >
-    <?php 
-      renderPostComments($comments);
-    ?>
-  </ol>
+    <!-- Display comments for this post -->
+    <ol class="comments" id="comment_list" >
+      <?php 
+        renderPostComments($comments);
+      ?>
+    </ol>
+  </div>
 </div>

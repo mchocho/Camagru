@@ -29,7 +29,8 @@ function stm($key)
     "selLikeIdAndUserByImageId"     => "SELECT `id`, `user_id` FROM `likes` WHERE `image_id` = ?",
     "insNewLike"                    => "INSERT INTO `likes` (`user_id`, `image_id`) VALUES (?, ?)",
     "delLikeByUserIdAndImageId"     => "DELETE FROM `likes` WHERE `user_id` = ? AND `image_id` = ?",
-    "insNewComment"                 => "INSERT INTO `comment` (`user_id`, `image_id`, `message`) VALUES (?, ?, ?)"
+    "insNewComment"                 => "INSERT INTO `comment` (`user_id`, `image_id`, `message`) VALUES (?, ?, ?)",
+    "dropDB"                        => "DROP DATABASE camagru"
   )[$key];
 }
 

@@ -74,7 +74,7 @@ function stfu()
 
 function dev_mode()
 {
-  if (DEV_MODE)
+  if (getenv("DEV"))
     scream();
   else
     stfu();
@@ -154,25 +154,6 @@ function email_client($to, $subject, $body)
   
   return @mail($to, $subject, wordwrap($body, 70), "From: no-reply@Mojo.com");
 }
-
-/*function g_action()
-{
-	return ($_SERVER['REQUEST_METHOD'] === 'GET');
-}
-
-function p_action()
-{
-	return ($_SERVER['REQUEST_METHOD'] === 'POST');
-}*/
-
-
-/*function generate_token()
-{
-  $token = openssl_random_pseudo_bytes(16);
-  $token = bin2hex($token);
-  
-  return $token;
-}*/
 
 function userLikesThisPost($id, $likes)
 {

@@ -1,16 +1,15 @@
 <?php
-require_once("config.php");
-// require_once("config/credentials.php");
+require_once("./config.php");
 
 function createConnection()
 {
-  $servername = "localhost";
-  $username   = "root";
-  $password   = "654321";
-
   try
   {
-  	$dbc = new PDO("mysql:host=$servername;dbname=camagru", $username, $password);
+    $db   = getenv("DB");
+    $user = getenv("USERNAME");
+    $pass = getenv("PASSWORD");
+
+  	$dbc = new PDO($db, $user, $pass);
   	$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     return $dbc;
@@ -40,6 +39,7 @@ function runSelectQuery($stm, $values, $fetchAll = false)
       ft_echo($e->getMessage());
       ft_alert(ALERT_ERROR);
     }
+
     return NULL;
   }
 }
@@ -52,8 +52,9 @@ function runInsertQuery($stm, $values)
 
     $result = $dbc->prepare($stm);
     $result->execute($values);
+    $value  = $dbc->lastInsertId();
 
-    return $dbc->lastInsertId();  //Returns the insert id
+    return $value;  //Returns the insert id
   }
   catch (PDOException $e)
   {
@@ -62,6 +63,7 @@ function runInsertQuery($stm, $values)
       ft_echo($e->getMessage());
       ft_alert(ALERT_ERROR);
     }
+
     return false;
   }
 }
@@ -84,11 +86,12 @@ function runUpdateQuery($stm, $values)
       ft_echo($e->getMessage());
       ft_alert(ALERT_ERROR);
     }
+
     return false;
   }
 }
 
-function runDeleteQuery($stm, $values)
+function runDropQuery($stm, $values)
 {
   try
   {
@@ -106,6 +109,7 @@ function runDeleteQuery($stm, $values)
       ft_echo($e->getMessage());
       ft_alert(ALERT_ERROR);
     }
+
     return false;
   }
 }

@@ -5,54 +5,44 @@ dev_mode();
 
 if (!isset($_SESSION["id"]))
 {
-  // ft_redirectuser(ROOT_PATH);
   exit($msgs["response"]["not_signed_in"]);
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST")// /*&& isset($_POST['submit'], $_POST['file'], $_SESSION['id'])*/) {
+if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
-	if ()
-	// $content 	   = file_get_contents("php://input");
-	$filename      = uniqid();
-	$target_file   = "../images/uploads/".$filename;
-	// $temp          = '../images/tmp/'.$filename;
-	$file          = $_FILES["file"];
-	$imageFileType = strtolower(pathinfo($file["tmp_name"], PATHINFO_EXTENSION));
-	$allowed       = array('jpg', 'jpeg', 'gif', 'png', 'tif');
-	$target_file  .= '.'.explode('/', $file['type'])[1];
-	// $temp		  .= '.'.explode('/', $file['type'])[1];
-	$filename	  .= '.'.explode('/', $file['type'])[1];
-	// $temp
+  if (empty($_FILES))
+  {
+    exit($msgs["response"]["no_picture_provoded"]);
+  }
+  else if (!isset($_FILES["file"]))
+  {
+    exit($msgs["response"]["no_picture_provoded"]);
+  }
 
-	// header('Content-type: ' . $file['type']);
+  $file         = $_FILES["file"];
+  $tmp          = $file["tmp_name"];
+  $mime         = getimagetype($tmp);
 
-	// echo "File is of type --> ".$target_file."\n";
+  if ($file["error"] !== 0)
+    exit($msgs["response"]["image_upload_failed"]);
+  else if ($file["size"] < MAX_UPLOAD_SIZE)
+    exit($msgs["response"]["image_upload_file_too_large"]);
+  else if (!getimagesize($tmp) || !isvalidimage($mime))
+    exit($msgs["response"]["image_upload_invalid_file"]);
 
-	// echo "File contents -->".$file['name'];
+  $filename     = uniqid();
+  $directory    = ROOT_PATH ."images/uploads/";
 
-	ft_makedir('../images/uploads/');
-	// ft_makedir('../images/tmp/');
+  $newfile      = $filename .'.' .$mime;
+  $destination  = $directory .$newfile;
 
-	// ft_print_r($content);
-	file_put_contents($target_file, file_get_contents($file['tmp_name']));
+  move_uploaded_file($tmp, $destination)
 
-	move_uploaded_file($file['tmp_name'], $target_file);
+  if (!saveNewImage($_SESSION["id"], $newfile))
+  {
+    unlink($destination);
+    exit($msgs["response"]["image_upload_failed"]);
+  }
 
-	try {
-		$q      = "CREATE TABLE IF NOT EXISTS `camagru`.`images` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `name` VARCHAR(120) NOT NULL , `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB";
-		$result = $dbc->prepare($q);
-		$result = $result->execute();
-
-
-		$q      = "INSERT INTO images (user_id, name) VALUES (?, ?)";
-		$result = $dbc->prepare($q);
-		$result = $result->execute([$_SESSION['id'], $filename]);
-
-		$id = $dbc->lastInsertId();
-		echo '{"image": "' . $id . '" }';
-		// ft_redirectuser('../image_uploads.php');
-	} catch (PDOException $e) {
-		echo '{"image": "null" }';
-	}
-
+  exit('{"image": "' . $id . '" }');
 }

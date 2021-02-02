@@ -57,5 +57,7 @@
   
   <br />
   
-  <input type="submit" name="submit" value="Sign Up" class="btn" />
+  <label>
+    <input type="submit" name="submit" value="Sign Up" class="btn" />
+  </label>
 </form>

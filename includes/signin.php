@@ -5,9 +5,11 @@ dev_mode();
 
 if (isset($_SESSION["id"]))
 {
+
   ft_redirectuser(ROOT_PATH);
   exit($msgs["errors"]["already_signed_in"]);
 }
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
@@ -16,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   $username = trim($_POST["username"]);
   $password = trim($_POST["password"]);
-  $redirect = ROOT_PATH .redirects("SIGN_IN_INCORRECT_CREDENTIALS");
+  $redirect = redirects("SIGN_IN_INCORRECT_CREDENTIALS");
 
   $user = selectUserByNameOrEmail($username, $username);
 
@@ -35,9 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   if ($user["validated"] === 'F')
   {
     $_SESSION["email"]  = $user["email"];
-    ft_redirectuser(ROOT_PATH .redirects("EMAIL_VERIFICATION_SENT") );
+    ft_redirectuser(redirects("EMAIL_VERIFICATION_SENT") );
     exit();
   }
+
 
   $_SESSION["id"]             = $user["id"];
   $_SESSION["email"]          = $user["email"];
