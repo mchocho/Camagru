@@ -14,7 +14,7 @@ require_once("includes/session_start.php");
   <body class="index">
     <!-- Render app header -->
     <?php
-      include_once("includes/header.php");
+      include_once("views/header.php");
     ?>
     
     <div class="wrapper main" align="center">

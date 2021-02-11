@@ -114,7 +114,7 @@ function selectUserPassword($userId)
 
 function selectAllUserImages($userId)
 {
-  return runSelectQuery(stm("selImagesByUserId"), [$userId]);
+  return runSelectQuery(stm("selImagesByUserId"), [$userId], true);
 }
 
 function saveNewImage($userId, $file)

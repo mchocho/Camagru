@@ -11,7 +11,7 @@ require_once("includes/reset_password.php");
 
   <body>
     <?php
-      include_once("includes/header.php");
+      include_once("views/header.php");
     ?>
 
     <div class="wrapper" align="center">

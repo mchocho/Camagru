@@ -1,9 +1,10 @@
 <?php
 
-$root = "../";
 
 function redirects($key)
 {
+  $root = "../";
+  
   return array(
     "SIGN_UP"                                   => $root ."signup.php",
     "SIGN_UP_EMAIL_ALREADY_EXISTS"              => $root ."signup.php?error_6=1",

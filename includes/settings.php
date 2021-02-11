@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     exit();
   }
 
-  if ($option !== "profile" && option !== "notifications")
+  if ($option !== "profile" && $option !== "notifications")
     if (!iscorrectpassword($_POST['password'], $password["password"]))
     {
       ft_redirectuser(redirects("SETTINGS_INCORRECT_PASSWORD"));
@@ -87,6 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         exit();
       }
 
+      $_SESSION["email"] = $email;
+
       break;
     case "password":
       if (!isset($_POST["newpassword"], $_POST["confirm"]))
@@ -137,9 +139,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
       break;
     default: break;
   }
+
+  ft_redirectuser(redirects("SETTINGS"));
 }
 
 $username               = $_SESSION["username"];
+$email                  = $_SESSION["email"];
 $notifications_enabled  = $_SESSION["notifications"] === "T";
 
 $notification           = ($notifications_enabled) ? "enabled"           : "disabled";
@@ -151,7 +156,7 @@ $notification_icon      = '<div id="icon_slider" class="icon slider ' .$class_at
 $notification_icon     .= '<input type="checkbox" id="slider_input" name="notifications" value="on" ' .$checked_attribute .' />';
 $notification_icon     .= "</div>";
 
-define("USERNAME",                 "<p>Your current username is <span>" .$username ."</span></p>");
+define("USER",                     "<p>Your current username is <span>" .$username ."</span></p>");
 define("EMAIL",                    "<p>Your current email address is <span>" .$email ."</span></p>");
 define("NOTIFICATIONS",            "<p>Notifications are currently" .$notification ."</p>");
 define("HTML_ICON_NOTIFICATIONS",  $notification_icon);

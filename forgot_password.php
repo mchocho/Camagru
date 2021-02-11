@@ -13,7 +13,7 @@ require_once("includes/forgot_password.php");
   <body>
     <!-- Render app header -->
     <?php
-      require_once("includes/header.php");
+      require_once("views/header.php");
     ?>
 
     <div class="wrapper" align="center">

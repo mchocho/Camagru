@@ -12,6 +12,10 @@ require_once("includes/verification_email_sent.php");
 
   <body>
     <div class="wrapper" align="center">
+      <!-- Render app header -->
+      <?php
+        include_once("views/header.php");
+      ?>
 
       <!-- Render content -->
       <?php

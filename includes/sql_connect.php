@@ -1,15 +1,18 @@
 <?php
 require_once("./config.php");
 
+if (empty(getenv("APP_NAME")))
+  require_once("../config.php");
+
 function createConnection()
 {
   try
   {
-    $db   = getenv("DB");
-    $user = getenv("USERNAME");
+    $db   = getenv("DB_NAME");
+    $user = getenv("DB_USERNAME");
     $pass = getenv("PASSWORD");
 
-  	$dbc = new PDO($db, $user, $pass);
+  	$dbc = new PDO($db, $user, getenv("PASSWORD"));
   	$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     return $dbc;
@@ -52,9 +55,8 @@ function runInsertQuery($stm, $values)
 
     $result = $dbc->prepare($stm);
     $result->execute($values);
-    $value  = $dbc->lastInsertId();
 
-    return $value;  //Returns the insert id
+    return $dbc->lastInsertId();  //Returns the insert id
   }
   catch (PDOException $e)
   {

@@ -36,12 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     ft_redirectuser(redirects("UPLOAD_UNKNOWN_ERROR"));
     exit();
   }
-  else if ($file["size"] < MAX_UPLOAD_SIZE)
+  else if ($file["size"] > MAX_UPLOAD_SIZE)
   {
     ft_redirectuser(redirects("UPLOAD_FILE_TOO_LARGE"));
     exit();
   }
-  else if (!getimagesize($tmp) || !isvalidimage($tmp))
+  else if (!getimagesize($tmp))
   {
     ft_redirectuser(redirects("UPLOAD_INVALID_FILE_PROVIDED"));
     exit();
@@ -54,17 +54,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   $newfile      = $filename .'.' .$mime;
   $destination  = $directory .$newfile;
 
-  move_uploaded_file($tmp, $destination)
+  move_uploaded_file($tmp, $destination);
 
-  if (!saveNewImage($_SESSION["id"], $newfile))
+  $id = saveNewImage($_SESSION["id"], $newfile);
+
+  if (!is_string($id))
   {
     unlink($destination);
-    ft_redirectuser(redirects("UPLOAD_UNKNOWN_ERROR");
+    ft_redirectuser(redirects("UPLOAD_UNKNOWN_ERROR"));
     exit();
   }
+
+  ft_redirectuser(redirects("UPLOAD"));
 }
 
 $images = selectAllUserImages($_SESSION["id"]);
 
-if (isset($images))
+if (!empty($images))
   array_reverse($images);

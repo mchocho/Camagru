@@ -14,7 +14,7 @@ require_once("includes/upload.php");
   <body>
     <!-- Render app header -->
     <?php
-      include_once("includes/header.php");
+      include_once("views/header.php");
     ?>
 
     <div class="wrapper main settings"> 
@@ -28,7 +28,7 @@ require_once("includes/upload.php");
       include_once("views/footer.php");
     ?>
 
-    <script src="js/xhr.js"     type="text/javascript"></script>
-    <script src="js/uploads.js" type="text/javascript"></script>
+    <script src="js/xhr.js"    type="text/javascript"></script>
+    <script src="js/upload.js" type="text/javascript"></script>
   </body>
 </html>

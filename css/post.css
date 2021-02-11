@@ -1,13 +1,17 @@
-.wrapper {
-	margin: auto;
+.post
+{
 	width: 100%;
+	margin: auto;
 }
 
-.wrapper * {
-	/*margin: auto;*/
+.content
+{
+	width: 85%;
+	text-align: center;
 }
 
-.image_container img {
+.image_container img
+{
 	width: 40%;
 	height: 500px;
 }
@@ -70,6 +74,10 @@ blockquote {
 	display: inline-block;
 }
 
-.created {
+.props
+{
 	display: block;
+	color: #DDD;
+	text-align: left;
+	font-size: 140%;
 }

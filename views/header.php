@@ -1,7 +1,3 @@
-<?php
-require_once("session_start.php");
-?>
-
 <header>
   <a href="index.php" class="header">
     <div class="logo">
@@ -20,6 +16,7 @@ require_once("session_start.php");
       echo     '<img src="images/mojo.jpg" class="profile_pic" />';
       echo   '</a>';
       echo   '<span class="username">' .$_SESSION["username"] .'</span>';
+      echo   '<a href="settings.php" class="logout">Settings</a> | ';
       echo   '<a href="includes/logout.php" class="logout">Log out</a>';
       echo '</div>';
     }

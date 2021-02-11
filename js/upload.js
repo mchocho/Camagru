@@ -7,6 +7,7 @@ function script()
   const trigger        = document.getElementById("trigger");
   const sticker1       = document.getElementById("preview");
   const sticker2       = document.getElementById("preview1");
+  const icons          = document.querySelectorAll(".thumbnail");
 
   let   cameraEnabled  = false;
 
@@ -31,6 +32,9 @@ function script()
 
   function enableCamera(e)
   {
+    if (cameraEnabled)
+     return;
+
     const notificationEl = document.getElementById("hint");
     const video          = document.getElementById("video");
     const streamOptions  = {video: true};
@@ -77,14 +81,32 @@ function script()
   sticker1.addEventListener("click", changeIcon);
   sticker2.addEventListener("click", changeIcon);
 
-  /*function addSup(el) {
-      var imageSrc = el.src;
-      var sup = document.getElementById("supImage");
-      sup.setAttribute("src", imageSrc);
-      trigger.disabled = false;
+  for (let i = 0, len = icons.length; i < len; i++)
+  {
+    console.log(icons[i].src);
+
+    icons[i].addEventListener("click", changeIcon)
   }
 
-  function addSup1(el1) {
+  function focusImage(e)
+  {
+    const target = e.currentTarget;
+    traget  ((target.id === sticker1) ? sticke1 : sticker2);
+    // const src    = target.src;
+
+
+  }
+
+  // [...icons].forEach(icon => icon.addEventListener("click", changeIcon));
+
+  /*function addSup(el) {
+      var imageSrc = el.src;
+      var sup = document.getElementById("sticker1");
+      sup.setAttribute("src", imageSrc);
+      trigger.disabled = false;
+  }*/
+
+  /*function addSup1(el1) {
       var imageSrc = el1.src;
       var sup1 = document.getElementById("supImage1");
       sup1.setAttribute("src", imageSrc);
@@ -135,7 +157,7 @@ function script()
   {  
     const URL      = "includes/camera.php";
     
-    if !("Blob" in window && file instanceof Blob && isImageFile(file))
+    if (!("Blob" in window && file instanceof Blob && isImageFile(file)))
       return;
 
     const form = new FormData();
@@ -159,11 +181,11 @@ function script()
       const canvas    = document.getElementsByTagName("canvas")[0];
       const video     = document.getElementById("video");
       const gallery   = document.getElementById("gallery");
-      const sup       = document.getElementById("supImage");
-      const sup1      = document.getElementById("supImage1");
+      const sup       = document.getElementById("sticker1");
+      const sup1      = document.getElementById("sticker2");
 
       const newImg    = document.createElement("img");
-      const container = document.createElement("div"),
+      const container = document.createElement("div");
 
       canvas.width    = video.videoWidth;
       canvas.height   = video.videoHeight;
@@ -187,7 +209,7 @@ function script()
 
       canvas.toBlob(function(blob)
       {
-        uploadFile(blob, url);
+        uploadFile(blob);
       });
   }
 

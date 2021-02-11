@@ -5,7 +5,7 @@ require ("includes/settings.php");
 <html>
   <head>
     <?php
-     HTMLHead("Settings | Mojo");
+     HTMLHeadTemplate("Settings | Mojo");
     ?>
     <link rel="stylesheet" href="css/settings.css" media="all" />
   </head>
@@ -13,7 +13,7 @@ require ("includes/settings.php");
   <body>
     <!-- Render app header -->
     <?php
-      include_once("includes/header.php");
+      include_once("views/header.php");
     ?>
 
     <div class="wrapper main settings" align="center">

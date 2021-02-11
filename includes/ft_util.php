@@ -177,7 +177,9 @@ function generate_token()
 
 function getimagetype($file)
 {
-  return strtolower(pathinfo($file, PATHINFO_EXTENSION));
+  $info = new finfo(FILEINFO_MIME_TYPE);
+
+  return (explode("/",strtolower($info->buffer(file_get_contents($file))))[1]);
 }
 
 

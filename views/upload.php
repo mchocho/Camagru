@@ -56,16 +56,13 @@
 
 <div class="clip-art_container" align="center">
 	<div id="sticker">
-    <?php
-      if (isset($stickers))
-        renderstickers($stickers);
-	  ?>
+    <?php renderstickers(); ?>
   </div>
 </div>
 
 <div id="gallery" class="image_gallery" align="center">
   <?php
-    if (isset($images))
+    if (!empty($images))
       renderimages($images);
   ?>
 </div>

@@ -12,7 +12,7 @@ require_once('includes/signin.php');
   <body>
     <!-- Render app header -->
     <?php
-      include_once('includes/header.php');
+      include_once('views/header.php');
     ?>
     <div class="wrapper" align="center">
       <!-- Render content -->

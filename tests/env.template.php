@@ -8,6 +8,7 @@
 $host = "127.0.0.1";
 $db   = "camagru";
 
+putenv("APP_NAME=Camagru");
 putenv("DB_INIT=mysql:host=$host");
 putenv("DB=mysql:host=$host;dbname=$db");
 putenv("SERVER=localhost");

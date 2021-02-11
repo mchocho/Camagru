@@ -21,14 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   $file         = $_FILES["file"];
   $tmp          = $file["tmp_name"];
-  $mime         = getimagetype($tmp);
+  $mime         = "png";
 
   if ($file["error"] !== 0)
     exit($msgs["response"]["image_upload_failed"]);
-  else if ($file["size"] < MAX_UPLOAD_SIZE)
+  else if ($file["size"] > MAX_UPLOAD_SIZE)
     exit($msgs["response"]["image_upload_file_too_large"]);
-  else if (!getimagesize($tmp) || !isvalidimage($mime))
-    exit($msgs["response"]["image_upload_invalid_file"]);
 
   $filename     = uniqid();
   $directory    = ROOT_PATH ."images/uploads/";
@@ -36,9 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   $newfile      = $filename .'.' .$mime;
   $destination  = $directory .$newfile;
 
-  move_uploaded_file($tmp, $destination)
+  ft_makedir($directory);
 
-  if (!saveNewImage($_SESSION["id"], $newfile))
+  if (!move_uploaded_file($tmp, $destination))
+    exit($msgs["response"]["image_upload_failed"]);
+
+  $id = saveNewImage($_SESSION["id"], $newfile);
+
+  if (!is_string($id))
   {
     unlink($destination);
     exit($msgs["response"]["image_upload_failed"]);

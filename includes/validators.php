@@ -7,7 +7,7 @@ dev_mode();
 function validateSignUp()
 {
   $errors     = array();
-  $url        = redirects("SIGN_UP");
+  $url        = redirects("SIGN_UP") .'?';
 
   //Validate username
   if (!isset($_POST["username"]) )
@@ -30,8 +30,6 @@ function validateSignUp()
   if (!empty($errors))
     return true;
 
-  $url = '?';
-
   foreach($errors as $value)
     $url .= $value . '&';
 
@@ -43,7 +41,7 @@ function validateSignUp()
 function validateSignIn()
 {
   $errors = array();
-  $url    = redirects("SIGN_IN");
+  $url    = redirects("SIGN_IN") .'?';
 
   //Validate username
   if (!isset($_POST['username']) )
@@ -57,7 +55,7 @@ function validateSignIn()
     return true;
 
   foreach($errors as $value)
-    $url .= $value . '&';
+    $url .= $value .'?';
 
   ft_redirectuser($url);
  

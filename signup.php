@@ -10,7 +10,7 @@ require_once("includes/signup.php");
   </head>
   <body>
     <?php
-      include_once('includes/header.php');
+      include_once('views/header.php');
     ?>
     <div class="wrapper" align="center">      
       <!-- Render content -->

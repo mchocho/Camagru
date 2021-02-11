@@ -1,5 +1,5 @@
 <div class="edit username">
-  <?php echo USERNAME; ?>
+  <?php echo USER; ?>
   
   <input type="button" id="edit_username" value="Change Username" class="btn" />
   
