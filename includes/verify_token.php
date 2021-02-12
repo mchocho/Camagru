@@ -5,13 +5,13 @@ dev_mode();
 
 if (isset($_SESSION["id"]))
 {
-  ft_redirectuser(ROOT_PATH);
+  ft_redirectuser();
   exit($msgs["errors"]["already_signed_in"]);
 }
 
 if ($_SERVER["REQUEST_METHOD"] !== "GET" || !isset($_GET["key"]))
 {
-  ft_redirectuser(ROOT_PATH);
+  ft_redirectuser();
   exit($msgs["errors"]["invalid_request"]);
 }
 
@@ -21,7 +21,7 @@ $token      = selectTokenByRef($encodedkey);
 
 if (!isset($token))
 {
-  ft_redirectuser(ROOT_PATH);
+  ft_redirectuser();
   exit();
 }
 
@@ -44,7 +44,7 @@ switch($request)
     $user_id  = selectUserById($id);
 
     if (!isset($user_id))
-      ft_redirectuser(ROOT_PATH);
+      ft_redirectuser();
 
     $_SESSION["email"] = $user["email"];
 

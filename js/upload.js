@@ -88,14 +88,14 @@ function script()
     icons[i].addEventListener("click", changeIcon)
   }
 
-  function focusImage(e)
+  /*function focusImage(e)
   {
     const target = e.currentTarget;
     traget  ((target.id === sticker1) ? sticke1 : sticker2);
     // const src    = target.src;
 
 
-  }
+  }*/
 
   // [...icons].forEach(icon => icon.addEventListener("click", changeIcon));
 

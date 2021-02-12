@@ -79,7 +79,7 @@ function runUpdateQuery($stm, $values)
     $result = $dbc->prepare($stm);
     $result->execute($values);
 
-    return true;  //Returns the insert id
+    return true;
   }
   catch (PDOException $e)
   {

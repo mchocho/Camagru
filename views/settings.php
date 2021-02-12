@@ -22,7 +22,7 @@
         echo "<li>The passwords provided don't match.</li>";
       
       if (isset($_GET["error_7"]))
-        echo "<li>Please enter a password of 8 characters. Use uppercase && lowercase.</li>";
+        echo "<li>Please enter a password of 8 characters. Use uppercase & lowercase.</li>";
     ?>
   </ul>
 

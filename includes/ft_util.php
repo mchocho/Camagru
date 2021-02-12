@@ -9,7 +9,7 @@ function current_path()
   return($url);
 }
 
-function ft_redirectuser($page = 'index.php')
+function ft_redirectuser($page = "index.php")
 {
 	$url  = current_path();
 	$url .= '/'.$page;

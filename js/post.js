@@ -8,19 +8,26 @@ function script()
 
   function updateLikeStatus(res)
   {
+    console.log(JSON.stringify(res));
+
     const result    = JSON.parse(res.responseText);
     const likes     = document.getElementById("like_count");
     const likeImg   = document.getElementById("like_img");
     const likeCount = parseInt(likes.innerHTML);
-        
+
+
     if (result.result === "liked")
     {
+      console.log("WTF");
+
       likes.innerHTML = likeCount + 1;
       likeImg.src     = "images/icons/like_red.png";
       likeImg.classList.add("liked");
     }
     else if (result.result === "unliked")
     {
+      console.log("REALLY");
+
       likes.innerHTML = likeCount - 1;
       likeImg.src     = "images/icons/like.png";
       likeImg.classList.remove("liked");
@@ -36,6 +43,7 @@ function script()
   {
     const urlParams = new URLSearchParams(window.location.search);
     const imageId   = urlParams.get("id");
+    
     const url       = `includes/likes.php?image_id=${imageId}`;
 
     xhr(url, null, "GET")

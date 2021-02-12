@@ -84,7 +84,7 @@ function setNewUserPasswordById($password, $userId)
 
 function setUserNotification($value, $userId)
 {
-  return runUpdateQuery(stm("setUserNotificationById", [$value, $userId]));
+  return runUpdateQuery(stm("setUserNotificationById"), [$value, $userId]);
 }
 
 function selectTokenByRef($key)
@@ -149,7 +149,7 @@ function insertNewLike($userId, $imageId)
 
 function insertNewComment($userId, $imageId, $comment)
 {
-  return runInsertQuery(stm("insNewComment"), [$userId, $imageId, $message]);
+  return runInsertQuery(stm("insNewComment"), [$userId, $imageId, $comment]);
 }
 
 function dropDB()

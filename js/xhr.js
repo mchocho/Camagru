@@ -6,12 +6,10 @@ function xhr(url, send=null, method="POST")
 
     xhr.onload = function()
     {
-      console.log(xhr);
-
       if (xhr.status != 200)
-        resolve(xhr)
-      else
         reject(xhr);
+      else
+        resolve(xhr);
     };
 
     xhr.open(method, url);

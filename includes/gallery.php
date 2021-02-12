@@ -26,7 +26,7 @@ else
 
 $first_results = ($page - 1) * $results_per_page;
 
-while($i < $results_per_page && $i < $total)
+while($i < $results_per_page && $i < $total && isset($images[$first_results]))
 {
   if ($first_results > -1)
   {

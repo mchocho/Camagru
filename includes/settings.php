@@ -5,14 +5,15 @@ dev_mode();
 
 if (!isset($_SESSION["id"]))
 {
-  ft_redirectuser(ROOT_PATH);
+  ft_redirectuser();
   exit($msgs["errors"]["not_signed_in"]);
 }
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST")
 {
-  if (!isset($_GET["option"], $_POST["password"]))
+
+  if (!isset($_GET["option"]))
   {
     ft_redirectuser(redirects("SETTINGS"));
     exit($msgs["errors"]["invalid_requst"]);
@@ -29,11 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   }
 
   if ($option !== "profile" && $option !== "notifications")
-    if (!iscorrectpassword($_POST['password'], $password["password"]))
-    {
+  {
+    if (!isset($_POST["password"]))
+      ft_redirectuser(redirects("SETTINGS_NO_PASSWORD_PROVIDED"));
+    elseif (!iscorrectpassword($_POST["password"], $password["password"]))
       ft_redirectuser(redirects("SETTINGS_INCORRECT_PASSWORD"));
-      exit();
-    }
+
+    exit();
+  }
 
   switch($option)
   {
@@ -60,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         ft_redirectuser(redirects("SETTINGS_UNKNOWN_ERROR"));
         exit();
       }
+
+      $_SESSION["username"] = $username;
 
       break;
     case "email":
@@ -107,6 +113,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
       }
       else if (!isstrongpassword($newpassword))
       {
+        echo $newpassword;
+        exit();
+
         ft_redirectuser(redirects("SETTINGS_WEAK_PASSWORD_PROVIDED"));
         exit(); 
       }
@@ -130,11 +139,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
       $newvalue      = $notifications ? 'F' : 'T';
 
       if (!(($request && $notifications) || (!$request && !$notifications) ) )
-        if (!$setUserNotification($newvalue, $id))
+        if (!setUserNotification($newvalue, $id))
         {
           ft_redirectuser(redirects("SETTINGS_UNKNOWN_ERROR"));
           exit();
         }
+
+      $_SESSION["notifications"]  = $newvalue;
 
       break;
     default: break;
@@ -149,14 +160,14 @@ $notifications_enabled  = $_SESSION["notifications"] === "T";
 
 $notification           = ($notifications_enabled) ? "enabled"           : "disabled";
 $class_attribute        = ($notifications_enabled) ? ""                  : "off";
-$checked_attribute      = ($notifications_enabled) ? 'checked="checked"' : "";
+$submit_value           = ($notifications_enabled) ? "off"               : "on";
 
 
-$notification_icon      = '<div id="icon_slider" class="icon slider ' .$class_attribute .'>';
-$notification_icon     .= '<input type="checkbox" id="slider_input" name="notifications" value="on" ' .$checked_attribute .' />';
-$notification_icon     .= "</div>";
+$notification_icon      = '<button type="submit" class="opac" name="notifications" value="' .$submit_value .'" >';
+$notification_icon     .=   '<div class="icon slider '.$class_attribute .'"></div>';
+$notification_icon     .= "</button>";
 
 define("USER",                     "<p>Your current username is <span>" .$username ."</span></p>");
 define("EMAIL",                    "<p>Your current email address is <span>" .$email ."</span></p>");
-define("NOTIFICATIONS",            "<p>Notifications are currently" .$notification ."</p>");
+define("NOTIFICATIONS",            "<p>Notifications are currently " .$notification ."</p>");
 define("HTML_ICON_NOTIFICATIONS",  $notification_icon);

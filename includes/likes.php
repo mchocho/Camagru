@@ -20,21 +20,21 @@ $likes      = selectAllLikeIdsAndUsersByImageId($imageId);
 $likeCount  = (is_array($likes) ) ? count($likes) : 0;
 
 $response   = array(
-  "liked"   => '{"result": "unliked", "count": ' . $likeCount . ' };',
-  "unliked" => '{"result": "liked", "count": ' . $likeCount . '};'
+  "liked"   => '{"result": "unliked", "count": ' .$likeCount .'};',
+  "unliked" => '{"result": "liked",   "count": ' .$likeCount .'};'
 );
 
-if (userLikesThisPost($userId, $imageId) )                //The request is to unlike
+if (userLikesThisPost($userId, $likes) )                //The request is to unlike
 {
   if (deleteLikeByUserIdAndImageId($userId, $imageId) )
-    exit(response["unliked"]);
+    exit($response["unliked"]);
   else
-    exit(response["liked"]);
+    exit($response["liked"]);
 }
 else    //The requst is to like the image
 {
   if (insertNewLike($userId, $imageId) )
-    exit(response["liked"]);
+    exit($response["liked"]);
   else
-    exit(response["unliked"]);
+    exit($response["unliked"]);
 }

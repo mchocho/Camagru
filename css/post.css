@@ -7,7 +7,6 @@
 .content
 {
 	width: 85%;
-	text-align: center;
 }
 
 .image_container img
@@ -70,6 +69,12 @@ hr {
 	font-style: italic;
 }
 
+textarea {
+	width: 75%;
+	padding: 2%;
+	font-size: 120%;
+}
+
 blockquote {
 	display: inline-block;
 }
@@ -78,6 +83,6 @@ blockquote {
 {
 	display: block;
 	color: #DDD;
-	text-align: left;
 	font-size: 140%;
+	margin-left: -25%;
 }

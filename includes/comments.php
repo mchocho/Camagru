@@ -1,7 +1,7 @@
 <?php
 require_once("session_start.php");
 
-function handleNewComment($post_user_id, $image_id)
+function handleNewComment($post_user, $image_id)
 {
   $userSignedIn = isset($_SESSION["id"]);
 
@@ -13,7 +13,7 @@ function handleNewComment($post_user_id, $image_id)
 
   $comment  = $_POST["comment"];
 
-  if (!insertNewComment($post_user_id, $image_id, $comment))
+  if (!insertNewComment($post_user["id"], $image_id, $comment))
     return;
 
   if ($post_user["notifications"] === "T")
@@ -35,7 +35,7 @@ function renderCommentForm()
     return;
 
   echo '<form method="POST" id="comment_form">';
-  echo   '<textarea id="comment" name="comment" placeholder="Add a comment" ' . $disabledAttribute . "></textarea>";
+  echo   '<textarea id="comment" name="comment" placeholder="Add a comment" ' . $disabledAttribute . ' align="center"></textarea>';
   echo   '<input type="submit" id="comment_submit" name="submit" class="btn" value="Post" disabled="disabled"/>';
   echo '</form>';
 }
@@ -49,7 +49,7 @@ function renderPostComments($comments)
 
   foreach ($comments as $comment)
   {
-    $user = selectUserNameById([$comment["user_id"]]);
+    $user = selectUserNameById($comment["user_id"]);
 
     if (!isset($user))
       continue;

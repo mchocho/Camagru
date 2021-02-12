@@ -13,7 +13,7 @@ require_once("includes/post.php");
   <body>
     <!-- Render app header -->
     <?php
-      include_once("includes/header.php");
+      include_once("views/header.php");
     ?>
 
     <div class="wrapper main post" align="center">

@@ -16,15 +16,22 @@ h2 {
 	visibility: hidden;
 }
 
+.opac
+{
+	background-color: unset;
+	background: unset;
+}
+
 div.icon.slider {
 	width: 128px;
 	height: 128px;
-	background: url('images/icons/slider.png');
+	background: url('../images/icons/slider.png');
 	cursor: pointer;
+	margin: auto;
 }
 
 div.icon.slider.off {
-	background: url('images/icons/slider_off.png');
+	background: url('../images/icons/slider_off.png');
 }
 
 .icon.slider input {

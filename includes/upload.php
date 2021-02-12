@@ -6,7 +6,7 @@ dev_mode();
 
 if (!isset($_SESSION["id"]))
 {
-  ft_redirectuser(ROOT_PATH);
+  ft_redirectuser();
   exit($msgs["errors"]["not_signed_in"]);
 }
 

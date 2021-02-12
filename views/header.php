@@ -15,8 +15,9 @@
       echo   '<a href="upload.php">';
       echo     '<img src="images/mojo.jpg" class="profile_pic" />';
       echo   '</a>';
-      echo   '<span class="username">' .$_SESSION["username"] .'</span>';
-      echo   '<a href="settings.php" class="logout">Settings</a> | ';
+      echo   '<a href="settings.php" class="logout">';
+      echo    '<span class="username">' .$_SESSION["username"] .'</span>';
+      echo   '</a> ';
       echo   '<a href="includes/logout.php" class="logout">Log out</a>';
       echo '</div>';
     }

@@ -6,7 +6,7 @@ dev_mode();
 if (isset($_SESSION["id"]))
 {
 
-  ft_redirectuser(ROOT_PATH);
+  ft_redirectuser();
   exit($msgs["errors"]["already_signed_in"]);
 }
 
@@ -48,5 +48,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
   $_SESSION["notifications"]  = $user["notifications"];
   $_SESSION["admin"]          = $user["admin"];
 
-  ft_redirectuser(ROOT_PATH);
+  ft_redirectuser();
 }
