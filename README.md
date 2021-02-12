@@ -7,22 +7,20 @@
 
 - [Introduction](#introduction)
 - [Install](#install)
-- [Getting started](#started)
-- [Guide](#guide)
-- [Documentation](#documentation)
 - [Contributors](#contributors)
+- [Previews](#Previews)
 
 ## `Introduction`
 
 Camagru is a social media web application that allows users to upload and take pictures with
-webcam.
+their webcam.
 <br />
 
 Users can also:
  * Add stickers to their photos
  * Comment, view and like each other's images
  * As well as receive email notifications.
-<br />
+
 This web project will challenge you to create a small web application allowing you to
 edit basic photos and videos using your webcam and some predefined images. The subject
 can be found here <a href="./doc/camagru.en.pdf">here</a>.
@@ -62,6 +60,9 @@ nano env.php
 
 Then start apache and run the site on your browser.
 
+## `Contributors`
+ * <a href="https://github.com/mohambe">mohambe</a>
+
 ## `Previews`
 
 <div align="center">
@@ -69,4 +70,5 @@ Then start apache and run the site on your browser.
   <img width="80%" src="https://i.imgur.com/kdO559b.png" alt="a page containing a post"/>
   <img width="80%" src="https://i.imgur.com/pWpWL37.png" alt="camera section"/>
 </div>
+
 
