@@ -208,8 +208,8 @@ footer .hrt
 .index .image_container img
 {
   width: 400px;
-  height: 100%;
-  margin-top: -0.3%;
+  height: 400px;
+  /*margin-top: -0.3%;*/
 }
 
 /* Create four equal columns that sits next to each other */
@@ -227,6 +227,7 @@ footer .hrt
 .pagination
 {
   margin-top: 3%;
+  margin-bottom: -3%;
   font-size: 150%;
 }
 

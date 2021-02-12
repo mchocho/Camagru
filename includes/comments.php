@@ -13,7 +13,7 @@ function handleNewComment($post_user, $image_id)
 
   $comment  = $_POST["comment"];
 
-  if (!insertNewComment($post_user["id"], $image_id, $comment))
+  if (!insertNewComment($_SESSION["id"], $image_id, $comment))
     return;
 
   if ($post_user["notifications"] === "T")

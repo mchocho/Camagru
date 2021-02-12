@@ -2,6 +2,7 @@
 /images/uploads/
 /images/uploads/*
 /images/temp/*
+/screenshots
 *-tmp
 *.php-tmp
 .*swp
