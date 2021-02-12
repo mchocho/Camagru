@@ -13,7 +13,8 @@
 ## `Introduction`
 
 Camagru is a social media web application that allows users to upload and take pictures with
-their webcam.
+their webcam. This web project will challenge you to create a small web application allowing 
+you to edit basic photos and videos using your webcam and some predefined images.
 <br />
 
 Users can also:
@@ -21,9 +22,7 @@ Users can also:
  * Comment, view and like each other's images
  * As well as receive email notifications.
 
-This web project will challenge you to create a small web application allowing you to
-edit basic photos and videos using your webcam and some predefined images. The subject
-can be found here <a href="./doc/camagru.en.pdf">here</a>.
+The subject can be found here <a href="./doc/camagru.en.pdf">here</a>.
 <br />
 
 The technologies we were restricted to include:
