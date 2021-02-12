@@ -56,7 +56,7 @@ nano env.php
 
 ```
 
-Finally, start apache and MYSQL, then run the config scriptps to create the Database:
+Finally, start apache and MYSQL, then run the config script to create the Database:
 
 ```bash
 cd config
@@ -67,7 +67,7 @@ php setup.php
 
 ```
 
-Now you can run Camagru on localhost.
+Now you can run Camagru on <a href="http://localhost/camagru/">localhost</a>.
 
 ## `Previews`
 
