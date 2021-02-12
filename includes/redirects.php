@@ -11,7 +11,7 @@ function redirects($key)
     "SIGN_UP_USERNAME_ALREADY_EXISTS"           => $root ."signup.php?error_7=1",
     "SIGN_UP_UNKOWN_ERROR"                      => $root ."signup.php?error_8=1",
     "SIGN_IN"                                   => $root ."signin.php",
-    "SIGN_IN_INCORRECT_CREDENTIALS"             => $root ."signin.php?error_3=1",
+    "SIGN_IN_INCORRECT_CREDENTIALS"             => $root ."signin.php?error_1=1",
     "EMAIL_VERIFICATION_SENT"                   => $root ."verification_email_sent.php",
     "PASSWORD_RESET_EMAIL_SENT"                 => $root ."verification_email_sent.php?password_reset=1",
     "VERIFY_APP_TOKEN"                          => $root ."verify_token.php",

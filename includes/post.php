@@ -6,7 +6,7 @@ dev_mode();
 
 if (!isset($_GET["id"]))
 {
-  ft_redirectuser();
+  ft_redirectuser(ROOT_PATH);
   exit($msgs["errors"]["unkown-post"]);
 }
 

@@ -5,7 +5,7 @@ dev_mode();
 
 if (isset($_SESSION["id"]) )
 {
-  ft_redirectuser();
+  ft_redirectuser(ROOT_APP);
   exit($msgs["errors"]["already_signed_in"]);
 }
 
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
   if (!isemail($_POST["email"]))
   {
-    ft_redirectuser();
+    ft_redirectuser(ROOT_APP);
     exit($msgs["errors"]["invalid_email"]); //"Please enter a valid email address."
   }
 

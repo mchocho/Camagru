@@ -4,16 +4,13 @@
   <ul class="errors">
     <?php
       if (isset($_GET['error_1']))
-        echo '<li>The password you entered was incorrect.</li>';
+        echo '<li>The username or password you entered was incorrect.</li>';
 
       if (isset($_GET['error_2']))
-        echo '<li>Pleas provide a new usernname.</li>';
+        echo '<li>Please provide a usernname.</li>';
 
-      if (isset($_GET['error_3']))
-        echo '<li>This username has been taken.</li>';
-
-      if (isset($_GET["error_4"]))
-        echo "<li>Something went wrong. Please try again.</li>";
+      if (isset($_GET['error_3'], $_GET["error_4"]))
+        echo '<li>Something went wrong. Please try again.</li>';
     ?>
   </ul>
 
