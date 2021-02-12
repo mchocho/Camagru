@@ -12,14 +12,13 @@
 
 ## `Introduction`
 
-Camagru is a social media web application that allows users to upload and take pictures with
-their webcam. This web project will challenge you to create a small web application allowing 
+This web project will challenge you to create a small web application allowing 
 you to edit basic photos and videos using your webcam and some predefined images.
 <br />
 
 Users can also:
  * Add stickers to their photos
- * Comment, view and like each other's images
+ * View, like, and comment on each other's images
  * As well as receive email notifications.
 
 The subject can be found here <a href="./doc/camagru.en.pdf">here</a>.
@@ -47,17 +46,28 @@ cp test/env.template.php env.php
 
 ```
 
-Now finally just change your MYSQL authentication:
+Now just change your MYSQL authentication:
 
 ```bash
 nano env.php
 
-#Change DB_USERNAME=root to your MYSQL username
-#Change PASSWORD= to your MYSQL password
+#DB_USERNAME=root Change root to your MYSQL username
+#PASSWORD=        Include your MYSQL password
 
 ```
 
-Then start apache and run the site on your browser.
+Finally, start apache and MYSQL, then run the config scriptps to create the Database:
+
+```bash
+cd ../config
+
+php setup.php
+
+#Outputs Camagru DB created.
+
+```
+
+Now you can run Camagru on localhost.
 
 ## `Previews`
 
