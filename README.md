@@ -59,7 +59,7 @@ nano env.php
 Finally, start apache and MYSQL, then run the config scriptps to create the Database:
 
 ```bash
-cd ../config
+cd config
 
 php setup.php
 
