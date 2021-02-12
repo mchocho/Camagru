@@ -7,8 +7,8 @@
 
 - [Introduction](#introduction)
 - [Install](#install)
-- [Contributors](#contributors)
 - [Previews](#Previews)
+- [Contributors](#contributors)
 
 ## `Introduction`
 
@@ -60,9 +60,6 @@ nano env.php
 
 Then start apache and run the site on your browser.
 
-## `Contributors`
- * <a href="https://github.com/mohambe">mohambe</a>
-
 ## `Previews`
 
 <div align="center">
@@ -71,4 +68,5 @@ Then start apache and run the site on your browser.
   <img width="80%" src="https://i.imgur.com/pWpWL37.png" alt="camera section"/>
 </div>
 
-
+## `Contributors`
+ * <a href="https://github.com/mohambe">mohambe</a>
